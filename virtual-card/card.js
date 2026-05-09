@@ -3,7 +3,7 @@
    Isolated module for Virtual Visiting Card
    ========================================================================== */
 
-(function() {
+(function () {
     // State
     let isModalOpen = false;
     let scriptsLoaded = false;
@@ -30,7 +30,7 @@
     // Note: Paths to assets would ideally be absolute or remote if used inside an injected script.
     // Assuming placeholder URLs for now to ensure it works anywhere.
     const QR_URL = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://visualsaint.com";
-    
+
     const CARD_HTML = `
         <div class="vc-modal-overlay" id="vc-modal">
             <button class="vc-close-btn" id="vc-close" aria-label="Close modal">
@@ -155,15 +155,15 @@
         document.getElementById('vc-modal').addEventListener('click', (e) => {
             if (e.target === document.getElementById('vc-modal')) closeModal();
         });
-        
+
         document.getElementById('vc-scene').addEventListener('click', (e) => {
             // Don't flip if clicking a button or link
-            if(e.target.closest('a') || e.target.closest('button')) return;
+            if (e.target.closest('a') || e.target.closest('button')) return;
             document.getElementById('vc-wrapper').classList.toggle('vc-is-flipped');
         });
 
         document.getElementById('vc-download-btn').addEventListener('click', handleDownload);
-        
+
         // VCard Generation
         document.getElementById('vc-save-contact').addEventListener('click', (e) => {
             e.preventDefault();
@@ -199,7 +199,7 @@
                 loadScript(CDNS.jspdf)
             ]);
             scriptsLoaded = true;
-            
+
             // Init Vanilla Tilt
             if (window.VanillaTilt) {
                 VanillaTilt.init(document.getElementById('vc-scene'), {
@@ -224,7 +224,7 @@
         if (!scriptsLoaded) await loadScripts();
 
         if (window.gsap) {
-            gsap.fromTo('#vc-scene', 
+            gsap.fromTo('#vc-scene',
                 { y: 100, opacity: 0, rotationX: -10 },
                 { y: 0, opacity: 1, rotationX: 0, duration: 0.8, ease: "power3.out" }
             );
@@ -238,7 +238,7 @@
     function closeModal() {
         const modal = document.getElementById('vc-modal');
         if (window.gsap) {
-            gsap.to('#vc-scene', { 
+            gsap.to('#vc-scene', {
                 y: 50, opacity: 0, duration: 0.4, ease: "power2.in",
                 onComplete: () => {
                     modal.classList.remove('vc-active');
@@ -265,7 +265,7 @@ TEL;TYPE=WORK,VOICE:+919849599981
 EMAIL;TYPE=PREF,INTERNET:hello@visualsaintvfx.com
 URL:https://www.visualsaintvfx.com
 END:VCARD`;
-        
+
         const blob = new Blob([vcard], { type: "text/vcard" });
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
@@ -287,7 +287,7 @@ END:VCARD`;
 
         try {
             const { jsPDF } = window.jspdf;
-            
+
             // Create an off-screen clone container to capture without 3D transforms interfering
             const cloneContainer = document.createElement('div');
             cloneContainer.style.position = 'fixed';
@@ -296,13 +296,13 @@ END:VCARD`;
             cloneContainer.style.width = '380px';
             cloneContainer.style.zIndex = '-1';
             document.body.appendChild(cloneContainer);
-            
+
             // Render Front
             const frontEl = document.querySelector('.vc-card-front').cloneNode(true);
             frontEl.style.position = 'relative';
             frontEl.style.transform = 'none';
             frontEl.style.height = '600px';
-            
+
             // Fix html2canvas text gradient bug
             const nameEl = frontEl.querySelector('.vc-name');
             if (nameEl) {
@@ -310,32 +310,32 @@ END:VCARD`;
                 nameEl.style.webkitTextFillColor = 'initial';
                 nameEl.style.color = '#fff';
             }
-            
+
             // Hide flip hint on static PDF
             const flipHint = frontEl.querySelector('.vc-flip-hint');
             if (flipHint) flipHint.style.display = 'none';
-            
+
             cloneContainer.appendChild(frontEl);
-            
+
             const frontCanvas = await html2canvas(frontEl, { scale: 2, useCORS: true, backgroundColor: null });
             const frontImg = frontCanvas.toDataURL('image/jpeg', 0.95);
-            
+
             // Render Back
             cloneContainer.innerHTML = '';
             const backEl = document.querySelector('.vc-card-back').cloneNode(true);
             backEl.style.position = 'relative';
             backEl.style.transform = 'none';
             backEl.style.height = '600px';
-            
+
             // Remove download buttons from the static PDF capture
             const actionsEl = backEl.querySelector('.vc-actions');
             if (actionsEl) actionsEl.style.display = 'none';
-            
+
             cloneContainer.appendChild(backEl);
-            
+
             const backCanvas = await html2canvas(backEl, { scale: 2, useCORS: true, backgroundColor: null });
             const backImg = backCanvas.toDataURL('image/jpeg', 0.95);
-            
+
             document.body.removeChild(cloneContainer);
 
             // Generate PDF
@@ -344,14 +344,14 @@ END:VCARD`;
                 unit: 'mm',
                 format: [90, 142]
             });
-            
+
             // Add Front Side
             pdf.addImage(frontImg, 'JPEG', 0, 0, 90, 142);
-            
+
             // Add Back Side
             pdf.addPage();
             pdf.addImage(backImg, 'JPEG', 0, 0, 90, 142);
-            
+
             // Add clickable links mapped to the back face content
             pdf.link(10, 7, 70, 10, { url: 'tel:+919849599981' });
             pdf.link(10, 17, 70, 10, { url: 'mailto:hello@visualsaintvfx.com' });

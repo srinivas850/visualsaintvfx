@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#030303">
+    <title>Visual Saint | Premium Wedding Films</title>
+    <meta name="description" content="Emotional storytelling and cinematic wedding photography by Visual Saint VFX.">
+
+    <!-- Fonts (Same as index.html for consistency) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Outfit:wght@200;300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Lenis CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.9/dist/lenis.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/mobile-nav.css"> <!-- Keep mobile nav styles -->
+    <link rel="stylesheet" href="css/wedding.css">
+    
+    <!-- Inline style to ensure nav links look okay since we aren't loading styles.css globally to prevent conflicts -->
+    <style>
+        /* Essential Nav Styles Ported for this page */
+        .glass-navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            background: rgba(3, 3, 3, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 100px;
+            z-index: 1000;
+            padding: 15px 30px;
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: #F8F5F2;
+        }
+        .logo-icon {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+        }
+        .logo-text h1 { margin: 0; font-size: 1rem; font-weight: 600; letter-spacing: 3px; font-family: 'Outfit';}
+        .logo-text p { margin: 0; font-size: 0.6rem; letter-spacing: 4px; opacity: 0.6; text-transform: uppercase;}
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: #D4AF37; /* Gold accent for wedding page */
+        }
+        
+        @media (max-width: 900px) {
+            .nav-links { display: none; }
+            .glass-navbar {
+                width: 100%;
+                top: 0;
+                border-radius: 0;
+                border: none;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+            }
+        }
+    </style>
+</head>
+
+<body class="wedding-page">
+
+    <!-- Cinematic Loader -->
+    <div class="w-loader">
+        <div class="w-loader-logo">Visual Saint</div>
+        <div class="w-loader-progress-wrap">
+            <div class="w-loader-progress"></div>
+        </div>
+        <div class="w-loader-percentage">0%</div>
+    </div>
+
+    <!-- Film Grain Overlay -->
+    <div class="w-grain"></div>
+
+    <!-- Premium Navbar -->
+    <nav class="glass-navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">VS</span>
+                <div class="logo-text">
+                    <h1>VISUAL SAINT</h1>
+                    <p>WEDDINGS</p>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="wedding.html" class="active">Wedding Films</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Fullscreen Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay">
+        <div class="mobile-menu-bg-glow" style="background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);"></div>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="wedding.html" style="color: #D4AF37;">Wedding Films</a></li>
+            <li><a href="index.html#portfolio">Portfolio</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="w-hero">
+        <div class="w-hero-bg-container">
+            <!-- Image loaded via JS -->
+            <img src="" alt="Wedding Hero" class="w-hero-img">
+        </div>
+        <div class="w-hero-overlay"></div>
+        
+        <div class="w-hero-content">
+            <h1 class="w-hero-title">Every Love Story Deserves a Timeless Frame</h1>
+            <p class="w-hero-subtitle">Moments Fade. Memories Stay Forever.</p>
+            <a href="#events" class="w-btn">View Stories</a>
+        </div>
+
+        <div class="w-hero-scroll">
+            <span class="w-scroll-text">Scroll to feel</span>
+            <div class="w-scroll-line"><div class="w-scroll-dot"></div></div>
+        </div>
+    </section>
+
+    <!-- Feel The Moment -->
+    <section class="w-emotion-section">
+        <h2 class="w-emotion-text">
+            <span>Not just photographs.</span><br>
+            <span>We capture tears,</span> <span>laughter,</span><br>
+            <span>heartbeat,</span> <span>and forever.</span>
+        </h2>
+    </section>
+
+    <!-- 3D Storytelling Experience -->
+    <section class="w-3d-wrapper">
+        <div class="w-3d-container">
+            <div class="w-3d-item"><img src="" alt="Story"></div>
+            <div class="w-3d-item"><img src="" alt="Story"></div>
+            <div class="w-3d-item"><img src="" alt="Story"></div>
+            <div class="w-3d-item"><img src="" alt="Story"></div>
+            <div class="w-3d-item"><img src="" alt="Story"></div>
+        </div>
+    </section>
+
+    <!-- Events Showcase -->
+    <section class="w-events-section" id="events">
+        <div class="w-section-header">
+            <div class="w-section-subtitle">Our Expertise</div>
+            <h2 class="w-section-title">The Grand Celebration</h2>
+        </div>
+        <div class="w-events-grid">
+            
+            <div class="w-event-card">
+                <img src="" alt="Haldi" class="w-event-img">
+                <div class="w-event-overlay"></div>
+                <div class="w-event-content">
+                    <h3 class="w-event-title">Haldi</h3>
+                    <p class="w-event-desc">The vibrant colors of joy and blessings.</p>
+                </div>
+            </div>
+
+            <div class="w-event-card">
+                <img src="" alt="Mehendi" class="w-event-img">
+                <div class="w-event-overlay"></div>
+                <div class="w-event-content">
+                    <h3 class="w-event-title">Mehendi</h3>
+                    <p class="w-event-desc">Intricate details of love and anticipation.</p>
+                </div>
+            </div>
+
+            <div class="w-event-card">
+                <img src="" alt="Wedding" class="w-event-img">
+                <div class="w-event-overlay"></div>
+                <div class="w-event-content">
+                    <h3 class="w-event-title">Wedding</h3>
+                    <p class="w-event-desc">The sacred vows and timeless rituals.</p>
+                </div>
+            </div>
+
+            <div class="w-event-card">
+                <img src="" alt="Reception" class="w-event-img">
+                <div class="w-event-overlay"></div>
+                <div class="w-event-content">
+                    <h3 class="w-event-title">Reception</h3>
+                    <p class="w-event-desc">A glamorous night of celebration.</p>
+                </div>
+            </div>
+
+            <div class="w-event-card">
+                <img src="" alt="Pre-Wedding" class="w-event-img">
+                <div class="w-event-overlay"></div>
+                <div class="w-event-content">
+                    <h3 class="w-event-title">Pre-Wedding</h3>
+                    <p class="w-event-desc">Your unique chemistry beautifully framed.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Dreamy Parallax Experience -->
+    <section class="w-parallax-section">
+        <img src="" alt="Background Depth" class="w-parallax-bg">
+        
+        <div class="w-parallax-layer w-parallax-layer-1"><img src="" alt="Memory 1"></div>
+        <div class="w-parallax-layer w-parallax-layer-2"><img src="" alt="Memory 2"></div>
+        <div class="w-parallax-layer w-parallax-layer-3"><img src="" alt="Memory 3"></div>
+        <div class="w-parallax-layer w-parallax-layer-4"><img src="" alt="Memory 4"></div>
+    </section>
+
+    <!-- Masonry Gallery -->
+    <section class="w-gallery-section">
+        <div class="w-section-header">
+            <div class="w-section-subtitle">Visual Legacy</div>
+            <h2 class="w-section-title">A Symphony of Memories</h2>
+        </div>
+        <div class="w-masonry">
+            <!-- Injected via JS -->
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="w-testimonials">
+        <div class="w-test-card">
+            <p class="w-test-quote">"They didn't just take photos; they captured the soul of our wedding. Looking at the album brings tears to my eyes every single time. A truly cinematic experience."</p>
+            <h4 class="w-test-author">Anjali & Rahul</h4>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="w-cta-section">
+        <img src="" alt="CTA Background" class="w-cta-bg">
+        <div class="w-cta-content">
+            <h2 class="w-cta-title">Your wedding deserves<br>more than photos.<br>It deserves a legacy.</h2>
+            <div class="w-cta-buttons">
+                <a href="index.html#contact" class="w-btn">Book Your Wedding</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="w-footer">
+        <div class="w-footer-logo">VISUAL SAINT</div>
+        <div class="w-footer-links">
+            <a href="#">Instagram</a>
+            <a href="#">YouTube</a>
+            <a href="#">WhatsApp</a>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Lenis for Smooth Scroll -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+    
+    <!-- Custom Logic -->
+    <script src="js/mobile-nav.js"></script>
+    <script src="js/wedding.js"></script>
+
+</body>
+</html>

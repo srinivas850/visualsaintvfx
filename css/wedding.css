@@ -1,0 +1,694 @@
+/* ==========================================================================
+   Wedding Photography Cinematic CSS
+   Isolated specifically for wedding.html
+   ========================================================================== */
+
+:root {
+    --w-bg: #030303;
+    --w-text: #F8F5F2;
+    --w-accent-gold: #D4AF37;
+    --w-accent-rose: #B76E79;
+    --w-champagne: #F7E7CE;
+    --w-overlay: rgba(3, 3, 3, 0.6);
+    --w-glass: rgba(255, 255, 255, 0.03);
+    --w-glass-border: rgba(255, 255, 255, 0.08);
+}
+
+html.lenis, html.lenis body {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+    pointer-events: none;
+}
+
+/* Base Override for this page */
+body.wedding-page {
+    background-color: var(--w-bg);
+    color: var(--w-text);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, .w-heading {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+}
+
+/* ==========================================================================
+   Cinematic Loader
+   ========================================================================== */
+.w-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--w-bg);
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--w-champagne);
+    font-family: 'Outfit', sans-serif;
+    transition: opacity 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.w-loader-logo {
+    font-size: 3rem;
+    font-weight: 200;
+    letter-spacing: 12px;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    text-transform: uppercase;
+    text-shadow: 0 0 20px rgba(247, 231, 206, 0.4);
+    text-align: center;
+    margin-right: -12px; /* Fixes off-center issue due to letter-spacing */
+}
+
+@media (max-width: 768px) {
+    .w-loader-logo {
+        font-size: 2rem;
+        letter-spacing: 8px;
+        margin-right: -8px;
+    }
+}
+
+.w-loader-progress-wrap {
+    width: 200px;
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.w-loader-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: var(--w-champagne);
+    box-shadow: 0 0 10px var(--w-champagne);
+}
+
+.w-loader-percentage {
+    margin-top: 15px;
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    opacity: 0;
+    font-weight: 300;
+}
+
+/* Film Grain Overlay */
+.w-grain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.04;
+    background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+}
+
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+.w-hero {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.w-hero-bg-container {
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    z-index: 1;
+}
+
+.w-hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+    opacity: 0.6;
+    transform: scale(1.1);
+    filter: blur(2px) contrast(1.1);
+}
+
+.w-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(3,3,3,0.2) 0%, rgba(3,3,3,0.8) 70%, var(--w-bg) 100%);
+    z-index: 2;
+}
+
+.w-hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    max-width: 900px;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.w-hero-title {
+    font-size: clamp(3rem, 6vw, 6rem);
+    line-height: 1.1;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    font-weight: 200;
+    color: var(--w-champagne);
+    text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+.w-hero-subtitle {
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    font-weight: 300;
+    letter-spacing: 4px;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 40px;
+    max-width: 600px;
+    text-transform: uppercase;
+}
+
+.w-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 40px;
+    border: 1px solid var(--w-glass-border);
+    background: var(--w-glass);
+    backdrop-filter: blur(10px);
+    color: var(--w-text);
+    text-decoration: none;
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    transition: all 0.4s ease;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.w-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: left 0.6s ease;
+}
+
+.w-btn:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.3);
+}
+
+.w-btn:hover::before {
+    left: 100%;
+}
+
+.w-hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    opacity: 0.6;
+}
+
+.w-scroll-text {
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.w-scroll-line {
+    width: 1px;
+    height: 50px;
+    background: rgba(255,255,255,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.w-scroll-dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background: var(--w-champagne);
+    animation: scrollDot 2s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes scrollDot {
+    0% { top: -30%; opacity: 0; }
+    50% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+
+/* ==========================================================================
+   Feel The Moment Section
+   ========================================================================== */
+.w-emotion-section {
+    padding: 150px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+}
+
+.w-emotion-text {
+    font-size: clamp(2rem, 4vw, 4rem);
+    font-family: 'Outfit', serif;
+    font-weight: 200;
+    line-height: 1.3;
+    max-width: 1000px;
+    color: var(--w-champagne);
+}
+
+.w-emotion-text span {
+    display: inline-block;
+    opacity: 0.3;
+    transition: opacity 0.4s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(20px);
+}
+
+.w-emotion-text span.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   Storytelling Gallery (Masonry & Horizontal)
+   ========================================================================== */
+.w-gallery-section {
+    padding: 100px 20px;
+    position: relative;
+}
+
+.w-section-header {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.w-section-title {
+    font-size: clamp(2rem, 3vw, 3rem);
+    font-weight: 200;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--w-champagne);
+    margin-bottom: 10px;
+}
+
+.w-section-subtitle {
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    opacity: 0.6;
+    text-transform: uppercase;
+}
+
+.w-masonry {
+    column-count: 3;
+    column-gap: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    perspective: 1500px;
+}
+
+.w-masonry-item {
+    break-inside: avoid;
+    margin-bottom: 20px;
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    transform: translateY(50px);
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+.w-masonry-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    object-fit: cover;
+}
+
+.w-masonry-item:hover img {
+    transform: scale(1.05);
+}
+
+@media (max-width: 1024px) {
+    .w-masonry { column-count: 2; }
+}
+
+@media (max-width: 600px) {
+    .w-masonry { column-count: 1; }
+}
+
+/* 3D Depth Scroll Container */
+.w-3d-wrapper {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    perspective: 1200px;
+    margin: 100px 0;
+}
+
+.w-3d-container {
+    position: relative;
+    width: 70vw;
+    height: 80vh;
+    transform-style: preserve-3d;
+}
+
+@media (max-width: 768px) {
+    .w-3d-container {
+        width: 85vw;
+        height: 60vh;
+    }
+}
+
+.w-3d-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    opacity: 0;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+    transform-origin: center center;
+    transform: translateZ(-2000px) scale(0.5);
+}
+
+.w-3d-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+}
+
+/* ==========================================================================
+   Events Showcase
+   ========================================================================== */
+.w-events-section {
+    padding: 100px 20px;
+    position: relative;
+}
+
+.w-events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.w-event-card {
+    position: relative;
+    height: 450px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--w-glass);
+    border: 1px solid var(--w-glass-border);
+}
+
+.w-event-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+    transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.w-event-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, rgba(3,3,3,0.9) 0%, rgba(3,3,3,0.2) 50%, rgba(3,3,3,0) 100%);
+    transition: opacity 0.5s ease;
+}
+
+.w-event-content {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    z-index: 2;
+    transform: translateY(20px);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.w-event-card:hover .w-event-img {
+    transform: scale(1.1);
+}
+
+.w-event-card:hover .w-event-overlay {
+    opacity: 0.8;
+}
+
+.w-event-card:hover .w-event-content {
+    transform: translateY(0);
+}
+
+.w-event-title {
+    font-size: 2rem;
+    font-weight: 200;
+    color: var(--w-champagne);
+    margin: 0 0 10px 0;
+    letter-spacing: 2px;
+}
+
+.w-event-desc {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+    opacity: 0;
+    transition: opacity 0.5s ease 0.1s;
+}
+
+.w-event-card:hover .w-event-desc {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   Dreamy Parallax
+   ========================================================================== */
+.w-parallax-section {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.w-parallax-bg {
+    position: absolute;
+    top: -20%;
+    left: -5%;
+    width: 110%;
+    height: 140%;
+    object-fit: cover;
+    z-index: 1;
+    filter: blur(10px) brightness(0.4);
+}
+
+.w-parallax-layer {
+    position: absolute;
+    z-index: 2;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+}
+
+.w-parallax-layer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+}
+
+.w-parallax-layer-1 { width: 30vw; height: 45vw; top: 10%; left: 10%; z-index: 3;}
+.w-parallax-layer-2 { width: 25vw; height: 35vw; bottom: 10%; right: 10%; z-index: 4;}
+.w-parallax-layer-3 { width: 20vw; height: 30vw; top: 20%; right: 20%; z-index: 2;}
+.w-parallax-layer-4 { width: 40vw; height: 60vw; left: 50%; top: 50%; transform: translate(-50%, -50%); z-index: 5;}
+
+@media (max-width: 768px) {
+    .w-parallax-layer-1 { width: 50vw; height: 75vw; left: 5%; top: 5%; }
+    .w-parallax-layer-2 { width: 45vw; height: 65vw; right: 5%; bottom: 5%; }
+    .w-parallax-layer-4 { width: 70vw; height: 100vw; }
+}
+
+/* ==========================================================================
+   Testimonials
+   ========================================================================== */
+.w-testimonials {
+    padding: 150px 20px;
+    background: linear-gradient(180deg, var(--w-bg) 0%, rgba(10,10,10,1) 100%);
+}
+
+.w-test-card {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 60px;
+    background: var(--w-glass);
+    border: 1px solid var(--w-glass-border);
+    border-radius: 12px;
+    position: relative;
+}
+
+.w-test-quote {
+    font-family: 'Outfit', serif;
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
+    font-weight: 200;
+    line-height: 1.6;
+    color: var(--w-text);
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.w-test-author {
+    color: var(--w-champagne);
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* ==========================================================================
+   Final CTA
+   ========================================================================== */
+.w-cta-section {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.w-cta-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.3;
+    filter: blur(5px);
+}
+
+.w-cta-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.w-cta-title {
+    font-size: clamp(2.5rem, 5vw, 5rem);
+    font-weight: 200;
+    color: var(--w-champagne);
+    margin-bottom: 40px;
+    line-height: 1.2;
+}
+
+.w-cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+@media (max-width: 600px) {
+    .w-cta-buttons { flex-direction: column; }
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.w-footer {
+    padding: 60px 20px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    text-align: center;
+}
+
+.w-footer-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 8px;
+    color: var(--w-champagne);
+}
+
+.w-footer-links {
+    display: flex;
+    gap: 30px;
+}
+
+.w-footer-links a {
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+}
+
+.w-footer-links a:hover {
+    color: var(--w-champagne);
+}

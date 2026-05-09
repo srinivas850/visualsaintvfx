@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VISUAL SAINT VFX PRODUCTIONS | Premium Creative Agency</title>
+    <meta name="description"
+        content="Cinematic Visuals. Digital Experiences. Creative that moves. Visual Saint VFX Productions is a premium creative media agency.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="virtual-card/card.css">
+    <link rel="stylesheet" href="css/mobile-nav.css">
+    <link rel="stylesheet" href="css/about.css">
+</head>
+
+<body>
+    <!-- Background Atmosphere -->
+    <div class="bg-atmosphere">
+        <div class="glow-orb purple-orb"></div>
+        <div class="glow-orb blue-orb"></div>
+        <div class="glow-orb orange-orb"></div>
+        <div class="particles" id="particles"></div>
+    </div>
+
+    <!-- Premium Navbar -->
+    <nav class="glass-navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-icon">VS</span>
+                <div class="logo-text">
+                    <h1>VISUAL SAINT</h1>
+                    <p>PRODUCTIONS</p>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Fullscreen Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay">
+        <div class="mobile-menu-bg-glow"></div>
+        <ul class="mobile-nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#" onclick="document.getElementById('vc-fab')?.click(); return false;">Digital Card</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <main class="hero-section" id="home">
+        <div class="container hero-container">
+
+            <!-- Left Side: Content -->
+            <div class="hero-content">
+                <div class="badge">Premium Creative Agency</div>
+
+                <h2 class="cinematic-heading">
+                    <span class="text-reveal">WE DELIVER EXCELLENCE IN</span>
+                    <span class="text-reveal type-wrapper block-type">
+                        <span class="gradient-text" id="typewriter-text"></span><span class="type-cursor">|</span>
+                    </span>
+                </h2>
+
+                <p class="premium-subtext">
+                    From wedding stories to viral brands — we create visuals, campaigns, and cinematic experiences
+                    people never forget
+                </p>
+
+                <div class="cta-group">
+                    <a href="#services" class="btn btn-primary magnetic-btn">
+                        <span class="btn-text">Explore Our Work</span>
+                        <div class="btn-glow"></div>
+                    </a>
+                </div>
+
+                <!-- Premium Stats -->
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <h4 class="stat-number">1,000+</h4>
+                        <p class="stat-label">Weddings covered</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4 class="stat-number">250+</h4>
+                        <p class="stat-label">Advertisements covered</p>
+                    </div>
+                    <div class="stat-item">
+                        <h4 class="stat-number">15+</h4>
+                        <p class="stat-label">Short films covered</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: 3D Centerpiece -->
+            <div class="hero-visual">
+                <div class="centerpiece-container" id="centerpiece">
+                    <!-- Pure CSS 3D VS Centerpiece -->
+                    <div class="vs-3d-scene">
+
+                        <!-- Glowing Orbits -->
+                        <div class="orbit-wrapper orbit-tilt-1">
+                            <div class="orbit-spin spin-1">
+                                <div class="orbit-path path-1"></div>
+                                <div class="orbit-icon icon-motion">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="1.5">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <circle cx="12" cy="12" r="2" />
+                                        <path
+                                            d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="orbit-wrapper orbit-tilt-2">
+                            <div class="orbit-spin spin-2">
+                                <div class="orbit-path path-2"></div>
+                                <div class="orbit-icon icon-marketing">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="1.5">
+                                        <rect x="4" y="4" width="16" height="16" rx="2" ry="2" />
+                                        <rect x="9" y="9" width="6" height="6" />
+                                        <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="orbit-wrapper orbit-tilt-3">
+                            <div class="orbit-spin spin-3">
+                                <div class="orbit-path path-3"></div>
+                                <div class="orbit-icon icon-photo">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="1.5">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <path
+                                            d="M12 2L12 12 20.66 7M12 22L12 12 3.34 17M2 12L12 12 20.66 17M22 12L12 12 3.34 7" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="orbit-wrapper orbit-tilt-4">
+                            <div class="orbit-spin spin-4">
+                                <div class="orbit-path path-4"></div>
+                                <div class="orbit-icon icon-ad">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="1.5">
+                                        <rect x="2" y="4" width="20" height="12" rx="1" />
+                                        <path d="M6 16v4M18 16v4M2 8h20" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Minimal Aesthetic VS Text -->
+                        <div class="vs-logo-container">
+                            <div class="vs-minimal-text" data-text="VS">VS</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom: Service Cards -->
+        <div class="services-track" id="services">
+            <div class="container cards-container">
+
+                <!-- Card 1: Motion Graphics -->
+                <div class="service-card" data-color="purple">
+                    <div class="card-glow"></div>
+                    <div class="card-image-wrapper">
+                        <!-- Replace with GIF later -->
+                        <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop"
+                            alt="Motion Graphics" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3>MOTION GRAPHICS</h3>
+                        <p>Dynamic, Engaging Animated Visuals.</p>
+                    </div>
+                </div>
+
+                <!-- Card 2: Digital Marketing -->
+                <div class="service-card" data-color="blue">
+                    <div class="card-glow"></div>
+                    <div class="card-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop"
+                            alt="Digital Marketing" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3>DIGITAL MARKETING</h3>
+                        <p>Data-Driven Strategies for Growth.</p>
+                    </div>
+                </div>
+
+                <!-- Card 3: Wedding Photography -->
+                <div class="service-card" data-color="orange">
+                    <div class="card-glow"></div>
+                    <div class="card-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop"
+                            alt="Wedding Photography" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3>WEDDING PHOTOGRAPHY</h3>
+                        <p>Capturing Your Most Precious Moments.</p>
+                    </div>
+                </div>
+
+                <!-- Card 4: Ads Agency -->
+                <div class="service-card" data-color="red">
+                    <div class="card-glow"></div>
+                    <div class="card-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1542744094-3a31f272c490?q=80&w=800&auto=format&fit=crop"
+                            alt="Ad Agency" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <h3>AD AGENCY</h3>
+                        <p>Impactful Campaigns to Build Brand.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Premium Cinematic About Section -->
+    <section id="about" class="about-section">
+        <!-- Background Orbs specific to About -->
+        <div class="about-glow-orb"></div>
+        <div class="about-glow-orb left"></div>
+        
+        <div class="about-container">
+            <div class="about-header">
+                <span class="about-subtitle">Where Storytelling Meets Strategy</span>
+                <h2 class="about-title">Crafting Cinematic Experiences That Leave a Lasting Impact</h2>
+                <p class="about-description">
+                    At VisualSaint VFX, we believe that every brand has an unforgettable story waiting to be told. 
+                    We are a premium creative agency dedicated to engineering immersive visual experiences. 
+                    By blending high-end cinematic production with growth-focused marketing strategy, we captivate 
+                    audiences and accelerate your brand's growth.
+                </p>
+            </div>
+            
+            <div class="about-services">
+                <div class="about-service-card">
+                    <div class="about-service-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+                    </div>
+                    <div class="about-service-content">
+                        <h4>VFX & Motion Design</h4>
+                        <p>Industry-leading visual effects and 3D animations that bring impossible concepts to life.</p>
+                    </div>
+                </div>
+                
+                <div class="about-service-card">
+                    <div class="about-service-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
+                    </div>
+                    <div class="about-service-content">
+                        <h4>Wedding Films</h4>
+                        <p>Emotional, cinematic wedding videography capturing your most precious moments.</p>
+                    </div>
+                </div>
+                
+                <div class="about-service-card">
+                    <div class="about-service-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+                    </div>
+                    <div class="about-service-content">
+                        <h4>Digital Campaigns</h4>
+                        <p>Data-driven brand storytelling and high-conversion ad campaigns.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script src="virtual-card/card.js"></script>
+    <script src="js/mobile-nav.js"></script>
+    <script src="js/about.js"></script>
+</body>
+
+</html>

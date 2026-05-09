@@ -1,0 +1,433 @@
+/* ==========================================================================
+   Virtual Card Module Styles
+   Scoped entirely to .vc-* to prevent global CSS conflicts
+   ========================================================================== */
+
+/* Floating Button */
+.vc-floating-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9998;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    overflow: hidden;
+}
+
+.vc-floating-btn:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 30px rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.vc-floating-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: skewX(-20deg);
+    transition: all 0.6s ease;
+}
+
+.vc-floating-btn:hover::before {
+    left: 150%;
+}
+
+.vc-icon {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Modal Overlay */
+.vc-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    perspective: 1500px;
+    font-family: 'Inter', sans-serif;
+    color: white;
+}
+
+.vc-modal-overlay.vc-active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.vc-close-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    opacity: 0.6;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 10000;
+}
+
+.vc-close-btn:hover {
+    opacity: 1;
+    transform: rotate(90deg);
+}
+
+/* Background Atmosphere */
+.vc-bg-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(138, 43, 226, 0.15) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* 3D Card Scene */
+.vc-scene {
+    width: 380px;
+    height: 600px;
+    perspective: 2000px;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 480px) {
+    .vc-scene {
+        width: 90vw;
+        height: 80vh;
+        max-height: 650px;
+    }
+}
+
+.vc-card-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.vc-card-wrapper.vc-is-flipped {
+    transform: rotateY(180deg);
+}
+
+/* Card Faces */
+.vc-card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.02);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.vc-card-face::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.06'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+}
+
+.vc-card-front {
+    transform: rotateY(0deg);
+}
+
+.vc-card-back {
+    transform: rotateY(180deg);
+    background: linear-gradient(135deg, rgba(20, 20, 25, 0.9) 0%, rgba(10, 10, 15, 0.95) 100%);
+}
+
+/* Animated Gradient Border */
+.vc-card-face::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 24px;
+    padding: 2px;
+    background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.5), rgba(255,255,255,0.1));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* Front Content */
+.vc-front-content {
+    padding: 40px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+}
+
+.vc-logo-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.vc-logo-mark {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #fff, #aaa);
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: -1px;
+}
+
+.vc-logo-text {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.vc-profile-area {
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+
+.vc-name {
+    font-family: 'Outfit', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0 0 5px 0;
+    background: linear-gradient(to right, #fff, #888);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.vc-role {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+/* Reflection Sweep */
+.vc-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.15), transparent);
+    transform: skewX(-20deg);
+    z-index: 3;
+    pointer-events: none;
+}
+
+.vc-scene:hover .vc-shine {
+    animation: vcShineSweep 1.5s ease;
+}
+
+@keyframes vcShineSweep {
+    0% { left: -100%; }
+    100% { left: 200%; }
+}
+
+/* Back Content */
+.vc-back-content {
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+}
+
+.vc-qr-area {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.vc-qr-box {
+    width: 120px;
+    height: 120px;
+    background: #fff;
+    margin: 0 auto;
+    border-radius: 16px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.vc-qr-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.vc-contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.vc-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.vc-contact-item:hover {
+    color: #fff;
+}
+
+.vc-contact-icon {
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vc-contact-icon svg {
+    width: 16px;
+    height: 16px;
+}
+
+.vc-actions {
+    margin-top: auto;
+    display: flex;
+    gap: 10px;
+}
+
+.vc-btn {
+    flex: 1;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-align: center;
+    text-decoration: none;
+}
+
+.vc-btn-primary {
+    background: #fff;
+    color: #000;
+}
+
+.vc-btn-primary:hover {
+    background: #e0e0e0;
+    transform: translateY(-2px);
+}
+
+.vc-btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.vc-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Loading Spinner for Download */
+.vc-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: vcSpin 1s ease-in-out infinite;
+    display: none;
+}
+
+.vc-btn.vc-loading .vc-spinner {
+    display: inline-block;
+}
+
+.vc-btn.vc-loading .vc-btn-text {
+    display: none;
+}
+
+@keyframes vcSpin {
+    to { transform: rotate(360deg); }
+}
+
+.vc-flip-hint {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}

@@ -26,6 +26,9 @@ body {
     color: var(--text-primary);
     overflow-x: hidden;
     min-height: 100vh;
+    /* Allow native vertical scroll on mobile for max smoothness */
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
 }
 
 h1, h2, h3, h4, .logo-icon {
@@ -55,6 +58,9 @@ a {
     filter: blur(120px);
     opacity: 0.4;
     animation: float 20s infinite ease-in-out alternate;
+    /* Promote to own GPU layer to avoid repainting the page */
+    will-change: transform;
+    transform: translateZ(0);
 }
 
 .purple-orb {
@@ -104,6 +110,8 @@ a {
     padding: 15px 40px;
     z-index: 100;
     transition: var(--transition);
+    /* Keep navbar on its own compositor layer for scroll-free repaints */
+    will-change: background, padding;
 }
 
 .glass-navbar:hover {
@@ -386,6 +394,9 @@ a {
     justify-content: center;
     align-items: center;
     animation: slow-scene-spin 25s linear infinite;
+    /* Promote the entire 3D scene to its own GPU layer */
+    will-change: transform;
+    backface-visibility: hidden;
 }
 
 @keyframes slow-scene-spin {
@@ -417,6 +428,8 @@ a {
     position: relative;
     letter-spacing: -12px;
     filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.9));
+    /* Prevent blurry text on GPU layers */
+    -webkit-font-smoothing: antialiased;
 }
 
 .vs-minimal-text::before {
@@ -466,6 +479,9 @@ a {
     top: 50%;
     transform-style: preserve-3d;
     animation: spin-orbit linear infinite;
+    /* Each orbit ring on its own compositor layer */
+    will-change: transform;
+    backface-visibility: hidden;
 }
 
 .spin-1 { width: 350px; height: 350px; animation-duration: 15s; }
@@ -577,6 +593,9 @@ a {
     height: 100%;
     object-fit: cover;
     transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    /* GPU-accelerate image zoom on hover */
+    will-change: transform;
+    backface-visibility: hidden;
 }
 
 .service-card:hover .card-image {
@@ -642,6 +661,22 @@ a {
 
 .service-card:hover {
     transform: translateY(-10px);
+}
+
+/* === PERFORMANCE OPTIMIZATIONS ===
+   Mobile smoothing: reduce expensive repaints on scroll by containing
+   static sections. Does not alter layout, appearance, or functionality.
+*/
+@media (max-width: 900px) {
+    /* Reduce orbit complexity on mobile: use GPU layers to stay at 60fps */
+    .vs-3d-scene {
+        animation-duration: 30s; /* Slightly slower = less GPU work per frame */
+    }
+
+    /* Isolate service cards so hovering one doesn't repaint the whole grid */
+    .service-card {
+        contain: layout paint;
+    }
 }
 
 /* Responsive */

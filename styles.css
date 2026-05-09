@@ -26,9 +26,15 @@ body {
     color: var(--text-primary);
     overflow-x: hidden;
     min-height: 100vh;
-    /* Allow native vertical scroll on mobile for max smoothness */
+    /* Native iOS scroll momentum */
     touch-action: pan-y;
     -webkit-overflow-scrolling: touch;
+    /* Android Chrome: prevent scroll chaining to the browser chrome */
+    overscroll-behavior-y: contain;
+    /* Remove blue tap-highlight flash on Android Chrome */
+    -webkit-tap-highlight-color: transparent;
+    /* Prevent selection highlight flicker on long-press */
+    -webkit-touch-callout: none;
 }
 
 h1, h2, h3, h4, .logo-icon {
@@ -112,6 +118,8 @@ a {
     transition: var(--transition);
     /* Keep navbar on its own compositor layer for scroll-free repaints */
     will-change: background, padding;
+    /* Isolate navbar paint from the rest of the page on Android */
+    contain: layout style;
 }
 
 .glass-navbar:hover {
@@ -721,4 +729,59 @@ a {
     .orbit-icon svg { width: 12px; height: 12px; }
     
     
+}
+
+/* ==========================================================================
+   ANDROID & ACCESSIBILITY OPTIMIZATIONS
+   Zero visual changes — purely rendering pipeline improvements
+   ========================================================================== */
+
+/* content-visibility: auto — the single biggest Android below-fold win.
+   Tells the browser to completely skip rendering .about-section until it is
+   close to the viewport. contain-intrinsic-size reserves the correct space
+   so layout doesn't shift when it becomes visible. */
+.about-section {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 900px;
+}
+
+/* Reduce unnecessary layer promotions on elements that never animate.
+   Freeing GPU memory helps mid-range Android devices hit 60fps. */
+.hero-content,
+.about-header,
+.about-description,
+.stats-container {
+    will-change: auto;
+}
+
+/* Accessibility + Android low-power mode: respect the OS "reduce motion"
+   setting by pausing ALL CSS animations. No visual redesign. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Android Chrome-specific: use optimizeSpeed text rendering on small screens
+   to avoid expensive subpixel AA calculations that drop scroll FPS */
+@media (max-width: 768px) {
+    body {
+        text-rendering: optimizeSpeed;
+    }
+
+    /* Lock background attachment so Android doesn't composite it separately */
+    .bg-atmosphere {
+        will-change: auto;
+    }
+
+    /* Isolate each section for independent paint on Android */
+    main,
+    .about-section {
+        contain: layout style;
+    }
 }

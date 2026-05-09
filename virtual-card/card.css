@@ -78,6 +78,11 @@
     perspective: 1500px;
     font-family: 'Inter', sans-serif;
     color: white;
+    /* Android: isolate the modal's blur from the page compositor tree.
+       Without this, every frame of the open/close animation forces a full
+       page layer re-composite on Android Chrome. */
+    will-change: opacity;
+    contain: layout style paint;
 }
 
 .vc-modal-overlay.vc-active {

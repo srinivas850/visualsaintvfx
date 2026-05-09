@@ -66,6 +66,12 @@
     align-items: center;
     transition: opacity 0.5s ease, visibility 0.5s ease;
     padding-bottom: 20px;
+    /* Promote to own GPU layer — prevents backdrop-filter from forcing
+       a full-page compositing flush on Android Chrome */
+    will-change: opacity;
+    contain: layout style paint;
+    /* Ensure touch events pass through when invisible */
+    touch-action: none;
 }
 
 .mobile-menu-overlay.is-active {

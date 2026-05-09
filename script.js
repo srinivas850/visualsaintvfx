@@ -1,4 +1,41 @@
-// Magnetic Button Effect — rAF-guarded to prevent layout thrashing
+// ─── Device & Platform Detection ────────────────────────────────────────────
+const _ua          = navigator.userAgent;
+const isAndroid    = /Android/i.test(_ua);
+const isTouchOnly  = !window.matchMedia('(pointer: fine)').matches;
+const deviceMemory = navigator.deviceMemory || 4; // GB; undefined on Firefox → assume 4
+const isLowEnd     = isAndroid && deviceMemory <= 2;
+
+// ─── Page Visibility API — Pause ALL CSS animations when tab is hidden ───────
+// This is the single biggest Android battery/GPU saver possible.
+(function initVisibilityPause() {
+    const animSelectors = [
+        '.vs-3d-scene', '.vs-logo-container',
+        '.orbit-spin', '.glow-orb',
+        '.vc-floating-btn'
+    ];
+    let animEls = [];
+
+    function collectEls() {
+        animEls = [];
+        animSelectors.forEach(sel => {
+            document.querySelectorAll(sel).forEach(el => animEls.push(el));
+        });
+    }
+
+    function setPlayState(state) {
+        if (!animEls.length) collectEls();
+        animEls.forEach(el => { el.style.animationPlayState = state; });
+    }
+
+    document.addEventListener('visibilitychange', () => {
+        setPlayState(document.hidden ? 'paused' : 'running');
+    });
+
+    // Initial collect after DOM settle
+    requestAnimationFrame(collectEls);
+})();
+
+// ─── Magnetic Button Effect — rAF-guarded, skip on touch-only ────────────────
 const magneticBtns = document.querySelectorAll('.magnetic-btn');
 
 magneticBtns.forEach(btn => {
@@ -62,10 +99,12 @@ cards.forEach(card => {
     });
 });
 
-// Hero Centerpiece subtle mouse follow — rAF-throttled
+// Hero Centerpiece subtle mouse follow — rAF-throttled, skipped on touch
 const centerpiece = document.getElementById('centerpiece');
 
-if (centerpiece) {
+// On Android/touch-only, this effect never fires (no mouse) so skip binding
+// to save a global listener that runs on every pointer event.
+if (centerpiece && !isTouchOnly) {
     let cpRaf = null;
     let cpX = 0, cpY = 0;
     document.addEventListener('mousemove', e => {
@@ -81,10 +120,9 @@ if (centerpiece) {
     }, { passive: true });
 }
 
-// Simple Particle System for Atmosphere — GPU-accelerated, batched DOM injection
+// Particle System — adaptive count based on device capability
 const particleContainer = document.getElementById('particles');
 if (particleContainer) {
-    // Add keyframes first
     const style = document.createElement('style');
     style.innerHTML = `
 @keyframes float-particle {
@@ -94,8 +132,10 @@ if (particleContainer) {
 `;
     document.head.appendChild(style);
 
-    const particleCount = 30;
-    const fragment = document.createDocumentFragment(); // Single batch DOM write
+    // Adaptive count: fewer particles = fewer GPU layers = smoother scroll on Android
+    // Low-end Android (≤2GB RAM): 8 | Mid Android: 15 | Desktop: 30
+    const particleCount = isLowEnd ? 8 : isAndroid ? 15 : 30;
+    const fragment = document.createDocumentFragment();
 
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
@@ -106,7 +146,6 @@ if (particleContainer) {
         const delay = Math.random() * 10;
         const opacity = Math.random() * 0.5 + 0.1;
 
-        // will-change and contain promote each particle to its own GPU layer
         particle.style.cssText = `
             position: absolute;
             width: ${size}px;
@@ -124,7 +163,7 @@ if (particleContainer) {
         `;
         fragment.appendChild(particle);
     }
-    particleContainer.appendChild(fragment); // One reflow instead of 30
+    particleContainer.appendChild(fragment);
 }
 
 // Navbar Scroll Effect — passive listener + rAF-throttled style writes

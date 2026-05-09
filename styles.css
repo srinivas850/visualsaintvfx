@@ -708,6 +708,23 @@ a {
     .spin-4 { width: 196px; height: 196px; }
     .orbit-icon { width: 30px; height: 30px; margin-left: -15px; margin-top: -15px; }
     .orbit-icon svg { width: 15px; height: 15px; }
+
+    /* Stop 360° spin on mobile — replace with a gentle float like desktop hover */
+    .vs-3d-scene {
+        animation: mobile-vs-float 6s ease-in-out infinite;
+    }
+
+    /* Stop the counter-spin since there is nothing to counter anymore */
+    .vs-logo-container {
+        animation: none;
+        transform: none;
+    }
+}
+
+/* Keyframe: subtle up/down tilt — mimics the desktop mouse-follow feel */
+@keyframes mobile-vs-float {
+    0%, 100% { transform: rotateY(-4deg) rotateX(8deg)  translateY(0px); }
+    50%       { transform: rotateY(4deg)  rotateX(13deg) translateY(-18px); }
 }
 
 @media (max-width: 600px) {

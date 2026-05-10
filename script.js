@@ -236,26 +236,57 @@ if (typeWriterElement) {
 }
 
 // ─── About Section Scroll Reveals (Home Page) ─────────────────────────────────
-// Requires GSAP + ScrollTrigger loaded in index.html
-if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const aboutRevealTargets = [
-        { el: '.about-subtitle',    fromVars: { opacity: 0, y: 20 } },
-        { el: '.about-title',       fromVars: { opacity: 0, y: 30 } },
-        { el: '.about-description', fromVars: { opacity: 0, y: 30 } },
-        { el: '.about-services',    fromVars: { opacity: 0, y: 40 } },
+(function initAboutReveals() {
+    const targets = [
+        { sel: '.about-subtitle',    y: 20 },
+        { sel: '.about-title',       y: 30 },
+        { sel: '.about-description', y: 30 },
+        { sel: '.about-services',    y: 40 },
     ];
 
-    aboutRevealTargets.forEach(({ el, fromVars }) => {
-        const node = document.querySelector(el);
-        if (!node) return;
-        gsap.fromTo(node, fromVars, {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: 'power3.out',
-            scrollTrigger: { trigger: node, start: 'top 85%', once: true }
+    const nodes = targets.map(t => ({ el: document.querySelector(t.sel), y: t.y }))
+                         .filter(t => t.el);
+
+    if (!nodes.length) return;
+
+    // If GSAP + ScrollTrigger available — use them
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+
+        nodes.forEach(({ el, y }) => {
+            // Set hidden state via GSAP (not CSS) so fallback always works
+            gsap.set(el, { opacity: 0, y });
+            gsap.to(el, {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: el,
+                    start: 'top 92%',   // fires earlier — important for mobile
+                    once: true
+                }
+            });
         });
+        return;
+    }
+
+    // Fallback: IntersectionObserver (works on mobile even without GSAP)
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    nodes.forEach(({ el, y }) => {
+        el.style.opacity = '0';
+        el.style.transform = `translateY(${y}px)`;
+        observer.observe(el);
     });
-}
+})();
+

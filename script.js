@@ -234,3 +234,28 @@ if (typeWriterElement) {
 
     setTimeout(type, 1000);
 }
+
+// ─── About Section Scroll Reveals (Home Page) ─────────────────────────────────
+// Requires GSAP + ScrollTrigger loaded in index.html
+if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const aboutRevealTargets = [
+        { el: '.about-subtitle',    fromVars: { opacity: 0, y: 20 } },
+        { el: '.about-title',       fromVars: { opacity: 0, y: 30 } },
+        { el: '.about-description', fromVars: { opacity: 0, y: 30 } },
+        { el: '.about-services',    fromVars: { opacity: 0, y: 40 } },
+    ];
+
+    aboutRevealTargets.forEach(({ el, fromVars }) => {
+        const node = document.querySelector(el);
+        if (!node) return;
+        gsap.fromTo(node, fromVars, {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: node, start: 'top 85%', once: true }
+        });
+    });
+}

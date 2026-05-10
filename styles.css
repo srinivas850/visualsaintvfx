@@ -736,27 +736,40 @@ a {
 }
 
 @media (max-width: 900px) {
-    .hero-container { flex-direction: column; text-align: center; gap: 40px; }
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+        align-items: center;  /* re-center columns on mobile */
+        padding-top: 40px;
+    }
     .hero-content { max-width: 100%; display: flex; flex-direction: column; align-items: center; }
+    .hero-visual {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
     .stats-container { justify-content: center; }
-    .centerpiece-container { max-width: 400px; }
-    .nav-links { display: none; /* Add hamburger later if needed */ }
-    
-    /* Scale 3D Scene for Tablet */
-    .vs-minimal-text { font-size: 150px; }
-    .spin-1 { width: 245px; height: 245px; }
-    .spin-2 { width: 315px; height: 315px; }
-    .spin-3 { width: 385px; height: 385px; }
-    .spin-4 { width: 196px; height: 196px; }
-    .orbit-icon { width: 30px; height: 30px; margin-left: -15px; margin-top: -15px; }
-    .orbit-icon svg { width: 15px; height: 15px; }
+    .centerpiece-container { max-width: 320px; }
+    .nav-links { display: none; }
 
-    /* Stop 360° spin on mobile — replace with a gentle float like desktop hover */
+    /* Scale 3D Scene for Tablet */
+    .vs-minimal-text { font-size: 120px; }
+    .spin-1 { width: 200px; height: 200px; }
+    .spin-2 { width: 260px; height: 260px; }
+    .spin-3 { width: 320px; height: 320px; }
+    .spin-4 { width: 160px; height: 160px; }
+    .orbit-icon { width: 28px; height: 28px; margin-left: -14px; margin-top: -14px; }
+    .orbit-icon svg { width: 14px; height: 14px; }
+
+    /* Stop 360° spin — gentle float */
     .vs-3d-scene {
         animation: mobile-vs-float 6s ease-in-out infinite;
     }
 
-    /* Stop the counter-spin since there is nothing to counter anymore */
+    /* Stop the counter-spin */
     .vs-logo-container {
         animation: none;
         transform: none;
@@ -770,24 +783,31 @@ a {
 }
 
 @media (max-width: 600px) {
-    .hero-section { padding-top: 100px; }
-    .hero-visual { padding: 40px 0; }
+    .hero-section { padding-top: 90px; }
+    .hero-visual {
+        padding: 10px 0;
+        width: 100%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+    }
     .cards-container { grid-template-columns: 1fr; }
-    .cinematic-heading { font-size: 2.2rem; }
+    .cinematic-heading { font-size: 2rem; }
     .cta-group { flex-direction: column; width: 100%; }
-    .stats-container { flex-direction: column; gap: 20px; align-items: center; padding-top: 20px; }
-    .centerpiece-container { max-width: 300px; margin: 40px auto; }
-    
-    /* Scale 3D Scene for Mobile */
-    .vs-minimal-text { font-size: 110px; }
-    .spin-1 { width: 175px; height: 175px; }
-    .spin-2 { width: 225px; height: 225px; }
-    .spin-3 { width: 275px; height: 275px; }
-    .spin-4 { width: 140px; height: 140px; }
-    .orbit-icon { width: 24px; height: 24px; margin-left: -12px; margin-top: -12px; }
-    .orbit-icon svg { width: 12px; height: 12px; }
-    
-    
+    .stats-container { flex-direction: column; gap: 20px; align-items: center; padding-top: 10px; }
+    .centerpiece-container {
+        max-width: 260px;
+        margin: 0 auto;
+    }
+
+    /* Scale 3D Scene for Mobile — smaller to prevent overflow */
+    .vs-minimal-text { font-size: 90px; }
+    .spin-1 { width: 140px; height: 140px; }
+    .spin-2 { width: 185px; height: 185px; }
+    .spin-3 { width: 225px; height: 225px; }
+    .spin-4 { width: 115px; height: 115px; }
+    .orbit-icon { width: 22px; height: 22px; margin-left: -11px; margin-top: -11px; }
+    .orbit-icon svg { width: 11px; height: 11px; }
 }
 
 /* ==========================================================================

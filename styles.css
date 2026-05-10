@@ -201,7 +201,7 @@ a {
 
 /* Layout */
 .hero-section {
-    padding-top: 100px;
+    padding-top: 90px;
     padding-bottom: 40px;
     display: flex;
     flex-direction: column;
@@ -216,14 +216,16 @@ a {
 .hero-container {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     gap: 60px;
+    padding-top: 60px; /* exact 60px gap below navbar */
 }
 
 /* Hero Content - Left Side */
 .hero-content {
     flex: 1;
     max-width: 650px;
+    padding-top: 10px;
 }
 
 .badge {

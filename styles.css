@@ -382,7 +382,7 @@ a {
     align-items: center;
     position: relative;
     perspective: 1000px;
-    padding: 80px 0; /* Extra space above and below the animation */
+    padding: 20px 0;
 }
 
 .centerpiece-container {
@@ -565,15 +565,47 @@ a {
 /* Bottom Service Cards */
 .services-heading {
     font-family: 'Outfit', sans-serif;
-    font-size: 2.2rem;
+    font-size: 2.8rem;
     font-weight: 800;
     color: #fff;
-    margin-bottom: 25px;
-    letter-spacing: 1px;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+    text-align: center;
 }
 
+.services-heading-wrap {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.services-heading-wrap .sub {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #ff8c00;
+    margin-bottom: 14px;
+    position: relative;
+    padding: 0 20px;
+}
+
+.services-heading-wrap .sub::before,
+.services-heading-wrap .sub::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40px;
+    height: 1px;
+    background: #ff8c00;
+    opacity: 0.6;
+}
+
+.services-heading-wrap .sub::before { right: 100%; }
+.services-heading-wrap .sub::after  { left: 100%; }
+
 .services-track {
-    margin-top: 20px;
+    margin-top: 0;
     padding-bottom: 60px;
     width: 100%;
 }

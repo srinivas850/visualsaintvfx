@@ -201,8 +201,8 @@ a {
 
 /* Layout */
 .hero-section {
-    padding-top: 60px;
-    min-height: 100vh;
+    padding-top: 100px;
+    padding-bottom: 40px;
     display: flex;
     flex-direction: column;
 }
@@ -218,7 +218,6 @@ a {
     justify-content: space-between;
     align-items: center;
     gap: 60px;
-    flex: 1;
 }
 
 /* Hero Content - Left Side */

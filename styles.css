@@ -201,7 +201,7 @@ a {
 
 /* Layout */
 .hero-section {
-    padding-top: 110px;
+    padding-top: 60px;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -562,8 +562,17 @@ a {
 .icon-ad { color: #ff283c; border-color: rgba(255, 40, 60, 0.5); }
 
 /* Bottom Service Cards */
+.services-heading {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
 .services-track {
-    margin-top: 60px;
+    margin-top: 20px;
     padding-bottom: 60px;
     width: 100%;
 }

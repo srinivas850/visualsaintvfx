@@ -1,0 +1,450 @@
+/* ==========================================================================
+   About Page — Self-contained Premium Styles
+   Prefix: ap-  (prevents conflicts with styles.css)
+   ========================================================================== */
+
+/* ── Base Layout ── */
+.ap-wrap {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.ap-section {
+    padding: 100px 0;
+    position: relative;
+}
+
+/* ── Badge ── */
+.ap-badge {
+    display: inline-block;
+    padding: 7px 18px;
+    border-radius: 100px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+}
+
+/* ── Gold Accent ── */
+.ap-gold {
+    background: linear-gradient(135deg, #d4af37, #f5d87a, #b8860b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ── Section Title ── */
+.ap-section-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+    margin: 0;
+}
+
+/* ── Section Label ── */
+.ap-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #d4af37;
+    margin-bottom: 24px;
+    position: relative;
+    padding-left: 40px;
+}
+.ap-section-label::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 28px;
+    height: 1px;
+    background: #d4af37;
+}
+
+/* ── Body Text ── */
+.ap-body-text {
+    font-size: 1.1rem;
+    line-height: 1.85;
+    color: rgba(255,255,255,0.75);
+    font-weight: 300;
+}
+
+/* ════════════════════════════════
+   HERO
+════════════════════════════════ */
+.ap-hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    padding-top: 140px;
+    padding-bottom: 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.ap-hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at center top, rgba(138,43,226,0.15) 0%, transparent 65%);
+    pointer-events: none;
+}
+
+.ap-hero-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: #fff;
+    margin: 20px 0 24px;
+    letter-spacing: -1px;
+}
+
+.ap-hero-sub {
+    font-size: 1.15rem;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+    letter-spacing: 0.5px;
+}
+
+/* ════════════════════════════════
+   STORY
+════════════════════════════════ */
+.ap-story-inner {
+    max-width: 760px;
+}
+
+.ap-quote {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(1.3rem, 3vw, 1.9rem);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.5;
+    margin-top: 50px;
+    padding: 32px 40px;
+    border-left: 3px solid #d4af37;
+    background: rgba(212,175,55,0.06);
+    border-radius: 0 16px 16px 0;
+    color: rgba(255,255,255,0.9);
+}
+
+/* ════════════════════════════════
+   FOUNDER
+════════════════════════════════ */
+.ap-founder-section {
+    background: linear-gradient(180deg, transparent 0%, rgba(10,10,20,0.6) 50%, transparent 100%);
+}
+
+.ap-founder-grid {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.ap-founder-img-wrap {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.7);
+    aspect-ratio: 3/4;
+    flex-shrink: 0;
+}
+
+.ap-founder-aura {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 30%, rgba(212,175,55,0.25) 0%, transparent 70%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.ap-founder-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+    display: block;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 24px;
+}
+
+.ap-founder-name {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+    margin: 16px 0 8px;
+    letter-spacing: 0.5px;
+}
+
+.ap-founder-role {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #d4af37, #f5d87a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.ap-founder-contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+.ap-contact-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 100px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+.ap-contact-chip:hover {
+    background: rgba(212,175,55,0.15);
+    border-color: rgba(212,175,55,0.4);
+    color: #d4af37;
+    transform: translateY(-2px);
+}
+
+/* ════════════════════════════════
+   TEAM
+════════════════════════════════ */
+.ap-team-img-wrap {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.ap-team-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+.ap-team-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(5,5,7,0.7) 0%, rgba(5,5,7,0.1) 40%, transparent 100%);
+    pointer-events: none;
+}
+
+/* ════════════════════════════════
+   STATS
+════════════════════════════════ */
+.ap-stats-section {
+    background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.5) 50%, transparent 100%);
+}
+
+.ap-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.ap-stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 50px 30px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    gap: 12px;
+}
+
+.ap-stat-card:hover {
+    transform: translateY(-12px);
+    border-color: rgba(212,175,55,0.35);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 40px rgba(212,175,55,0.08);
+}
+
+.ap-stat-num {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff 30%, #d4af37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+}
+
+.ap-stat-lbl {
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: rgba(255,255,255,0.5);
+}
+
+/* ════════════════════════════════
+   FOOTER
+════════════════════════════════ */
+.ap-footer {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 70px 0 0;
+    background: rgba(5,5,7,0.8);
+    backdrop-filter: blur(20px);
+}
+
+.ap-footer-inner {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 50px;
+    padding-bottom: 50px;
+}
+
+.ap-footer-brand {
+    flex: 0 0 280px;
+}
+
+.ap-footer-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    background: linear-gradient(135deg, #d4af37, #f5d87a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 14px;
+}
+
+.ap-footer-tagline {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 22px;
+}
+
+.ap-social-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    border-radius: 100px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+.ap-social-btn:hover {
+    background: rgba(212,175,55,0.15);
+    border-color: rgba(212,175,55,0.4);
+    color: #d4af37;
+}
+
+.ap-footer-cols {
+    display: flex;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.ap-footer-col h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 20px;
+}
+
+.ap-footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ap-footer-col ul a {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+.ap-footer-col ul a:hover {
+    color: #d4af37;
+}
+
+.ap-footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+    padding: 22px 0;
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.3);
+}
+
+/* ════════════════════════════════
+   RESPONSIVE
+════════════════════════════════ */
+@media (max-width: 900px) {
+    .ap-founder-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    .ap-founder-img-wrap {
+        max-width: 320px;
+        margin: 0 auto;
+        aspect-ratio: 3/4;
+    }
+    .ap-founder-text {
+        text-align: center;
+    }
+    .ap-founder-contacts {
+        justify-content: center;
+    }
+    .ap-section-label {
+        padding-left: 0;
+        text-align: center;
+    }
+    .ap-section-label::before {
+        display: none;
+    }
+    .ap-story-inner {
+        text-align: center;
+    }
+    .ap-quote {
+        border-left: none;
+        border-radius: 16px;
+        border-top: 3px solid #d4af37;
+    }
+}
+
+@media (max-width: 700px) {
+    .ap-section { padding: 70px 0; }
+    .ap-hero { padding-top: 120px; padding-bottom: 60px; }
+    .ap-stats-grid { grid-template-columns: 1fr; gap: 20px; }
+    .ap-footer-inner { flex-direction: column; gap: 36px; }
+    .ap-footer-brand { flex: none; }
+    .ap-footer-cols { gap: 30px; }
+}

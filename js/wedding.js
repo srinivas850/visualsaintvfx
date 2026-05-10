@@ -87,24 +87,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // Hero
     if(document.querySelector('.w-hero-img')) document.querySelector('.w-hero-img').src = optimizeUrl(cloudinaryImages[0]);
     
-    // 3D Gallery (Take 5 specific good images)
-    const galleryIndices = [12, 28, 37, 45, 51];
-    const items3DImg = document.querySelectorAll('.w-3d-item img');
-    items3DImg.forEach((img, i) => {
-        if (cloudinaryImages[galleryIndices[i]]) img.src = optimizeUrl(cloudinaryImages[galleryIndices[i]]);
-    });
-
     // Event Cards (Take 5)
     const eventCards = document.querySelectorAll('.w-event-img');
     eventCards.forEach((img, i) => {
         if (cloudinaryImages[i+6]) img.src = optimizeUrl(cloudinaryImages[i+6]);
-    });
-
-    // Parallax Layers (Take 4 specific good images)
-    const parallaxIndices = [20, 31, 44, 50];
-    const parallaxLayers = document.querySelectorAll('.w-parallax-layer img');
-    parallaxLayers.forEach((img, i) => {
-        if (cloudinaryImages[parallaxIndices[i]]) img.src = optimizeUrl(cloudinaryImages[parallaxIndices[i]]);
     });
     
     // CTA BG
@@ -172,89 +158,93 @@ document.addEventListener("DOMContentLoaded", () => {
             );
         });
 
-        // 3D Depth Scroll
-        const wrapper3D = document.querySelector('.w-3d-wrapper');
-        const items3D = gsap.utils.toArray('.w-3d-item');
-        
-        if (wrapper3D && items3D.length > 0) {
-            // Pin the section
-            ScrollTrigger.create({
-                trigger: wrapper3D,
-                pin: true,
-                start: "center center",
-                end: `+=${items3D.length * 100}%`,
-                scrub: 1
-            });
+        // Cinematic Auto-Play Experience
+        initCinematicAutoPlay();
+    }
 
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: wrapper3D,
-                    start: "center center",
-                    end: `+=${items3D.length * 100}%`,
-                    scrub: 1,
-                }
-            });
+    // Cinematic Auto-Play Engine
+    function initCinematicAutoPlay() {
+        const centerImg1 = document.querySelector('.w-cinema-img-1');
+        const centerImg2 = document.querySelector('.w-cinema-img-2');
+        const floatingFrames = document.querySelectorAll('.w-frame-floating img');
+        if (!centerImg1 || !centerImg2 || floatingFrames.length === 0) return;
 
-            // Set initial states
-            gsap.set(items3D, { 
-                z: (i) => -1500 * i,
-                opacity: (i) => i === 0 ? 1 : 0,
-                scale: 1
-            });
+        // Start from index 10 to skip hero/events
+        let currentIndex = 10;
+        const totalImages = cloudinaryImages.length;
+        let isImg1Active = true;
 
-            items3D.forEach((item, i) => {
-                // Move all items forward
-                tl.to(items3D, {
-                    z: "+=1500",
-                    ease: "none"
-                }, i * 1);
+        // Initialize first set of images
+        centerImg1.src = optimizeUrl(cloudinaryImages[currentIndex]);
+        floatingFrames.forEach((img, i) => {
+            img.src = optimizeUrl(cloudinaryImages[(currentIndex + i + 1) % totalImages]);
+        });
 
-                // Fade in next item as it gets closer
-                if (i < items3D.length - 1) {
-                    tl.to(items3D[i + 1], {
-                        opacity: 1,
-                        ease: "power2.inOut",
-                        duration: 0.5
-                    }, i * 1 + 0.5);
-                }
+        // The main Auto-Play Loop
+        setInterval(() => {
+            currentIndex = (currentIndex + 5) % totalImages; // Jump to next batch of images
+            
+            const nextCenterUrl = optimizeUrl(cloudinaryImages[currentIndex]);
+            const activeImg = isImg1Active ? centerImg1 : centerImg2;
+            const nextImg = isImg1Active ? centerImg2 : centerImg1;
 
-                // Fade out current item as it passes the camera
-                tl.to(item, {
+            // Load next image into the hidden img tag
+            nextImg.src = nextCenterUrl;
+
+            // Smooth crossfade using GSAP
+            gsap.to(activeImg, { opacity: 0, duration: 2, ease: "power2.inOut", scale: 0.95 });
+            gsap.fromTo(nextImg, 
+                { opacity: 0, scale: 1.05 },
+                { opacity: 1, duration: 2, ease: "power2.inOut", scale: 1 }
+            );
+
+            // Softly update floating frames with new images and slight blur transition
+            floatingFrames.forEach((img, i) => {
+                gsap.to(img, {
                     opacity: 0,
-                    scale: 2,
-                    ease: "power2.in",
-                    duration: 0.5
-                }, i * 1 + 0.5);
+                    filter: "blur(10px)",
+                    duration: 1,
+                    onComplete: () => {
+                        img.src = optimizeUrl(cloudinaryImages[(currentIndex + i + 1) % totalImages]);
+                        gsap.to(img, {
+                            opacity: 1,
+                            filter: "blur(0px)",
+                            duration: 1.5,
+                            ease: "power2.out"
+                        });
+                    }
+                });
+            });
+
+            isImg1Active = !isImg1Active;
+
+        }, 4000); // Change scene every 4 seconds
+        
+        // Optional: Mouse Hover Tilt for premium interaction
+        const cinemaWrapper = document.querySelector('.w-cinematic-autoplay');
+        const cinemaFrames = document.querySelector('.w-cinema-frames');
+        
+        if (cinemaWrapper && cinemaFrames && window.innerWidth > 768) {
+            cinemaWrapper.addEventListener('mousemove', (e) => {
+                // Subtle tilt logic
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 80;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 80;
+                gsap.to(cinemaFrames, {
+                    rotationY: xAxis,
+                    rotationX: yAxis,
+                    duration: 1,
+                    ease: "power2.out"
+                });
+            });
+            cinemaWrapper.addEventListener('mouseleave', () => {
+                gsap.to(cinemaFrames, {
+                    rotationY: 0,
+                    rotationX: 0,
+                    duration: 1,
+                    ease: "power2.out"
+                });
             });
         }
-
-        // Parallax Layers
-        const pLayers = gsap.utils.toArray('.w-parallax-layer');
-        pLayers.forEach((layer, i) => {
-            const depth = (i + 1) * 0.2; // Different speed per layer
-            gsap.to(layer, {
-                y: () => -100 * depth,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: ".w-parallax-section",
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: true
-                }
-            });
-        });
-        
-        // Parallax BG
-        gsap.to('.w-parallax-bg', {
-            y: 100,
-            ease: "none",
-            scrollTrigger: {
-                trigger: ".w-parallax-section",
-                start: "top bottom",
-                end: "bottom top",
-                scrub: true
-            }
-        });
     }
 
 });

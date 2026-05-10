@@ -38,66 +38,70 @@ const isLowEnd     = isAndroid && deviceMemory <= 2;
 // ─── Magnetic Button Effect — rAF-guarded, skip on touch-only ────────────────
 const magneticBtns = document.querySelectorAll('.magnetic-btn');
 
-magneticBtns.forEach(btn => {
-    let rafId = null;
-    let lastE = null;
+if (!isTouchOnly) {
+    magneticBtns.forEach(btn => {
+        let rafId = null;
+        let lastE = null;
 
-    btn.addEventListener('mousemove', e => {
-        lastE = e;
-        if (rafId) return; // Already scheduled
-        rafId = requestAnimationFrame(() => {
-            const rect = btn.getBoundingClientRect();
-            const x = lastE.clientX - rect.left;
-            const y = lastE.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const distanceX = x - centerX;
-            const distanceY = y - centerY;
-            btn.style.transform = `translate(${distanceX * 0.2}px, ${distanceY * 0.2}px)`;
+        btn.addEventListener('mousemove', e => {
+            lastE = e;
+            if (rafId) return; // Already scheduled
+            rafId = requestAnimationFrame(() => {
+                const rect = btn.getBoundingClientRect();
+                const x = lastE.clientX - rect.left;
+                const y = lastE.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const distanceX = x - centerX;
+                const distanceY = y - centerY;
+                btn.style.transform = `translate(${distanceX * 0.2}px, ${distanceY * 0.2}px)`;
+                const text = btn.querySelector('.btn-text');
+                if (text) {
+                    text.style.transform = `translate(${distanceX * 0.1}px, ${distanceY * 0.1}px)`;
+                }
+                rafId = null;
+            });
+        });
+
+        btn.addEventListener('mouseleave', () => {
+            if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+            btn.style.transform = 'translate(0px, 0px)';
             const text = btn.querySelector('.btn-text');
-            if (text) {
-                text.style.transform = `translate(${distanceX * 0.1}px, ${distanceY * 0.1}px)`;
-            }
-            rafId = null;
+            if (text) text.style.transform = 'translate(0px, 0px)';
         });
     });
-
-    btn.addEventListener('mouseleave', () => {
-        if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
-        btn.style.transform = 'translate(0px, 0px)';
-        const text = btn.querySelector('.btn-text');
-        if (text) text.style.transform = 'translate(0px, 0px)';
-    });
-});
+}
 
 // 3D Tilt Effect for Service Cards — rAF-guarded
 const cards = document.querySelectorAll('.service-card');
 
-cards.forEach(card => {
-    let cardRaf = null;
-    let lastCE = null;
+if (!isTouchOnly) {
+    cards.forEach(card => {
+        let cardRaf = null;
+        let lastCE = null;
 
-    card.addEventListener('mousemove', e => {
-        lastCE = e;
-        if (cardRaf) return;
-        cardRaf = requestAnimationFrame(() => {
-            const rect = card.getBoundingClientRect();
-            const x = lastCE.clientX - rect.left;
-            const y = lastCE.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = ((y - centerY) / centerY) * -10;
-            const rotateY = ((x - centerX) / centerX) * 10;
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px) scale3d(1.02, 1.02, 1.02)`;
-            cardRaf = null;
+        card.addEventListener('mousemove', e => {
+            lastCE = e;
+            if (cardRaf) return;
+            cardRaf = requestAnimationFrame(() => {
+                const rect = card.getBoundingClientRect();
+                const x = lastCE.clientX - rect.left;
+                const y = lastCE.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -10;
+                const rotateY = ((x - centerX) / centerX) * 10;
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px) scale3d(1.02, 1.02, 1.02)`;
+                cardRaf = null;
+            });
+        });
+
+        card.addEventListener('mouseleave', () => {
+            if (cardRaf) { cancelAnimationFrame(cardRaf); cardRaf = null; }
+            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0) scale3d(1, 1, 1)';
         });
     });
-
-    card.addEventListener('mouseleave', () => {
-        if (cardRaf) { cancelAnimationFrame(cardRaf); cardRaf = null; }
-        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0) scale3d(1, 1, 1)';
-    });
-});
+}
 
 // Hero Centerpiece subtle mouse follow — rAF-throttled, skipped on touch
 const centerpiece = document.getElementById('centerpiece');

@@ -201,7 +201,7 @@ a {
 
 /* Layout */
 .hero-section {
-    padding-top: 150px;
+    padding-top: 110px;
     min-height: 100vh;
     display: flex;
     flex-direction: column;

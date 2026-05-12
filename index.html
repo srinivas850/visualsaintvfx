@@ -26,12 +26,75 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/preloader.css">
+    <link rel="stylesheet" href="css/vs-logo.css">
     <link rel="stylesheet" href="virtual-card/card.css">
     <link rel="stylesheet" href="css/mobile-nav.css">
     <link rel="stylesheet" href="css/about.css">
 </head>
 
-<body>
+<body class="vs-loading">
+
+    <!-- ══ CINEMATIC PRELOADER OVERLAY ══════════════════════════════════════ -->
+    <div id="vs-preloader" role="status" aria-label="Loading Visual Saint VFX">
+
+        <!-- Canvas for light-streak particles -->
+        <canvas id="vs-pl-canvas"></canvas>
+
+        <!-- Ambient glow orbs -->
+        <div class="vs-pl-orb vs-pl-orb-1"></div>
+        <div class="vs-pl-orb vs-pl-orb-2"></div>
+        <div class="vs-pl-orb vs-pl-orb-3"></div>
+
+        <!-- Cinematic letterbox lines -->
+        <div class="vs-pl-letterbox top"></div>
+        <div class="vs-pl-letterbox bottom"></div>
+
+        <!-- ── Main content ─────────────────────────────────────────────── -->
+        <div class="vs-pl-content">
+
+            <!-- Founder photo with glow + glass frame -->
+            <div class="vs-pl-founder-wrap">
+                <div class="vs-pl-founder-glow"></div>
+                <div class="vs-pl-founder-ring"></div>
+                <div class="vs-pl-founder-glass">
+                    <img
+                        src="https://res.cloudinary.com/djda3lldb/image/upload/f_auto,q_auto,w_220/v1778315189/vs_owner_beuywr.webp"
+                        alt="Jaladi Vijayendra Kumar — Founder, Visual Saint VFX"
+                        class="vs-pl-founder-img"
+                        loading="eager"
+                        decoding="async"
+                    >
+                </div>
+            </div>
+
+            <!-- Brand identity -->
+            <div class="vs-pl-brand">
+                <span class="vs-pl-vs-badge">Est. Premium Creative</span>
+                <h1 class="vs-pl-title">VISUAL SAINT VFX</h1>
+                <p class="vs-pl-tagline">Crafting Premium Digital Experiences</p>
+            </div>
+
+            <!-- Founder byline -->
+            <p class="vs-pl-founder-name">Jaladi Vijayendra Kumar &nbsp;·&nbsp; Founder &amp; Partner</p>
+
+            <!-- Divider -->
+            <div class="vs-pl-sep"></div>
+
+            <!-- Progress bar -->
+            <div class="vs-pl-bar-wrap">
+                <div id="vs-pl-bar"></div>
+            </div>
+
+            <!-- Percent + status -->
+            <div class="vs-pl-percent-row">
+                <span class="vs-pl-status">Loading</span>
+                <span id="vs-pl-pct">0%</span>
+            </div>
+
+        </div><!-- /.vs-pl-content -->
+    </div><!-- /#vs-preloader -->
+    <!-- ══ END PRELOADER ════════════════════════════════════════════════════ -->
     <!-- Background Atmosphere -->
     <div class="bg-atmosphere">
         <div class="glow-orb purple-orb"></div>
@@ -57,6 +120,7 @@
                 <li><a href="#portfolio">Portfolio</a></li>
                 <li><a href="wedding.html">Wedding Films</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html" class="nav-login-btn" style="padding: 6px 14px; border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; margin-left: 10px; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='transparent'">Client Login</a></li>
             </ul>
             
             <!-- Mobile Menu Toggle -->
@@ -79,6 +143,7 @@
             <li><a href="wedding.html">Wedding Films</a></li>
             <li><a href="#" onclick="document.getElementById('vc-fab')?.click(); return false;">Digital Card</a></li>
             <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html" style="color: var(--accent); border: 1px solid var(--accent); padding: 5px 15px; border-radius: 20px;">Client Login</a></li>
         </ul>
     </div>
 
@@ -309,6 +374,339 @@
     <script src="script.js"></script>
     <script src="virtual-card/card.js"></script>
     <script src="js/mobile-nav.js"></script>
+
+    <!-- ══ PRELOADER CONTROLLER ════════════════════════════════════════════ -->
+    <script>
+    (function () {
+        'use strict';
+
+        /* ── Config ────────────────────────────────────────────────────── */
+        var MIN_DURATION   = 2800;   // ms — minimum screen time even on fast loads
+        var SPEED_VARIANCE = 600;    // ms — jitter for natural feel
+
+        /* ── Elements ──────────────────────────────────────────────────── */
+        var overlay  = document.getElementById('vs-preloader');
+        var bar      = document.getElementById('vs-pl-bar');
+        var pct      = document.getElementById('vs-pl-pct');
+        var canvas   = document.getElementById('vs-pl-canvas');
+
+        if (!overlay || !bar || !pct) return; // safety guard
+
+        /* ── Light-streak particle canvas ──────────────────────────────── */
+        var ctx;
+        var streaks = [];
+        var rafId;
+
+        function initCanvas() {
+            canvas.width  = window.innerWidth;
+            canvas.height = window.innerHeight;
+            ctx = canvas.getContext('2d');
+            var count = window.innerWidth < 600 ? 12 : 22;
+            streaks = [];
+            for (var i = 0; i < count; i++) {
+                streaks.push(newStreak());
+            }
+        }
+
+        function newStreak() {
+            var angle  = (Math.random() * 40 - 20) * Math.PI / 180; // slight tilt
+            var speed  = Math.random() * 1.4 + 0.4;
+            var len    = Math.random() * 80 + 30;
+            var colors = ['rgba(138,43,226,', 'rgba(0,140,255,', 'rgba(255,140,0,', 'rgba(255,255,255,'];
+            var col    = colors[Math.floor(Math.random() * colors.length)];
+            return {
+                x:     Math.random() * canvas.width,
+                y:     Math.random() * canvas.height,
+                len:   len,
+                speed: speed,
+                angle: angle,
+                alpha: Math.random() * 0.25 + 0.05,
+                col:   col
+            };
+        }
+
+        function drawStreaks() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (var i = 0; i < streaks.length; i++) {
+                var s = streaks[i];
+                var dx = Math.cos(s.angle) * s.len;
+                var dy = Math.sin(s.angle) * s.len;
+                var grad = ctx.createLinearGradient(s.x, s.y, s.x - dx, s.y - dy);
+                grad.addColorStop(0, s.col + s.alpha + ')');
+                grad.addColorStop(1, s.col + '0)');
+                ctx.beginPath();
+                ctx.strokeStyle = grad;
+                ctx.lineWidth = 1;
+                ctx.moveTo(s.x, s.y);
+                ctx.lineTo(s.x - dx, s.y - dy);
+                ctx.stroke();
+                /* Move streak upward-left */
+                s.x -= Math.cos(s.angle) * s.speed;
+                s.y -= s.speed * 0.6;
+                /* Recycle off-screen streaks */
+                if (s.y < -s.len || s.x < -s.len) {
+                    streaks[i] = newStreak();
+                    streaks[i].x = Math.random() * canvas.width;
+                    streaks[i].y = canvas.height + 20;
+                }
+            }
+            rafId = requestAnimationFrame(drawStreaks);
+        }
+
+        initCanvas();
+        drawStreaks();
+
+        /* Resize canvas on orientation change (mobile) */
+        window.addEventListener('resize', function () {
+            initCanvas();
+        }, { passive: true });
+
+        /* ── Progress animation ─────────────────────────────────────────── */
+        var current  = 0;
+        var target   = 0;
+        var startTs  = performance.now();
+        var pageReady = false;
+
+        /* Smooth eased counter toward target */
+        function tick(now) {
+            var elapsed = now - startTs;
+
+            /* After MIN_DURATION the natural-feel cap is lifted */
+            var naturalCap = elapsed < (MIN_DURATION * 0.75) ? 85 : 99;
+
+            /* Crawl toward whichever is lower: naturalCap or target */
+            var goal = Math.min(target, naturalCap);
+            if (pageReady) goal = 100;
+
+            /* Ease: move 8 % of the gap each frame — feels organic */
+            current += (goal - current) * 0.055;
+            if (current > 99.5 && !pageReady) current = 99;
+
+            var display = Math.round(current);
+            bar.style.width  = current.toFixed(1) + '%';
+            pct.textContent  = display + '%';
+
+            if (display < 100) {
+                requestAnimationFrame(tick);
+            } else {
+                /* Reached 100 — begin dismiss after a beat */
+                setTimeout(dismiss, 280);
+            }
+        }
+        requestAnimationFrame(tick);
+
+        /* Simulate steady progress milestones for trust feel */
+        function scheduleProgress() {
+            var milestones = [
+                { pct: 30, delay: 300  + Math.random() * SPEED_VARIANCE },
+                { pct: 55, delay: 700  + Math.random() * SPEED_VARIANCE },
+                { pct: 72, delay: 1100 + Math.random() * SPEED_VARIANCE },
+                { pct: 88, delay: 1700 + Math.random() * SPEED_VARIANCE },
+            ];
+            milestones.forEach(function (m) {
+                setTimeout(function () {
+                    if (m.pct > target) target = m.pct;
+                }, m.delay);
+            });
+        }
+        scheduleProgress();
+
+        /* ── Page-load trigger ──────────────────────────────────────────── */
+        function onPageReady() {
+            var elapsed = performance.now() - startTs;
+            var remaining = MIN_DURATION - elapsed;
+            if (remaining > 0) {
+                setTimeout(function () { pageReady = true; }, remaining);
+            } else {
+                pageReady = true;
+            }
+        }
+
+        if (document.readyState === 'complete') {
+            onPageReady();
+        } else {
+            window.addEventListener('load', onPageReady, { once: true, passive: true });
+        }
+
+        /* ── Dismiss preloader ──────────────────────────────────────────── */
+        function dismiss() {
+            cancelAnimationFrame(rafId); /* stop canvas loop */
+            overlay.classList.add('vs-hidden');
+            document.body.classList.remove('vs-loading');
+            /* Remove from DOM after transition ends to free memory */
+            overlay.addEventListener('transitionend', function () {
+                overlay.remove();
+                if (canvas) canvas.remove();
+            }, { once: true });
+        }
+
+        /* ── Safety fallback — never hang > 6 s ─────────────────────────── */
+        setTimeout(function () {
+            pageReady = true;
+        }, 6000);
+
+    }());
+    </script>
+    <!-- ══ END PRELOADER CONTROLLER ════════════════════════════════════════ -->
+
+    <!-- ══ VS LOGO CINEMATIC ENHANCEMENTS ══════════════════════════════════ -->
+    <script>
+    (function () {
+        var cp = document.getElementById('centerpiece');
+        var hv = document.querySelector('.hero-visual');
+        if (!cp) return;
+
+        function mk(cls) {
+            var d = document.createElement('div');
+            d.className = cls;
+            d.setAttribute('aria-hidden', 'true');
+            return d;
+        }
+
+        /* 1. Aperture backdrop — deepest layer */
+        cp.insertBefore(mk('vs-aperture'), cp.firstChild);
+
+        /* 2. Background radial glow — behind VS, in front of aperture */
+        cp.insertBefore(mk('vs-bg-glow'), cp.children[1]);
+
+        /* 3. Left Fresnel rig */
+        var rigL = mk('vs-rig vs-rig-left');
+        rigL.appendChild(mk('vs-beam-scatter'));
+        rigL.appendChild(mk('vs-beam-body'));
+        rigL.appendChild(mk('vs-beam-core'));
+        rigL.appendChild(mk('vs-fixture'));
+        cp.appendChild(rigL);
+
+        /* 4. Right Fresnel rig */
+        var rigR = mk('vs-rig vs-rig-right');
+        rigR.appendChild(mk('vs-beam-scatter'));
+        rigR.appendChild(mk('vs-beam-body'));
+        rigR.appendChild(mk('vs-beam-core'));
+        rigR.appendChild(mk('vs-fixture'));
+        cp.appendChild(rigR);
+
+        /* 5. Atmospheric haze columns */
+        cp.appendChild(mk('vs-atmo vs-atmo-left'));
+        cp.appendChild(mk('vs-atmo vs-atmo-right'));
+
+        /* 6. Floor glow */
+        cp.appendChild(mk('vs-floor-glow'));
+
+        /* 7. Logo container extras: reflection + platform + brand text */
+        var lc = cp.querySelector('.vs-logo-container');
+        if (lc) {
+            /* Mirror reflection of VS letters */
+            var ref = mk('vs-logo-reflection');
+            ref.textContent = 'VS';
+            lc.appendChild(ref);
+
+            /* Glossy platform line grounding the logo */
+            lc.appendChild(mk('vs-platform'));
+
+            /* Brand typography */
+            var brand = mk('vs-brand-text');
+            brand.textContent = 'VISUAL SAINT VFX';
+            lc.appendChild(brand);
+        }
+
+        /* 8. Canvas fog — warm dust motes in beam zones */
+        var fog = document.createElement('canvas');
+        fog.className = 'vs-fog-canvas';
+        fog.setAttribute('aria-hidden', 'true');
+        cp.appendChild(fog);
+
+        var fogCtx, motes = [], fogRaf = null;
+
+        function initFog() {
+            fog.width  = cp.offsetWidth  || 500;
+            fog.height = cp.offsetHeight || 500;
+            fogCtx = fog.getContext('2d');
+            motes = [];
+            var w = fog.width, h = fog.height;
+            for (var i = 0; i < 28; i++) {
+                var left = i < 14;
+                motes.push({
+                    x:  left ? Math.random() * w * 0.36 : w * 0.64 + Math.random() * w * 0.36,
+                    y:  Math.random() * h,
+                    r:  Math.random() * 2.0 + 0.5,
+                    vy: Math.random() * 0.18 + 0.04,
+                    vx: (Math.random() - 0.5) * 0.10,
+                    a:  Math.random() * 0.11 + 0.03,
+                    left: left
+                });
+            }
+        }
+
+        function drawFog() {
+            fogCtx.clearRect(0, 0, fog.width, fog.height);
+            for (var i = 0; i < motes.length; i++) {
+                var m = motes[i];
+                m.y -= m.vy; m.x += m.vx;
+                if (m.y < -6) {
+                    m.y = fog.height + 4;
+                    m.x = m.left ? Math.random() * fog.width * 0.36
+                                 : fog.width * 0.64 + Math.random() * fog.width * 0.36;
+                }
+                var g = fogCtx.createRadialGradient(m.x, m.y, 0, m.x, m.y, m.r * 4);
+                g.addColorStop(0, 'rgba(255,248,225,' + m.a + ')');
+                g.addColorStop(1, 'rgba(255,248,225,0)');
+                fogCtx.beginPath();
+                fogCtx.arc(m.x, m.y, m.r * 4, 0, Math.PI * 2);
+                fogCtx.fillStyle = g;
+                fogCtx.fill();
+            }
+            fogRaf = requestAnimationFrame(drawFog);
+        }
+
+        initFog();
+        window.addEventListener('resize', initFog, { passive: true });
+
+        /* 9. Studio Lights Toggle */
+        if (!hv) return;
+
+        var ctrl = document.createElement('div');
+        ctrl.className = 'vs-studio-ctrl';
+        ctrl.id = 'vs-studio-ctrl';
+        ctrl.setAttribute('role', 'button');
+        ctrl.setAttribute('tabindex', '0');
+        ctrl.setAttribute('aria-label', 'Toggle studio lights');
+        ctrl.innerHTML =
+            '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">' +
+              '<circle cx="12" cy="9" r="3"/><path d="M12 13v5"/><path d="M9 18h6"/>' +
+              '<path d="M5.5 5.5L7 7"/><path d="M18.5 5.5L17 7"/>' +
+              '<path d="M3 9h2"/><path d="M19 9h2"/>' +
+            '</svg>' +
+            '<span>STUDIO LIGHTS</span>' +
+            '<div class="vs-ctrl-pip"></div>';
+        hv.appendChild(ctrl);
+
+        var on = false;
+
+        function powerOn() {
+            on = true;
+            cp.classList.add('lights-on');
+            ctrl.classList.add('active');
+            if (!fogRaf) drawFog();
+        }
+        function powerOff() {
+            on = false;
+            cp.classList.remove('lights-on');
+            ctrl.classList.remove('active');
+            setTimeout(function () {
+                if (!on) {
+                    cancelAnimationFrame(fogRaf); fogRaf = null;
+                    fogCtx.clearRect(0, 0, fog.width, fog.height);
+                }
+            }, 3600);
+        }
+
+        ctrl.addEventListener('click', function () { on ? powerOff() : powerOn(); });
+        ctrl.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); on ? powerOff() : powerOn(); }
+        });
+    }());
+    </script>
+    <!-- ══ END VS LOGO ENHANCEMENTS ════════════════════════════════════════ -->
 </body>
 
 </html>

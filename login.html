@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>VISUAL SAINT VFX | Portal Login</title>
+    <!-- Use existing styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/mobile-nav.css">
+    <style>
+        /* Specific login styles that match the existing website */
+        .login-page-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+            padding-top: 80px; /* offset navbar */
+        }
+        .login-glass-card {
+            background: rgba(10, 10, 15, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 3rem 2.5rem;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+        .login-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .login-tab {
+            flex: 1;
+            padding: 1rem;
+            cursor: pointer;
+            color: rgba(255,255,255,0.5);
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+        .login-tab.active {
+            color: #fff;
+            border-bottom: 2px solid #d4af37;
+        }
+        .login-form {
+            display: none;
+            text-align: left;
+        }
+        .login-form.active {
+            display: block;
+        }
+        .input-wrapper {
+            margin-bottom: 1.5rem;
+        }
+        .input-wrapper label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+            font-family: 'Outfit', sans-serif;
+        }
+        .input-wrapper input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+        }
+        .input-wrapper input:focus {
+            outline: none;
+            border-color: #d4af37;
+            background: rgba(0,0,0,0.5);
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+        .btn-submit:hover {
+            background: #d4af37;
+        }
+        .login-header h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+        .login-header p {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+        #login-toast {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: rgba(255,50,50,0.2);
+            border-left: 4px solid #ff3333;
+            padding: 15px 20px;
+            border-radius: 4px;
+            color: #fff;
+            backdrop-filter: blur(10px);
+            transform: translateX(150%);
+            transition: transform 0.3s;
+            z-index: 1000;
+            font-family: 'Inter', sans-serif;
+        }
+        #login-toast.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Atmosphere -->
+    <div class="bg-atmosphere">
+        <div class="glow-orb purple-orb"></div>
+        <div class="glow-orb blue-orb"></div>
+        <div class="glow-orb orange-orb"></div>
+        <div class="particles" id="particles"></div>
+    </div>
+
+    <!-- Premium Navbar -->
+    <nav class="glass-navbar">
+        <div class="nav-container">
+            <a href="index.html" style="text-decoration: none;">
+                <div class="logo">
+                    <span class="logo-icon">VS</span>
+                    <div class="logo-text">
+                        <h1>VISUAL SAINT</h1>
+                        <p>PRODUCTIONS</p>
+                    </div>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="wedding.html">Wedding Films</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html" class="nav-login-btn active" style="padding: 6px 14px; border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; margin-left: 10px; transition: all 0.3s;">Portal Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="login-toast"></div>
+
+    <main class="login-page-section">
+        <div class="login-glass-card">
+            <div class="login-header">
+                <h2>Portal Access</h2>
+                <p>Secure login for clients and studio staff</p>
+            </div>
+
+            <div class="login-tabs">
+                <div class="login-tab active" onclick="switchTab('client')">Client</div>
+                <div class="login-tab" onclick="switchTab('admin')">Admin</div>
+            </div>
+
+            <!-- Client Login Form -->
+            <form id="client-form" class="login-form active" onsubmit="handleLogin(event, 'client')">
+                <div class="input-wrapper">
+                    <label for="client_id">Client ID</label>
+                    <input type="text" id="client_id" required placeholder="Enter your ID">
+                </div>
+                <div class="input-wrapper">
+                    <label for="client_password">Password</label>
+                    <input type="password" id="client_password" required placeholder="Enter your password">
+                </div>
+                <button type="submit" class="btn-submit">Access Gallery</button>
+            </form>
+
+            <!-- Admin Login Form -->
+            <form id="admin-form" class="login-form" onsubmit="handleLogin(event, 'admin')">
+                <div class="input-wrapper">
+                    <label for="admin_email">Admin Email</label>
+                    <input type="email" id="admin_email" required placeholder="admin@visualsaint.com">
+                </div>
+                <div class="input-wrapper">
+                    <label for="admin_password">Password</label>
+                    <input type="password" id="admin_password" required placeholder="Enter admin password">
+                </div>
+                <button type="submit" class="btn-submit">Access Dashboard</button>
+            </form>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        function switchTab(type) {
+            document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.login-form').forEach(f => f.classList.remove('active'));
+            
+            if(type === 'client') {
+                document.querySelectorAll('.login-tab')[0].classList.add('active');
+                document.getElementById('client-form').classList.add('active');
+            } else {
+                document.querySelectorAll('.login-tab')[1].classList.add('active');
+                document.getElementById('admin-form').classList.add('active');
+            }
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('login-toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 3000);
+        }
+
+        async function handleLogin(e, type) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            btn.textContent = 'Authenticating...';
+            btn.disabled = true;
+
+            const API_URL = 'http://localhost:5000/api';
+            let payload = {};
+            let endpoint = '';
+
+            if (type === 'client') {
+                payload = {
+                    client_id: document.getElementById('client_id').value,
+                    password: document.getElementById('client_password').value
+                };
+                endpoint = '/client/login';
+            } else {
+                payload = {
+                    email: document.getElementById('admin_email').value,
+                    password: document.getElementById('admin_password').value
+                };
+                endpoint = '/admin/login';
+            }
+
+            try {
+                const res = await fetch(API_URL + endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                const data = await res.json();
+                
+                if (data.success) {
+                    if (type === 'client') {
+                        localStorage.setItem('clientToken', data.token);
+                        localStorage.setItem('clientName', data.client.name);
+                        window.location.href = 'client/index.html';
+                    } else {
+                        localStorage.setItem('adminToken', data.token);
+                        window.location.href = 'admin/index.html';
+                    }
+                } else {
+                    showToast(data.message || 'Invalid credentials');
+                }
+            } catch (err) {
+                showToast('Server error. Ensure backend is running.');
+            } finally {
+                btn.textContent = type === 'client' ? 'Access Gallery' : 'Access Dashboard';
+                btn.disabled = false;
+            }
+        }
+    </script>
+</body>
+</html>

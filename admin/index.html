@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Saint VFX | Admin Portal</title>
+    <script>
+        // Ensure trailing slash so relative paths (css/admin.css) resolve correctly
+        if (window.location.protocol.startsWith('http') && !window.location.pathname.endsWith('/') && !window.location.pathname.endsWith('.html')) {
+            window.location.replace(window.location.href.split('?')[0] + '/' + window.location.search + window.location.hash);
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <div id="toast-container"></div>
+
+
+
+    <!-- Dashboard Section -->
+    <section id="dashboard-section" class="active">
+        <nav class="sidebar glass-card">
+            <div class="sidebar-header">
+                <h2>VS</h2>
+                <span>ADMIN</span>
+            </div>
+            <ul class="nav-links">
+                <li class="active" data-target="overview"><i class="icon-grid"></i> Overview</li>
+                <li data-target="clients"><i class="icon-users"></i> Clients</li>
+                <li data-target="upload"><i class="icon-upload"></i> Upload Media</li>
+            </ul>
+            <div class="sidebar-footer">
+                <button id="logout-btn" class="btn btn-danger btn-full">Logout</button>
+            </div>
+        </nav>
+
+        <main class="dashboard-content">
+            <!-- Overview View -->
+            <div id="view-overview" class="view-section active">
+                <header>
+                    <h1>Studio Dashboard</h1>
+                    <p>Welcome back, Admin</p>
+                </header>
+                <div class="stats-grid">
+                    <div class="stat-card glass-card">
+                        <h3>Total Clients</h3>
+                        <p id="stat-total-clients">0</p>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <h3>Total Media Uploads</h3>
+                        <p id="stat-total-uploads">0</p>
+                    </div>
+                </div>
+                
+                <h2 class="section-title">Recent Activity</h2>
+                <div class="glass-card table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Client</th>
+                                <th>File Name</th>
+                                <th>Type</th>
+                                <th>Upload Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-activity-list">
+                            <!-- populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Clients View -->
+            <div id="view-clients" class="view-section hidden">
+                <header class="flex-between">
+                    <div>
+                        <h1>Client Management</h1>
+                        <p>Manage studio client access</p>
+                    </div>
+                    <button class="btn btn-primary" id="open-add-client-modal">+ New Client</button>
+                </header>
+
+                <div class="glass-card table-container mt-4">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Client ID</th>
+                                <th>Name</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="clients-list">
+                            <!-- populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Upload View -->
+            <div id="view-upload" class="view-section hidden">
+                <header>
+                    <h1>Upload Media</h1>
+                    <p>Securely deliver assets to clients</p>
+                </header>
+
+                <div class="glass-card upload-container mt-4">
+                    <form id="upload-form">
+                        <div class="input-group">
+                            <label for="select-client">Select Client</label>
+                            <select id="select-client" required>
+                                <option value="">-- Choose a Client --</option>
+                                <!-- populated by JS -->
+                            </select>
+                        </div>
+                        
+                        <div class="drop-zone" id="drop-zone">
+                            <span class="drop-icon">📁</span>
+                            <p>Drag & Drop files here or click to browse</p>
+                            <input type="file" id="file-input" multiple required hidden>
+                            <div id="file-list-preview" class="file-preview-grid"></div>
+                        </div>
+
+                        <div class="progress-bar-container hidden" id="upload-progress-container">
+                            <div class="progress-bar" id="upload-progress-bar"></div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full mt-4" id="btn-upload" disabled>Upload Files</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </section>
+
+    <!-- Modals -->
+    <div id="add-client-modal" class="modal hidden">
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <h2>Create New Client</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <form id="add-client-form">
+                <div class="input-group">
+                    <label for="new-client-name">Client Name</label>
+                    <input type="text" id="new-client-name" required placeholder="e.g. John & Jane Wedding">
+                </div>
+                <div class="input-group">
+                    <label for="new-client-id">Login ID</label>
+                    <input type="text" id="new-client-id" required placeholder="e.g. johnjane24">
+                </div>
+                <div class="input-group">
+                    <label for="new-client-password">Password</label>
+                    <input type="text" id="new-client-password" required placeholder="Create a strong password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-full mt-4">Create Client Account</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

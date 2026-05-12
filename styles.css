@@ -4,13 +4,13 @@
     --text-secondary: #a0a0ab;
     --glass-bg: rgba(20, 20, 25, 0.4);
     --glass-border: rgba(255, 255, 255, 0.08);
-    
+
     /* Glow Colors */
     --glow-purple: rgba(138, 43, 226, 0.6);
     --glow-blue: rgba(0, 140, 255, 0.6);
     --glow-orange: rgba(255, 140, 0, 0.6);
     --glow-red: rgba(255, 40, 60, 0.6);
-    
+
     --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -37,7 +37,11 @@ body {
     -webkit-touch-callout: none;
 }
 
-h1, h2, h3, h4, .logo-icon {
+h1,
+h2,
+h3,
+h4,
+.logo-icon {
     font-family: 'Outfit', sans-serif;
 }
 
@@ -96,8 +100,13 @@ a {
 }
 
 @keyframes float {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(50px, 50px) scale(1.1); }
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate(50px, 50px) scale(1.1);
+    }
 }
 
 /* Navbar */
@@ -177,7 +186,8 @@ a {
     padding: 5px 0;
 }
 
-.nav-links a:hover, .nav-links a.active {
+.nav-links a:hover,
+.nav-links a.active {
     color: var(--text-primary);
 }
 
@@ -195,7 +205,8 @@ a {
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
-.nav-links a:hover::after, .nav-links a.active::after {
+.nav-links a:hover::after,
+.nav-links a.active::after {
     width: 100%;
 }
 
@@ -218,7 +229,8 @@ a {
     justify-content: space-between;
     align-items: flex-start;
     gap: 60px;
-    padding-top: 60px; /* exact 60px gap below navbar */
+    padding-top: 60px;
+    /* exact 60px gap below navbar */
 }
 
 /* Hero Content - Left Side */
@@ -240,7 +252,7 @@ a {
     text-transform: uppercase;
     color: var(--text-secondary);
     margin-bottom: 30px;
-    box-shadow: 0 0 20px rgba(255,255,255,0.02);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.02);
 }
 
 .cinematic-heading {
@@ -269,13 +281,21 @@ a {
 }
 
 @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
 }
 
 .block-type {
     display: block;
-    margin-top: 15px; /* Spacing between the static text and typed text */
+    margin-top: 15px;
+    /* Spacing between the static text and typed text */
 }
 
 .premium-subtext {
@@ -325,7 +345,7 @@ a {
     left: -100%;
     width: 50%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
     transform: skewX(-20deg);
     transition: 0.5s;
     z-index: -1;
@@ -409,59 +429,66 @@ a {
 }
 
 @keyframes slow-scene-spin {
-    0% { transform: rotateY(0deg) rotateX(10deg); }
-    100% { transform: rotateY(360deg) rotateX(10deg); }
+    0% {
+        transform: rotateY(0deg) rotateX(10deg);
+    }
+
+    100% {
+        transform: rotateY(360deg) rotateX(10deg);
+    }
 }
 
-/* 3D VS Text */
+
+/* 3D VS Text — animation overridden by css/vs-logo.css */
 .vs-logo-container {
     position: absolute;
     transform-style: preserve-3d;
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Reverse the spin so the text always faces forward but still has a 3D feel */
-    animation: counter-scene-spin 25s linear infinite;
+    /* Base state — vs-logo.css supplies the cinematic animation */
+    animation: none;
 }
 
+/* counter-scene-spin kept as a no-op so nothing else breaks */
 @keyframes counter-scene-spin {
-    0% { transform: rotateY(0deg); }
+    0%   { transform: rotateY(0deg); }
     100% { transform: rotateY(-360deg); }
 }
 
+/* VS text base — colors + animation provided by css/vs-logo.css */
 .vs-minimal-text {
     font-size: 220px;
     font-weight: 700;
     font-family: 'Outfit', sans-serif;
-    color: #0b0b10;
+    color: transparent;          /* vs-logo.css paints the metallic look */
     position: relative;
     letter-spacing: -12px;
-    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.9));
-    /* Prevent blurry text on GPU layers */
     -webkit-font-smoothing: antialiased;
 }
 
+/* Old rainbow ::before — replaced by cinematic chrome in vs-logo.css */
 .vs-minimal-text::before {
     content: attr(data-text);
     position: absolute;
     left: 0;
     top: 0;
     z-index: -1;
-    /* Fix for Webkit background-clip getting cut off at the edges */
     padding: 20px;
     margin: -20px;
     -webkit-text-stroke: 6px transparent;
-    background: linear-gradient(90deg, #8a2be2, #008cff, #ff8c00, #ff283c, #8a2be2);
-    background-size: 400% 100%;
+    /* Neutral — vs-logo.css overrides background + animation */
+    background: transparent;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    animation: gradient-flow 6s linear infinite;
-    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.15));
+    animation: none;             /* gradient-flow disabled */
+    filter: none;
 }
 
+/* gradient-flow kept as no-op so no console errors */
 @keyframes gradient-flow {
-    0% { background-position: 0% 50%; }
+    0%   { background-position: 0%   50%; }
     100% { background-position: 100% 50%; }
 }
 
@@ -476,10 +503,21 @@ a {
     align-items: center;
 }
 
-.orbit-tilt-1 { transform: rotateX(65deg) rotateY(15deg); }
-.orbit-tilt-2 { transform: rotateX(75deg) rotateY(-25deg); }
-.orbit-tilt-3 { transform: rotateX(55deg) rotateY(35deg); }
-.orbit-tilt-4 { transform: rotateX(85deg) rotateY(-15deg); }
+.orbit-tilt-1 {
+    transform: rotateX(65deg) rotateY(15deg);
+}
+
+.orbit-tilt-2 {
+    transform: rotateX(75deg) rotateY(-25deg);
+}
+
+.orbit-tilt-3 {
+    transform: rotateX(55deg) rotateY(35deg);
+}
+
+.orbit-tilt-4 {
+    transform: rotateX(85deg) rotateY(-15deg);
+}
 
 /* Orbit Spinners */
 .orbit-spin {
@@ -493,14 +531,40 @@ a {
     backface-visibility: hidden;
 }
 
-.spin-1 { width: 350px; height: 350px; animation-duration: 15s; }
-.spin-2 { width: 450px; height: 450px; animation-duration: 20s; animation-direction: reverse; }
-.spin-3 { width: 550px; height: 550px; animation-duration: 25s; }
-.spin-4 { width: 280px; height: 280px; animation-duration: 18s; animation-direction: reverse; }
+.spin-1 {
+    width: 350px;
+    height: 350px;
+    animation-duration: 15s;
+}
+
+.spin-2 {
+    width: 450px;
+    height: 450px;
+    animation-duration: 20s;
+    animation-direction: reverse;
+}
+
+.spin-3 {
+    width: 550px;
+    height: 550px;
+    animation-duration: 25s;
+}
+
+.spin-4 {
+    width: 280px;
+    height: 280px;
+    animation-duration: 18s;
+    animation-direction: reverse;
+}
 
 @keyframes spin-orbit {
-    0% { transform: translate(-50%, -50%) rotateZ(0deg); }
-    100% { transform: translate(-50%, -50%) rotateZ(360deg); }
+    0% {
+        transform: translate(-50%, -50%) rotateZ(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotateZ(360deg);
+    }
 }
 
 /* Orbit Paths */
@@ -514,21 +578,24 @@ a {
     border: 2px solid transparent;
 }
 
-.path-1 { 
-    border-color: rgba(138, 43, 226, 0.3); 
-    box-shadow: 0 0 20px rgba(138, 43, 226, 0.2), inset 0 0 20px rgba(138, 43, 226, 0.2); 
+.path-1 {
+    border-color: rgba(138, 43, 226, 0.3);
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.2), inset 0 0 20px rgba(138, 43, 226, 0.2);
 }
-.path-2 { 
-    border-color: rgba(0, 140, 255, 0.3); 
-    box-shadow: 0 0 20px rgba(0, 140, 255, 0.2), inset 0 0 20px rgba(0, 140, 255, 0.2); 
+
+.path-2 {
+    border-color: rgba(0, 140, 255, 0.3);
+    box-shadow: 0 0 20px rgba(0, 140, 255, 0.2), inset 0 0 20px rgba(0, 140, 255, 0.2);
 }
-.path-3 { 
-    border-color: rgba(255, 140, 0, 0.3); 
-    box-shadow: 0 0 20px rgba(255, 140, 0, 0.2), inset 0 0 20px rgba(255, 140, 0, 0.2); 
+
+.path-3 {
+    border-color: rgba(255, 140, 0, 0.3);
+    box-shadow: 0 0 20px rgba(255, 140, 0, 0.2), inset 0 0 20px rgba(255, 140, 0, 0.2);
 }
-.path-4 { 
-    border-color: rgba(255, 40, 60, 0.3); 
-    box-shadow: 0 0 20px rgba(255, 40, 60, 0.2), inset 0 0 20px rgba(255, 40, 60, 0.2); 
+
+.path-4 {
+    border-color: rgba(255, 40, 60, 0.3);
+    box-shadow: 0 0 20px rgba(255, 40, 60, 0.2), inset 0 0 20px rgba(255, 40, 60, 0.2);
 }
 
 /* Orbit Icons */
@@ -548,7 +615,7 @@ a {
     align-items: center;
     backdrop-filter: blur(5px);
     /* Counteract the orbit tilt roughly so they stand up */
-    transform: rotateX(-90deg) rotateY(0deg); 
+    transform: rotateX(-90deg) rotateY(0deg);
     box-shadow: 0 0 15px currentColor;
 }
 
@@ -557,10 +624,25 @@ a {
     height: 20px;
 }
 
-.icon-motion { color: #8a2be2; border-color: rgba(138, 43, 226, 0.5); }
-.icon-marketing { color: #008cff; border-color: rgba(0, 140, 255, 0.5); }
-.icon-photo { color: #ff8c00; border-color: rgba(255, 140, 0, 0.5); }
-.icon-ad { color: #ff283c; border-color: rgba(255, 40, 60, 0.5); }
+.icon-motion {
+    color: #8a2be2;
+    border-color: rgba(138, 43, 226, 0.5);
+}
+
+.icon-marketing {
+    color: #008cff;
+    border-color: rgba(0, 140, 255, 0.5);
+}
+
+.icon-photo {
+    color: #ff8c00;
+    border-color: rgba(255, 140, 0, 0.5);
+}
+
+.icon-ad {
+    color: #ff283c;
+    border-color: rgba(255, 40, 60, 0.5);
+}
 
 /* Bottom Service Cards */
 .services-heading {
@@ -601,8 +683,13 @@ a {
     opacity: 0.6;
 }
 
-.services-heading-wrap .sub::before { right: 100%; }
-.services-heading-wrap .sub::after  { left: 100%; }
+.services-heading-wrap .sub::before {
+    right: 100%;
+}
+
+.services-heading-wrap .sub::after {
+    left: 100%;
+}
 
 .services-track {
     margin-top: 0;
@@ -718,9 +805,11 @@ a {
    static sections. Does not alter layout, appearance, or functionality.
 */
 @media (max-width: 900px) {
+
     /* Reduce orbit complexity on mobile: use GPU layers to stay at 60fps */
     .vs-3d-scene {
-        animation-duration: 30s; /* Slightly slower = less GPU work per frame */
+        animation-duration: 30s;
+        /* Slightly slower = less GPU work per frame */
     }
 
     /* Isolate service cards so hovering one doesn't repaint the whole grid */
@@ -731,8 +820,14 @@ a {
 
 /* Responsive */
 @media (max-width: 1200px) {
-    .cinematic-heading { font-size: 3rem; }
-    .cards-container { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    .cinematic-heading {
+        font-size: 3rem;
+    }
+
+    .cards-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
 }
 
 @media (max-width: 900px) {
@@ -740,10 +835,18 @@ a {
         flex-direction: column;
         text-align: center;
         gap: 20px;
-        align-items: center;  /* re-center columns on mobile */
+        align-items: center;
+        /* re-center columns on mobile */
         padding-top: 40px;
     }
-    .hero-content { max-width: 100%; display: flex; flex-direction: column; align-items: center; }
+
+    .hero-content {
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
     .hero-visual {
         width: 100%;
         display: flex;
@@ -751,18 +854,55 @@ a {
         align-items: center;
         overflow: hidden;
     }
-    .stats-container { justify-content: center; }
-    .centerpiece-container { max-width: 320px; }
-    .nav-links { display: none; }
+
+    .stats-container {
+        justify-content: center;
+    }
+
+    .centerpiece-container {
+        max-width: 320px;
+    }
+
+    .nav-links {
+        display: none;
+    }
 
     /* Scale 3D Scene for Tablet */
-    .vs-minimal-text { font-size: 120px; }
-    .spin-1 { width: 200px; height: 200px; }
-    .spin-2 { width: 260px; height: 260px; }
-    .spin-3 { width: 320px; height: 320px; }
-    .spin-4 { width: 160px; height: 160px; }
-    .orbit-icon { width: 28px; height: 28px; margin-left: -14px; margin-top: -14px; }
-    .orbit-icon svg { width: 14px; height: 14px; }
+    .vs-minimal-text {
+        font-size: 120px;
+    }
+
+    .spin-1 {
+        width: 200px;
+        height: 200px;
+    }
+
+    .spin-2 {
+        width: 260px;
+        height: 260px;
+    }
+
+    .spin-3 {
+        width: 320px;
+        height: 320px;
+    }
+
+    .spin-4 {
+        width: 160px;
+        height: 160px;
+    }
+
+    .orbit-icon {
+        width: 28px;
+        height: 28px;
+        margin-left: -14px;
+        margin-top: -14px;
+    }
+
+    .orbit-icon svg {
+        width: 14px;
+        height: 14px;
+    }
 
     /* Stop 360° spin — gentle float */
     .vs-3d-scene {
@@ -778,12 +918,22 @@ a {
 
 /* Keyframe: subtle up/down tilt — mimics the desktop mouse-follow feel */
 @keyframes mobile-vs-float {
-    0%, 100% { transform: rotateY(-4deg) rotateX(8deg)  translateY(0px); }
-    50%       { transform: rotateY(4deg)  rotateX(13deg) translateY(-18px); }
+
+    0%,
+    100% {
+        transform: rotateY(-4deg) rotateX(8deg) translateY(0px);
+    }
+
+    50% {
+        transform: rotateY(4deg) rotateX(13deg) translateY(-18px);
+    }
 }
 
 @media (max-width: 600px) {
-    .hero-section { padding-top: 90px; }
+    .hero-section {
+        padding-top: 90px;
+    }
+
     .hero-visual {
         padding: 10px 0;
         width: 100%;
@@ -791,23 +941,68 @@ a {
         display: flex;
         justify-content: center;
     }
-    .cards-container { grid-template-columns: 1fr; }
-    .cinematic-heading { font-size: 2rem; }
-    .cta-group { flex-direction: column; width: 100%; }
-    .stats-container { flex-direction: column; gap: 20px; align-items: center; padding-top: 10px; }
+
+    .cards-container {
+        grid-template-columns: 1fr;
+    }
+
+    .cinematic-heading {
+        font-size: 2rem;
+    }
+
+    .cta-group {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .stats-container {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        padding-top: 10px;
+    }
+
     .centerpiece-container {
         max-width: 260px;
         margin: 0 auto;
     }
 
     /* Scale 3D Scene for Mobile — smaller to prevent overflow */
-    .vs-minimal-text { font-size: 90px; }
-    .spin-1 { width: 140px; height: 140px; }
-    .spin-2 { width: 185px; height: 185px; }
-    .spin-3 { width: 225px; height: 225px; }
-    .spin-4 { width: 115px; height: 115px; }
-    .orbit-icon { width: 22px; height: 22px; margin-left: -11px; margin-top: -11px; }
-    .orbit-icon svg { width: 11px; height: 11px; }
+    .vs-minimal-text {
+        font-size: 90px;
+    }
+
+    .spin-1 {
+        width: 140px;
+        height: 140px;
+    }
+
+    .spin-2 {
+        width: 185px;
+        height: 185px;
+    }
+
+    .spin-3 {
+        width: 225px;
+        height: 225px;
+    }
+
+    .spin-4 {
+        width: 115px;
+        height: 115px;
+    }
+
+    .orbit-icon {
+        width: 22px;
+        height: 22px;
+        margin-left: -11px;
+        margin-top: -11px;
+    }
+
+    .orbit-icon svg {
+        width: 11px;
+        height: 11px;
+    }
 }
 
 /* ==========================================================================
@@ -836,6 +1031,7 @@ a {
 /* Accessibility + Android low-power mode: respect the OS "reduce motion"
    setting by pausing ALL CSS animations. No visual redesign. */
 @media (prefers-reduced-motion: reduce) {
+
     *,
     *::before,
     *::after {

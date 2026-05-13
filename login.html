@@ -218,6 +218,17 @@
 
     <script src="script.js"></script>
     <script>
+        // ── Wake up Render backend on page load ───────────────────────────────
+        // Fires a cheap health-check so the server is warm when the user hits Login
+        (async function wakeUpServer() {
+            try {
+                await fetch('https://visualsaintvfx.onrender.com/health', { method: 'GET' });
+                console.log('[Server] Backend is awake.');
+            } catch (e) {
+                console.warn('[Server] Could not ping backend on load.', e);
+            }
+        })();
+
         function switchTab(type) {
             document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.login-form').forEach(f => f.classList.remove('active'));
@@ -230,6 +241,7 @@
                 document.getElementById('admin-form').classList.add('active');
             }
         }
+
 
         function showToast(msg) {
             const toast = document.getElementById('login-toast');
@@ -244,9 +256,14 @@
             btn.textContent = 'Authenticating...';
             btn.disabled = true;
 
-            const API_URL = 'http://localhost:5000/api';
+            const API_URL = 'https://visualsaintvfx.onrender.com/api';
             let payload = {};
             let endpoint = '';
+            
+            // Render cold start message
+            let loadingTimeout = setTimeout(() => {
+                btn.textContent = 'Waking up server (takes ~30s)...';
+            }, 3000);
 
             if (type === 'client') {
                 payload = {
@@ -284,8 +301,9 @@
                     showToast(data.message || 'Invalid credentials');
                 }
             } catch (err) {
-                showToast('Server error. Ensure backend is running.');
+                showToast('Unable to connect to server. Please try again.');
             } finally {
+                clearTimeout(loadingTimeout);
                 btn.textContent = type === 'client' ? 'Access Gallery' : 'Access Dashboard';
                 btn.disabled = false;
             }

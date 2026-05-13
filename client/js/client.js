@@ -1,4 +1,5 @@
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://visualsaintvfx.onrender.com/api';
+const BASE_URL = 'https://visualsaintvfx.onrender.com';
 
 // State
 let token = localStorage.getItem('clientToken');
@@ -16,13 +17,25 @@ const lightboxVideo = document.getElementById('lightbox-video');
 const lightboxDownload = document.getElementById('lightbox-download');
 const closeLightboxBtn = document.querySelector('.close-lightbox');
 
-document.addEventListener('DOMContentLoaded', () => {
+// ── Keep-Alive Ping ───────────────────────────────────────────────────────────
+async function wakeUpServer() {
+    try {
+        await fetch(`${BASE_URL}/health`, { method: 'GET' });
+        console.log('[Server] Backend is awake.');
+    } catch (e) {
+        console.warn('[Server] Could not reach backend yet...', e);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
     if (!token) {
         window.location.href = '../login.html';
         return;
     }
+    await wakeUpServer();
     showGallery();
 });
+
 
 function showToast(message) {
     const container = document.getElementById('toast-container');
@@ -73,7 +86,7 @@ async function loadGalleryData() {
         }
     } catch (err) {
         console.error('Failed to load gallery', err);
-        showToast('Error loading gallery');
+        showToast('Network error. Reconnecting to server...', 'error');
     }
 }
 

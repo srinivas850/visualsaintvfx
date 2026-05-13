@@ -1,4 +1,5 @@
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://visualsaintvfx.onrender.com/api';
+const BASE_URL = 'https://visualsaintvfx.onrender.com';
 
 // State
 let token = localStorage.getItem('adminToken');
@@ -11,14 +12,28 @@ const navLinks = document.querySelectorAll('.nav-links li');
 const viewSections = document.querySelectorAll('.view-section');
 const logoutBtn = document.getElementById('logout-btn');
 
+// ── Keep-Alive Ping ───────────────────────────────────────────────────────────
+// Wakes up the Render free-tier backend when the admin panel is opened.
+// This prevents the "backend not working" error on mobile due to cold starts.
+async function wakeUpServer() {
+    try {
+        await fetch(`${BASE_URL}/health`, { method: 'GET' });
+        console.log('[Server] Backend is awake.');
+    } catch (e) {
+        console.warn('[Server] Could not reach backend yet, will retry...', e);
+    }
+}
+
 // Initialization
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     if (!token) {
         window.location.href = '../login.html';
         return;
     }
+    await wakeUpServer();
     loadDashboardData();
 });
+
 
 // Toast Notifications
 function showToast(message, type = 'success') {
@@ -75,16 +90,23 @@ async function authFetch(endpoint, options = {}) {
         ...options.headers
     };
     
-    const res = await fetch(`${API_URL}${endpoint}`, { ...options, headers });
-    
-    if (res.status === 401 || res.status === 403) {
-        localStorage.removeItem('adminToken');
-        token = null;
-        window.location.href = '../login.html';
-        throw new Error('Unauthorized');
+    try {
+        const res = await fetch(`${API_URL}${endpoint}`, { ...options, headers });
+        
+        if (res.status === 401 || res.status === 403) {
+            localStorage.removeItem('adminToken');
+            token = null;
+            window.location.href = '../login.html';
+            throw new Error('Unauthorized');
+        }
+        
+        return await res.json();
+    } catch (error) {
+        console.error('Fetch error:', error);
+        if (error.message === 'Unauthorized') throw error;
+        showToast('Network error. Reconnecting to server...', 'error');
+        return { success: false, message: 'Network error or backend sleeping' };
     }
-    
-    return res.json();
 }
 
 // Dashboard Overview
@@ -314,7 +336,8 @@ document.getElementById('upload-form').addEventListener('submit', async (e) => {
             showToast(data.message || 'Upload failed', 'error');
         }
     } catch (err) {
-        showToast('Upload error', 'error');
+        console.error('Upload error:', err);
+        showToast('Upload failed. Check your connection and try again.', 'error');
     } finally {
         setTimeout(() => {
             progressContainer.classList.add('hidden');

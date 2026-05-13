@@ -81,10 +81,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // Event Listeners
     toggleBtn.addEventListener('click', toggleMenu);
 
-    // Close on link click
+    // Mobile Dropdown Toggle
+    const mobileDropdownToggle = overlay.querySelector('.mobile-nav-dropdown > a');
+    const mobileDropdownMenu = overlay.querySelector('.mobile-dropdown-menu');
+    if (mobileDropdownToggle && mobileDropdownMenu) {
+        mobileDropdownToggle.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent navigating to #services
+            mobileDropdownMenu.classList.toggle('is-open');
+        });
+    }
+
+    // Close on link click (excluding the dropdown toggle)
     const links = overlay.querySelectorAll('a');
     links.forEach(link => {
         link.addEventListener('click', (e) => {
+            if (link === mobileDropdownToggle) return; // Handled above
             // If it's a hash link, let it scroll smoothly, then close
             if (link.getAttribute('href').startsWith('#')) {
                 closeMenu();

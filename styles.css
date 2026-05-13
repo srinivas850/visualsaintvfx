@@ -1117,22 +1117,23 @@ a {
     width: 100%;
 }
 .mobile-dropdown-menu {
-    list-style: none;
+    list-style: none !important;
     padding-left: 20px;
     margin-top: 10px;
     display: none;
     border-left: 1px solid rgba(255,255,255,0.1);
 }
-.mobile-nav-dropdown:hover .mobile-dropdown-menu,
-.mobile-nav-dropdown:focus-within .mobile-dropdown-menu {
+.mobile-dropdown-menu.is-open {
     display: block;
 }
 .mobile-dropdown-menu li {
     margin: 15px 0;
+    list-style-type: none !important;
 }
 .mobile-dropdown-menu li a {
     font-size: 1.1rem;
     color: rgba(255,255,255,0.6);
+    display: block;
 }
 .mobile-dropdown-menu li a:hover {
     color: #D4AF37;

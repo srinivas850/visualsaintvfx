@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#050507">
+    <title>Motion Graphics | VISUAL SAINT VFX</title>
+    <meta name="description" content="Cinematic motion design and visual effects by Visual Saint VFX Productions.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/mobile-nav.css">
+    <link rel="stylesheet" href="css/motion-graphics.css">
+</head>
+<body class="mg-page">
+
+    <!-- Navbar -->
+    <nav class="glass-navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo" style="text-decoration:none;">
+                <span class="logo-icon">VS</span>
+                <div class="logo-text"><h1>VISUAL SAINT</h1><p>PRODUCTIONS</p></div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li class="nav-dropdown">
+                    <a href="index.html#services" class="active" style="display:flex; align-items:center; gap:5px; padding-bottom:5px;">Services 
+                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="motion-graphics.html">Motion Graphics</a></li>
+                        <li><a href="ad-agency.html">Ad Agency</a></li>
+                        <li><a href="digital-marketing.html">Digital Marketing</a></li>
+                        <li><a href="wedding.html">Wedding Films</a></li>
+                    </ul>
+                </li>
+                <li><a href="wedding.html">Wedding Films</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html" class="nav-login-btn" style="padding: 6px 14px; border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; margin-left: 10px; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='transparent'">Client Login</a></li>
+            </ul>
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay">
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li class="mobile-nav-dropdown">
+                <a href="index.html#services" class="active" style="display:flex; justify-content:space-between; align-items:center; width:100%;">Services
+                    <svg width="12" height="8" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <ul class="mobile-dropdown-menu">
+                    <li><a href="motion-graphics.html">Motion Graphics</a></li>
+                    <li><a href="ad-agency.html">Ad Agency</a></li>
+                    <li><a href="digital-marketing.html">Digital Marketing</a></li>
+                    <li><a href="wedding.html">Wedding Films</a></li>
+                </ul>
+            </li>
+            <li><a href="wedding.html">Wedding Films</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html" style="color: var(--accent, #D4AF37); border: 1px solid var(--accent, #D4AF37); padding: 5px 15px; border-radius: 20px;">Client Login</a></li>
+        </ul>
+    </div>
+
+    <!-- Cinematic Hero -->
+    <section class="mg-hero">
+        <div class="mg-hero-bg"></div>
+        <div class="mg-particles" id="mg-particles"></div>
+        <div class="mg-hero-content">
+            <div class="mg-badge">VFX & Motion Design</div>
+            <h1 class="mg-title">Gravity <span class="mg-chrome">Defied</span></h1>
+            <p class="mg-subtitle">We craft immersive, high-end motion graphics that elevate your brand beyond the physical realm.</p>
+            <a href="#showcase" class="mg-btn">View Showreel</a>
+        </div>
+        <div class="mg-scroll-indicator">
+            <div class="mg-scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Showcase Grid -->
+    <section class="mg-showcase" id="showcase">
+        <div class="mg-container">
+            <div class="mg-section-header">
+                <h2>Visual Engineering</h2>
+                <p>Pushing the boundaries of 3D and 2D animation.</p>
+            </div>
+            
+            <div class="mg-grid">
+                <div class="mg-card">
+                    <div class="mg-card-img" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop');"></div>
+                    <div class="mg-card-overlay">
+                        <h3>Abstract 3D Motion</h3>
+                        <p>Fluid dynamics and simulated physics for product reveals.</p>
+                    </div>
+                </div>
+                <div class="mg-card">
+                    <div class="mg-card-img" style="background-image: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop');"></div>
+                    <div class="mg-card-overlay">
+                        <h3>Holographic UI</h3>
+                        <p>Sci-fi inspired interface animations and HUD designs.</p>
+                    </div>
+                </div>
+                <div class="mg-card mg-card-large">
+                    <div class="mg-card-img" style="background-image: url('https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=1200&auto=format&fit=crop');"></div>
+                    <div class="mg-card-overlay">
+                        <h3>Cinematic Title Sequences</h3>
+                        <p>Hollywood-grade opening credits and typography.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Capabilities -->
+    <section class="mg-capabilities">
+        <div class="mg-container">
+            <div class="mg-cap-grid">
+                <div class="mg-cap-text">
+                    <h2>Engineering<br>The Impossible</h2>
+                    <p>Our motion team blends technical precision with artistic vision. Whether it's a high-octane commercial, a complex product explainer, or a visual effects composite for film, we deliver pixel-perfect reality.</p>
+                </div>
+                <div class="mg-cap-list">
+                    <div class="mg-cap-item">
+                        <span class="mg-cap-num">01</span>
+                        <h4>3D Product Animation</h4>
+                    </div>
+                    <div class="mg-cap-item">
+                        <span class="mg-cap-num">02</span>
+                        <h4>Compositing & VFX</h4>
+                    </div>
+                    <div class="mg-cap-item">
+                        <span class="mg-cap-num">03</span>
+                        <h4>Kinetic Typography</h4>
+                    </div>
+                    <div class="mg-cap-item">
+                        <span class="mg-cap-num">04</span>
+                        <h4>Logo Reveals</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer CTA -->
+    <section class="mg-cta">
+        <div class="mg-container">
+            <h2>Ready to Move?</h2>
+            <p>Let's animate your brand's next big moment.</p>
+            <a href="contact.html" class="mg-btn mg-btn-outline">Start a Project</a>
+        </div>
+    </section>
+
+    <footer style="padding: 40px; text-align: center; color: rgba(255,255,255,0.4); font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 50px;">
+        © 2026 Visual Saint VFX Productions.
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="js/mobile-nav.js"></script>
+    <script src="js/motion-graphics.js"></script>
+</body>
+</html>

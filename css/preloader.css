@@ -54,32 +54,32 @@ body.vs-loading {
     will-change: transform, opacity;
 }
 .vs-pl-orb-1 {
-    width: 520px;
-    height: 520px;
-    top: -160px;
-    right: -80px;
-    background: radial-gradient(circle, rgba(138,43,226,0.35) 0%, transparent 70%);
-    filter: blur(90px);
+    width: 600px;
+    height: 600px;
+    top: -200px;
+    right: -100px;
+    background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 70%);
+    filter: blur(80px);
     animation: vs-pl-drift 14s ease-in-out infinite alternate;
 }
 .vs-pl-orb-2 {
-    width: 440px;
-    height: 440px;
-    bottom: -120px;
-    left: -60px;
-    background: radial-gradient(circle, rgba(0,140,255,0.28) 0%, transparent 70%);
-    filter: blur(90px);
+    width: 500px;
+    height: 500px;
+    bottom: -150px;
+    left: -100px;
+    background: radial-gradient(circle, rgba(212,175,55,0.02) 0%, transparent 70%);
+    filter: blur(80px);
     animation: vs-pl-drift 18s ease-in-out infinite alternate-reverse;
 }
 .vs-pl-orb-3 {
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    height: 400px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: radial-gradient(circle, rgba(255,140,0,0.12) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255,255,255,0.02) 0%, transparent 70%);
     filter: blur(60px);
-    animation: vs-pl-pulse 6s ease-in-out infinite;
+    animation: vs-pl-pulse 8s ease-in-out infinite;
 }
 
 @keyframes vs-pl-drift {
@@ -99,9 +99,9 @@ body.vs-loading {
     height: 3px;
     background: linear-gradient(90deg,
         transparent 0%,
-        rgba(138,43,226,0.6) 25%,
-        rgba(0,140,255,0.6) 50%,
-        rgba(255,140,0,0.6) 75%,
+        rgba(255,255,255,0.05) 20%,
+        rgba(255,255,255,0.15) 50%,
+        rgba(255,255,255,0.05) 80%,
         transparent 100%);
     opacity: 0;
     animation: vs-pl-lb-in 1.2s ease forwards;
@@ -145,10 +145,10 @@ body.vs-loading {
     inset: -6px;
     border-radius: 26px;
     background: linear-gradient(135deg,
-        rgba(138,43,226,0.7) 0%,
-        rgba(0,140,255,0.5) 40%,
-        rgba(255,140,0,0.5) 70%,
-        rgba(138,43,226,0.7) 100%);
+        rgba(255,255,255,0.3) 0%,
+        rgba(255,255,255,0.05) 40%,
+        rgba(212,175,55,0.2) 70%,
+        rgba(255,255,255,0.3) 100%);
     padding: 2px;
     -webkit-mask:
         linear-gradient(#fff 0 0) content-box,
@@ -168,8 +168,8 @@ body.vs-loading {
     inset: -20px;
     border-radius: 50%;
     background: radial-gradient(circle,
-        rgba(138,43,226,0.25) 0%,
-        rgba(0,140,255,0.15) 50%,
+        rgba(255,255,255,0.08) 0%,
+        rgba(212,175,55,0.03) 50%,
         transparent 70%);
     filter: blur(12px);
     animation: vs-pl-glow-pulse 3s ease-in-out infinite;
@@ -185,15 +185,15 @@ body.vs-loading {
     width: 180px;
     height: 180px;
     border-radius: 22px;
-    background: rgba(20,20,28,0.45);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(10,10,12,0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.08);
     overflow: hidden;
     box-shadow:
-        0 0 0 1px rgba(138,43,226,0.2),
-        0 12px 40px rgba(0,0,0,0.7),
-        0 0 80px rgba(138,43,226,0.18) inset;
+        0 0 0 1px rgba(255,255,255,0.03),
+        0 15px 50px rgba(0,0,0,0.8),
+        0 0 60px rgba(255,255,255,0.02) inset;
 }
 
 .vs-pl-founder-img {
@@ -202,8 +202,8 @@ body.vs-loading {
     object-fit: cover;
     object-position: center top;
     display: block;
-    /* Warm cinematic tint */
-    filter: saturate(0.9) contrast(1.05);
+    /* Soft cinematic tint */
+    filter: saturate(0.85) contrast(1.1) brightness(0.95);
 }
 
 /* ── Brand text area ─────────────────────────────────────────── */
@@ -215,33 +215,34 @@ body.vs-loading {
 .vs-pl-vs-badge {
     display: inline-block;
     font-family: 'Outfit', 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 5px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 6px;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.35);
-    margin-bottom: 10px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 12px;
 }
 
 .vs-pl-title {
     font-family: 'Outfit', 'Inter', sans-serif;
-    font-size: clamp(26px, 5vw, 44px);
-    font-weight: 800;
-    letter-spacing: clamp(4px, 1.5vw, 10px);
+    font-size: clamp(24px, 4vw, 38px);
+    font-weight: 600;
+    letter-spacing: clamp(6px, 2vw, 14px);
     text-transform: uppercase;
-    line-height: 1.05;
+    line-height: 1.1;
     background: linear-gradient(90deg,
         #ffffff 0%,
-        #c0c0d0 40%,
-        #8a2be2 60%,
-        #008cff 80%,
+        #dcdcdc 40%,
+        #ffffff 60%,
+        #e8e8e8 80%,
         #ffffff 100%);
     background-size: 300% 100%;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: vs-pl-title-shine 3s linear infinite;
+    animation: vs-pl-title-shine 4s linear infinite;
     margin: 0;
+    text-shadow: 0 0 30px rgba(255,255,255,0.1);
 }
 @keyframes vs-pl-title-shine {
     0%   { background-position: 100% 50%; }
@@ -262,12 +263,12 @@ body.vs-loading {
 /* ── Founder name below title ────────────────────────────────── */
 .vs-pl-founder-name {
     font-family: 'Inter', sans-serif;
-    font-size: 10.5px;
-    font-weight: 500;
-    letter-spacing: 2.5px;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 3px;
     text-transform: uppercase;
-    color: rgba(255,140,0,0.65);
-    margin-top: 16px;
+    color: rgba(212,175,55,0.7);
+    margin-top: 18px;
     text-align: center;
 }
 
@@ -312,13 +313,13 @@ body.vs-loading {
     height: 100%;
     width: 0%;
     background: linear-gradient(90deg,
-        #8a2be2 0%,
-        #008cff 45%,
-        #ff8c00 80%,
-        #ffffff 100%);
+        rgba(255,255,255,0.2) 0%,
+        rgba(255,255,255,0.6) 45%,
+        #ffffff 80%,
+        rgba(255,255,255,0.8) 100%);
     border-radius: 2px;
     transition: width 0.08s linear;
-    box-shadow: 0 0 10px rgba(138,43,226,0.8), 0 0 20px rgba(0,140,255,0.4);
+    box-shadow: 0 0 15px rgba(255,255,255,0.2);
 }
 
 /* Leading glow dot */
@@ -332,7 +333,7 @@ body.vs-loading {
     height: 6px;
     border-radius: 50%;
     background: #fff;
-    box-shadow: 0 0 8px #fff, 0 0 14px #008cff;
+    box-shadow: 0 0 10px rgba(255,255,255,0.8);
 }
 
 /* ── Percentage counter ──────────────────────────────────────── */

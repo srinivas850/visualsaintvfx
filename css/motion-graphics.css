@@ -1,0 +1,293 @@
+/* Motion Graphics Styles */
+.mg-page {
+    background-color: #030305;
+    color: #fff;
+}
+
+.mg-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Hero Section */
+.mg-hero {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.mg-hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(30, 40, 60, 0.4) 0%, #030305 70%);
+    z-index: 1;
+}
+
+.mg-particles {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0.6;
+}
+
+.mg-hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    max-width: 800px;
+}
+
+.mg-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border: 1px solid rgba(100, 150, 255, 0.3);
+    border-radius: 30px;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #a0c0ff;
+    margin-bottom: 24px;
+    background: rgba(100, 150, 255, 0.05);
+}
+
+.mg-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 24px;
+    letter-spacing: -2px;
+}
+
+.mg-chrome {
+    background: linear-gradient(180deg, #ffffff 0%, #a0a0a0 50%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.mg-subtitle {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.6);
+    max-width: 500px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+}
+
+.mg-btn {
+    display: inline-block;
+    padding: 14px 32px;
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 40px;
+    transition: all 0.3s;
+}
+
+.mg-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(255,255,255,0.1);
+}
+
+.mg-btn-outline {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.mg-btn-outline:hover {
+    background: #fff;
+    color: #000;
+}
+
+.mg-scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    height: 60px;
+    width: 1px;
+    background: rgba(255,255,255,0.1);
+}
+
+.mg-scroll-line {
+    width: 100%;
+    height: 0%;
+    background: #a0c0ff;
+    animation: mg-scroll 2s ease-in-out infinite;
+}
+
+@keyframes mg-scroll {
+    0% { height: 0%; top: 0; }
+    50% { height: 100%; top: 0; }
+    100% { height: 0%; top: 100%; }
+}
+
+/* Showcase Section */
+.mg-showcase {
+    padding: 120px 0;
+    background: #050507;
+}
+
+.mg-section-header {
+    margin-bottom: 60px;
+}
+
+.mg-section-header h2 {
+    font-size: 2.5rem;
+    font-family: 'Outfit', sans-serif;
+    margin-bottom: 10px;
+}
+
+.mg-section-header p {
+    color: rgba(255,255,255,0.5);
+    font-size: 1.1rem;
+}
+
+.mg-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.mg-card-large {
+    grid-column: span 2;
+    height: 500px !important;
+}
+
+.mg-card {
+    position: relative;
+    height: 350px;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    group: hover;
+}
+
+.mg-card-img {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mg-card:hover .mg-card-img {
+    transform: scale(1.05);
+}
+
+.mg-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.mg-card-overlay h3 {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+    transform: translateY(10px);
+    opacity: 0.8;
+    transition: all 0.4s;
+}
+
+.mg-card-overlay p {
+    color: rgba(255,255,255,0.6);
+    transform: translateY(10px);
+    opacity: 0;
+    transition: all 0.4s 0.1s;
+}
+
+.mg-card:hover .mg-card-overlay h3 {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.mg-card:hover .mg-card-overlay p {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Capabilities */
+.mg-capabilities {
+    padding: 120px 0;
+    background: #030305;
+}
+
+.mg-cap-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.mg-cap-text h2 {
+    font-size: 3rem;
+    font-family: 'Outfit', sans-serif;
+    margin-bottom: 24px;
+    line-height: 1.1;
+}
+
+.mg-cap-text p {
+    color: rgba(255,255,255,0.6);
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+.mg-cap-item {
+    padding: 30px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.mg-cap-num {
+    font-family: 'Outfit', sans-serif;
+    color: rgba(100, 150, 255, 0.4);
+    font-weight: 300;
+    font-size: 1.2rem;
+}
+
+.mg-cap-item h4 {
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+
+/* CTA */
+.mg-cta {
+    padding: 120px 0;
+    text-align: center;
+    background: radial-gradient(circle at 50% 0%, rgba(30, 40, 60, 0.2) 0%, #050507 70%);
+}
+
+.mg-cta h2 {
+    font-size: 3rem;
+    font-family: 'Outfit', sans-serif;
+    margin-bottom: 16px;
+}
+
+.mg-cta p {
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+    .mg-grid, .mg-cap-grid {
+        grid-template-columns: 1fr;
+    }
+    .mg-card-large {
+        grid-column: 1;
+        height: 350px !important;
+    }
+    .mg-cap-grid { gap: 40px; }
+}

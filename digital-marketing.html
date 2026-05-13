@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#060913">
+    <title>Digital Marketing | VISUAL SAINT VFX</title>
+    <meta name="description" content="Data-driven digital marketing and growth strategies by Visual Saint VFX.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/mobile-nav.css">
+    <link rel="stylesheet" href="css/digital-marketing.css">
+</head>
+<body class="dm-page">
+
+    <!-- Navbar -->
+    <nav class="glass-navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo" style="text-decoration:none;">
+                <span class="logo-icon">VS</span>
+                <div class="logo-text"><h1>VISUAL SAINT</h1><p>PRODUCTIONS</p></div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li class="nav-dropdown">
+                    <a href="index.html#services" class="active" style="display:flex; align-items:center; gap:5px; padding-bottom:5px;">Services 
+                        <svg width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="motion-graphics.html">Motion Graphics</a></li>
+                        <li><a href="ad-agency.html">Ad Agency</a></li>
+                        <li><a href="digital-marketing.html">Digital Marketing</a></li>
+                        <li><a href="wedding.html">Wedding Films</a></li>
+                    </ul>
+                </li>
+                <li><a href="wedding.html">Wedding Films</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html" class="nav-login-btn" style="padding: 6px 14px; border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; margin-left: 10px; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='transparent'">Client Login</a></li>
+            </ul>
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+    <div class="mobile-menu-overlay" id="mobile-menu-overlay">
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li class="mobile-nav-dropdown">
+                <a href="index.html#services" class="active" style="display:flex; justify-content:space-between; align-items:center; width:100%;">Services
+                    <svg width="12" height="8" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+                <ul class="mobile-dropdown-menu">
+                    <li><a href="motion-graphics.html">Motion Graphics</a></li>
+                    <li><a href="ad-agency.html">Ad Agency</a></li>
+                    <li><a href="digital-marketing.html">Digital Marketing</a></li>
+                    <li><a href="wedding.html">Wedding Films</a></li>
+                </ul>
+            </li>
+            <li><a href="wedding.html">Wedding Films</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="login.html" style="color: var(--accent, #D4AF37); border: 1px solid var(--accent, #D4AF37); padding: 5px 15px; border-radius: 20px;">Client Login</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero -->
+    <section class="dm-hero">
+        <div class="dm-hero-grid"></div>
+        <div class="dm-hero-glow"></div>
+        
+        <div class="dm-container dm-hero-content">
+            <div class="dm-badge">Performance & Growth</div>
+            <h1 class="dm-title">Data-Driven.<br><span class="dm-teal-text">Result-Obsessed.</span></h1>
+            <p class="dm-subtitle">We turn algorithms into audiences and clicks into conversions. Premium performance marketing designed for exponential growth.</p>
+            <div class="dm-cta-group">
+                <a href="#services" class="dm-btn">Our Capabilities</a>
+            </div>
+            
+            <!-- Dashboard UI Graphic -->
+            <div class="dm-dash-ui">
+                <div class="dm-dash-header">
+                    <div class="dm-dash-dots"><span></span><span></span><span></span></div>
+                    <div class="dm-dash-title">Growth Matrix</div>
+                </div>
+                <div class="dm-dash-body">
+                    <div class="dm-chart-area">
+                        <svg viewBox="0 0 400 100" class="dm-chart-svg">
+                            <path class="dm-chart-line" d="M0 80 Q 50 20, 100 50 T 200 40 T 300 10 T 400 30" fill="none" stroke="#00f2fe" stroke-width="3"/>
+                            <path class="dm-chart-fill" d="M0 80 Q 50 20, 100 50 T 200 40 T 300 10 T 400 30 L 400 100 L 0 100 Z" fill="url(#chart-grad)"/>
+                            <defs>
+                                <linearGradient id="chart-grad" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="rgba(0, 242, 254, 0.3)" />
+                                    <stop offset="100%" stop-color="rgba(0, 242, 254, 0)" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </div>
+                    <div class="dm-dash-stats">
+                        <div class="dm-stat-box">
+                            <span>ROI</span>
+                            <h4>+428%</h4>
+                        </div>
+                        <div class="dm-stat-box">
+                            <span>Conversion</span>
+                            <h4>8.4%</h4>
+                        </div>
+                        <div class="dm-stat-box">
+                            <span>Reach</span>
+                            <h4>12.5M</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="dm-services" id="services">
+        <div class="dm-container">
+            <div class="dm-section-header">
+                <h2>The Growth Engine</h2>
+                <p>Comprehensive digital strategies tailored to your market.</p>
+            </div>
+            
+            <div class="dm-cards-grid">
+                <!-- Service 1 -->
+                <div class="dm-service-card">
+                    <div class="dm-icon-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                    </div>
+                    <h3>Social Media Dominance</h3>
+                    <p>Organic and paid social campaigns that build cult-like communities and drive brand loyalty across all major platforms.</p>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="dm-service-card">
+                    <div class="dm-icon-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                    </div>
+                    <h3>Performance SEO</h3>
+                    <p>Technical and content-driven search engine optimization to capture high-intent traffic and secure page-one rankings.</p>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="dm-service-card">
+                    <div class="dm-icon-wrap">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    </div>
+                    <h3>Conversion Optimization</h3>
+                    <p>Data-backed A/B testing and UX refinement to maximize the percentage of visitors who take meaningful action.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Strategy Pipeline -->
+    <section class="dm-pipeline">
+        <div class="dm-container">
+            <h2 class="dm-pipeline-title">How We Scale Brands</h2>
+            <div class="dm-steps">
+                <div class="dm-step">
+                    <div class="dm-step-num">01</div>
+                    <h4>Data Audit</h4>
+                    <p>Analyzing market gaps and historical data.</p>
+                </div>
+                <div class="dm-step">
+                    <div class="dm-step-num">02</div>
+                    <h4>Strategy Map</h4>
+                    <p>Building the multi-channel funnel architecture.</p>
+                </div>
+                <div class="dm-step">
+                    <div class="dm-step-num">03</div>
+                    <h4>Execution</h4>
+                    <p>Deploying creative assets and targeting parameters.</p>
+                </div>
+                <div class="dm-step">
+                    <div class="dm-step-num">04</div>
+                    <h4>Optimization</h4>
+                    <p>Continuous scaling based on real-time ROI.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer CTA -->
+    <section class="dm-cta">
+        <div class="dm-container">
+            <h2>Ready to Scale?</h2>
+            <p>Get a custom growth strategy for your brand.</p>
+            <a href="contact.html" class="dm-btn dm-btn-outline">Schedule Audit</a>
+        </div>
+    </section>
+
+    <footer style="padding: 40px; text-align: center; color: rgba(255,255,255,0.4); font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.05); background: #060913;">
+        © 2026 Visual Saint VFX Productions.
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="js/mobile-nav.js"></script>
+    <script src="js/digital-marketing.js"></script>
+</body>
+</html>

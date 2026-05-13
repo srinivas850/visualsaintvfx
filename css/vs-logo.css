@@ -29,25 +29,123 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   3. APERTURE backdrop
+   3. CAMERA LENS GEOMETRY — multi-ring cinematic lens system
    ═══════════════════════════════════════════════════════════════════════ */
+
+/* Outer lens barrel ring */
 .vs-aperture {
     position: absolute; inset: 0;
     display: flex; align-items: center; justify-content: center;
-    pointer-events: none; opacity: .03;
-    animation: vs-ap-turn 80s linear infinite;
+    pointer-events: none;
+    animation: vs-ap-turn 120s linear infinite;
 }
+
+/* Primary outer lens ring */
 .vs-aperture::before {
     content: ''; position: absolute;
-    width: 80%; height: 80%; border-radius: 50%;
-    border: 1px solid rgba(200,198,192,.8);
+    width: 88%; height: 88%; border-radius: 50%;
+    border: 1px solid rgba(210,207,198,.22);
     box-shadow:
-        0 0 0 14px rgba(200,198,192,.18),
-        0 0 0 32px rgba(200,198,192,.10),
-        0 0 0 58px rgba(200,198,192,.06),
-        0 0 0 90px rgba(200,198,192,.03);
+        0 0 0 2px  rgba(200,197,188,.10),
+        0 0 0 10px rgba(200,197,188,.04),
+        0 0 0 20px rgba(200,197,188,.025),
+        0 0 0 38px rgba(200,197,188,.012),
+        inset 0 0 60px rgba(200,197,188,.03);
 }
-@keyframes vs-ap-turn { to { transform: rotate(360deg); } }
+
+/* Secondary inner focus ring — counter-rotates for depth */
+.vs-aperture::after {
+    content: ''; position: absolute;
+    width: 70%; height: 70%; border-radius: 50%;
+    border: 1px solid rgba(220,216,206,.14);
+    box-shadow:
+        0 0 0 6px  rgba(215,212,202,.06),
+        0 0 0 14px rgba(210,207,197,.03);
+    animation: vs-ap-counter 80s linear infinite;
+}
+
+@keyframes vs-ap-turn    { to { transform: rotate(360deg);  } }
+@keyframes vs-ap-counter { to { transform: rotate(-360deg); } }
+
+/* Lens thread tick marks — injected via JS; styled here */
+.vs-lens-tick {
+    position: absolute;
+    width: 1px;
+    background: linear-gradient(to bottom, rgba(220,217,208,.30), transparent);
+    transform-origin: bottom center;
+    pointer-events: none;
+}
+
+/* Aperture iris blades — 6 blades, subtle, elegant */
+.vs-iris {
+    position: absolute;
+    width: 56%; height: 56%;
+    display: flex; align-items: center; justify-content: center;
+    pointer-events: none;
+    opacity: 0.06;
+    animation: vs-iris-breathe 14s ease-in-out infinite;
+}
+.vs-iris-blade {
+    position: absolute;
+    width: 42%; height: 42%;
+    border-radius: 0 80% 0 80%;
+    background: linear-gradient(135deg,
+        rgba(210,207,198,.9) 0%,
+        rgba(180,177,168,.3) 60%,
+        transparent 100%);
+    transform-origin: 100% 100%;
+}
+.vs-iris-blade:nth-child(1) { transform: rotate(0deg); }
+.vs-iris-blade:nth-child(2) { transform: rotate(60deg); }
+.vs-iris-blade:nth-child(3) { transform: rotate(120deg); }
+.vs-iris-blade:nth-child(4) { transform: rotate(180deg); }
+.vs-iris-blade:nth-child(5) { transform: rotate(240deg); }
+.vs-iris-blade:nth-child(6) { transform: rotate(300deg); }
+
+@keyframes vs-iris-breathe {
+    0%,100% { opacity:.05; transform: rotate(0deg) scale(1); }
+    50%      { opacity:.10; transform: rotate(3deg) scale(1.02); }
+}
+
+/* Lens inner glow — simulates internal element reflections */
+.vs-lens-inner-glow {
+    position: absolute;
+    width: 52%; height: 52%; border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(circle at 38% 32%,
+        rgba(255,252,245,.04) 0%,
+        rgba(240,237,228,.02) 40%,
+        transparent 68%);
+    animation: vs-lens-shift 18s ease-in-out infinite;
+}
+@keyframes vs-lens-shift {
+    0%,100% { transform: translate(0,0);       opacity:.7; }
+    33%      { transform: translate(4px,-3px);  opacity:1;  }
+    66%      { transform: translate(-3px,2px);  opacity:.8; }
+}
+
+/* Lens coating flare — single diagonal streak */
+.vs-lens-flare {
+    position: absolute;
+    width: 60%; height: 1px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(255,252,245,.06) 30%,
+        rgba(255,250,240,.12) 50%,
+        rgba(255,252,245,.06) 70%,
+        transparent 100%);
+    transform: rotate(-28deg);
+    pointer-events: none;
+    animation: vs-flare-sweep 16s ease-in-out infinite;
+    opacity: 0;
+}
+@keyframes vs-flare-sweep {
+    0%,40%,100% { opacity:0; transform: rotate(-28deg) translateX(-40%); }
+    52%          { opacity:1; transform: rotate(-28deg) translateX(10%);  }
+    64%          { opacity:0; transform: rotate(-28deg) translateX(50%);  }
+}
+
+
 
 /* ═══════════════════════════════════════════════════════════════════════
    4. BACKGROUND RADIAL GLOW (behind VS, in front of aperture)

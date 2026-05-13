@@ -580,11 +580,41 @@
             return d;
         }
 
-        /* 1. Aperture backdrop — deepest layer */
-        cp.insertBefore(mk('vs-aperture'), cp.firstChild);
+        /* 1. Aperture backdrop + camera lens geometry */
+        var apt = mk('vs-aperture');
+
+        /* Iris blades — 6 elegant blades */
+        var iris = mk('vs-iris');
+        for (var b = 0; b < 6; b++) iris.appendChild(mk('vs-iris-blade'));
+        apt.appendChild(iris);
+
+        /* Inner lens glow (internal element simulation) */
+        apt.appendChild(mk('vs-lens-inner-glow'));
+
+        /* Lens coating flare */
+        apt.appendChild(mk('vs-lens-flare'));
+
+        /* Tick marks — 24 evenly spaced around the outer ring */
+        var TICKS = 24;
+        var tickRadius = 44; /* % of container, distance from center to outer ring edge */
+        var tickH = [10, 5]; /* long and short tick heights in px */
+        for (var t = 0; t < TICKS; t++) {
+            var ang = (360 / TICKS) * t;
+            var tick = mk('vs-lens-tick');
+            tick.style.height = (t % 6 === 0 ? tickH[0] : tickH[1]) + 'px';
+            tick.style.opacity = t % 6 === 0 ? '0.25' : '0.12';
+            tick.style.left = '50%';
+            tick.style.bottom = '50%';
+            tick.style.transformOrigin = 'bottom center';
+            tick.style.transform = 'translateX(-50%) translateY(-' + tickRadius + 'cqmin) rotate(' + ang + 'deg)';
+            apt.appendChild(tick);
+        }
+
+        cp.insertBefore(apt, cp.firstChild);
 
         /* 2. Background radial glow — behind VS, in front of aperture */
         cp.insertBefore(mk('vs-bg-glow'), cp.children[1]);
+
 
         /* 3. Left Fresnel rig */
         var rigL = mk('vs-rig vs-rig-left');

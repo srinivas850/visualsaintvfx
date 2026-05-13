@@ -1,4 +1,4 @@
-const API_URL = 'https://visualsaintvfx.onrender.com/api';
+const API_URL = 'http://localhost:5000/api';
 
 // State
 let token = localStorage.getItem('adminToken');
@@ -215,10 +215,9 @@ async function loadClientsForUpload() {
 
 const dropZone = document.getElementById('drop-zone');
 const fileInput = document.getElementById('file-input');
+const folderInput = document.getElementById('folder-input');
 const filePreview = document.getElementById('file-list-preview');
 const uploadBtn = document.getElementById('btn-upload');
-
-dropZone.addEventListener('click', () => fileInput.click());
 
 dropZone.addEventListener('dragover', (e) => {
     e.preventDefault();
@@ -239,15 +238,31 @@ fileInput.addEventListener('change', () => {
         handleFiles(fileInput.files);
     }
 });
+folderInput.addEventListener('change', () => {
+    if (folderInput.files.length) {
+        handleFiles(folderInput.files);
+    }
+});
 
 function handleFiles(files) {
-    filesToUpload = Array.from(files);
+    const newFiles = Array.from(files);
+    filesToUpload = [...filesToUpload, ...newFiles];
     filePreview.innerHTML = '';
     
     filesToUpload.forEach(file => {
         const div = document.createElement('div');
         div.className = 'file-item';
-        div.textContent = file.name;
+        
+        if (file.type.startsWith('image/')) {
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(file);
+            div.appendChild(img);
+        }
+        
+        const span = document.createElement('span');
+        span.textContent = file.name;
+        div.appendChild(span);
+        
         filePreview.appendChild(div);
     });
     

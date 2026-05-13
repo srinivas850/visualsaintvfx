@@ -156,9 +156,10 @@
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
+                <li><a href="index.html#services">Services</a></li>
                 <li><a href="wedding.html">Wedding Films</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <li><a href="login.html" class="nav-login-btn active" style="padding: 6px 14px; border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; margin-left: 10px; transition: all 0.3s;">Portal Login</a></li>
+                <li><a href="login.html" class="nav-login-btn active" style="padding: 6px 14px; border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; margin-left: 10px; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='transparent'">Client Login</a></li>
             </ul>
         </div>
     </nav>
@@ -233,7 +234,7 @@
             btn.textContent = 'Authenticating...';
             btn.disabled = true;
 
-            const API_URL = 'https://visualsaintvfx.onrender.com/api';
+            const API_URL = 'http://localhost:5000/api';
             let payload = {};
             let endpoint = '';
 

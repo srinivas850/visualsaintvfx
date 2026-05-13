@@ -116,9 +116,12 @@ const uploadMedia = async (req, res) => {
 
     const savedMedia = [];
     for (const file of req.files) {
+      // multer-storage-cloudinary v4 attaches public_id & secure_url (not filename/path)
+      const publicId = file.public_id || file.filename;
+      const secureUrl = file.secure_url || file.path;
       const result = await db.query(
         'INSERT INTO media (client_id, cloudinary_public_id, secure_url, file_type, original_filename) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-        [client_id, file.filename, file.path, file.mimetype, file.originalname]
+        [client_id, publicId, secureUrl, file.mimetype, file.originalname]
       );
       savedMedia.push(result.rows[0]);
     }

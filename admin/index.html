@@ -117,8 +117,16 @@
                         
                         <div class="drop-zone" id="drop-zone">
                             <span class="drop-icon">📁</span>
-                            <p>Drag & Drop files here or click to browse</p>
-                            <input type="file" id="file-input" multiple required hidden>
+                            <p>Drag & Drop files/folders here or click below to browse</p>
+                            
+                            <div style="margin-top: 15px; display: flex; gap: 10px; justify-content: center; z-index: 2; position: relative;">
+                                <button type="button" class="btn btn-secondary btn-sm" id="btn-select-files" onclick="document.getElementById('file-input').click(); event.stopPropagation();">Select Files</button>
+                                <button type="button" class="btn btn-secondary btn-sm" id="btn-select-folder" onclick="document.getElementById('folder-input').click(); event.stopPropagation();">Select Folder</button>
+                            </div>
+
+                            <input type="file" id="file-input" multiple hidden>
+                            <input type="file" id="folder-input" webkitdirectory directory multiple hidden>
+                            
                             <div id="file-list-preview" class="file-preview-grid"></div>
                         </div>
 

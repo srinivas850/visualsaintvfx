@@ -11,8 +11,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="css/mobile-nav.css">
+    <link rel="stylesheet" href="css/mobile-nav.css">
     <link rel="stylesheet" href="css/motion-graphics.css">
-</head>
+    <link rel="stylesheet" href="css/ads-promos.css">
 <body class="mg-page">
 
     <!-- Navbar -->
@@ -82,38 +83,165 @@
     </section>
 
     <!-- Showcase Grid -->
-    <section class="mg-showcase" id="showcase">
-        <div class="mg-container">
-            <div class="mg-section-header">
-                <h2>Visual Engineering</h2>
-                <p>Pushing the boundaries of 3D and 2D animation.</p>
+    <section class="aps-section" id="showcase" style="background: transparent; border: none; padding-top: 0;">
+        <!-- Ambient glows -->
+        <div class="aps-bg-glow" style="background: radial-gradient(circle at 50% 0%, rgba(80,120,255,0.15) 0%, transparent 60%);" aria-hidden="true"></div>
+
+        <div class="aps-container">
+            <!-- Header -->
+            <div class="aps-header aps-reveal">
+                <div class="aps-lens-accent" style="box-shadow: 0 0 20px rgba(80,120,255,0.5);">
+                    <div class="aps-lens-ring" style="border-color: rgba(80,120,255,0.3);"></div>
+                </div>
+                <div class="aps-eyebrow" style="color: #6a8cff;">Showreel</div>
+                <h2 class="aps-title">
+                    Dynamic <span class="mg-chrome" style="background: linear-gradient(90deg, #fff, #6a8cff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Motion Design</span>
+                </h2>
+                <p class="aps-desc">High-end 3D animation, visual effects, and kinetic typography engineered to mesmerize.</p>
             </div>
-            
-            <div class="mg-grid">
-                <div class="mg-card">
-                    <div class="mg-card-img" style="background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=800&auto=format&fit=crop');"></div>
-                    <div class="mg-card-overlay">
-                        <h3>Abstract 3D Motion</h3>
-                        <p>Fluid dynamics and simulated physics for product reveals.</p>
+
+            <!-- Video grid -->
+            <div class="aps-grid" id="mg-video-grid">
+                
+                <!-- CARD 1 — Hero -->
+                <article class="aps-card aps-reveal"
+                    data-vid="4glwqIBzMOM"
+                    data-title="VFX Breakdown — V11 Advertise"
+                    data-tag="VFX Breakdown">
+                    <img class="aps-thumb" loading="lazy" decoding="async"
+                        src="https://img.youtube.com/vi/4glwqIBzMOM/maxresdefault.jpg"
+                        alt="VFX Breakdown">
+                    <div class="aps-overlay" style="background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);"></div>
+                    <div class="aps-play" aria-hidden="true">
+                        <div class="aps-play-outer"></div><div class="aps-play-ring"></div><div class="aps-play-bg"></div>
+                        <div class="aps-play-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
                     </div>
-                </div>
-                <div class="mg-card">
-                    <div class="mg-card-img" style="background-image: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop');"></div>
-                    <div class="mg-card-overlay">
-                        <h3>Holographic UI</h3>
-                        <p>Sci-fi inspired interface animations and HUD designs.</p>
+                    <div class="aps-info">
+                        <span class="aps-tag" style="color: #6a8cff; border-color: rgba(106,140,255,0.3);">VFX Breakdown</span>
+                        <h3 class="aps-card-title">VFX Breakdown — V11 Advertise</h3>
                     </div>
-                </div>
-                <div class="mg-card mg-card-large">
-                    <div class="mg-card-img" style="background-image: url('https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=1200&auto=format&fit=crop');"></div>
-                    <div class="mg-card-overlay">
-                        <h3>Cinematic Title Sequences</h3>
-                        <p>Hollywood-grade opening credits and typography.</p>
+                </article>
+
+                <!-- CARD 2 -->
+                <article class="aps-card aps-reveal"
+                    data-vid="FthqcVS9bac"
+                    data-title="MSR Jewellers Advertise"
+                    data-tag="3D Commercial">
+                    <img class="aps-thumb" loading="lazy" decoding="async"
+                        src="https://img.youtube.com/vi/FthqcVS9bac/maxresdefault.jpg"
+                        alt="MSR Jewellers">
+                    <div class="aps-overlay" style="background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);"></div>
+                    <div class="aps-play" aria-hidden="true">
+                        <div class="aps-play-outer"></div><div class="aps-play-ring"></div><div class="aps-play-bg"></div>
+                        <div class="aps-play-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
                     </div>
-                </div>
+                    <div class="aps-info">
+                        <span class="aps-tag" style="color: #6a8cff; border-color: rgba(106,140,255,0.3);">3D Commercial</span>
+                        <h3 class="aps-card-title">MSR Jewellers Advertise</h3>
+                    </div>
+                </article>
+
+                <!-- CARD 3 -->
+                <article class="aps-card aps-reveal"
+                    data-vid="wPMDKbKyOO4"
+                    data-title="NSS Jewellery 3D Title"
+                    data-tag="3D Typography">
+                    <img class="aps-thumb" loading="lazy" decoding="async"
+                        src="https://img.youtube.com/vi/wPMDKbKyOO4/maxresdefault.jpg"
+                        alt="NSS Jewellery 3D Title">
+                    <div class="aps-overlay" style="background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);"></div>
+                    <div class="aps-play" aria-hidden="true">
+                        <div class="aps-play-outer"></div><div class="aps-play-ring"></div><div class="aps-play-bg"></div>
+                        <div class="aps-play-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+                    </div>
+                    <div class="aps-info">
+                        <span class="aps-tag" style="color: #6a8cff; border-color: rgba(106,140,255,0.3);">3D Typography</span>
+                        <h3 class="aps-card-title">NSS Jewellery 3D Title</h3>
+                    </div>
+                </article>
+
+                <!-- CARD 4 -->
+                <article class="aps-card aps-reveal"
+                    data-vid="gydLBGTCSb0"
+                    data-title="3D Logo Animation"
+                    data-tag="Logo Reveal">
+                    <img class="aps-thumb" loading="lazy" decoding="async"
+                        src="https://img.youtube.com/vi/gydLBGTCSb0/maxresdefault.jpg"
+                        alt="3D Logo">
+                    <div class="aps-overlay" style="background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);"></div>
+                    <div class="aps-play" aria-hidden="true">
+                        <div class="aps-play-outer"></div><div class="aps-play-ring"></div><div class="aps-play-bg"></div>
+                        <div class="aps-play-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+                    </div>
+                    <div class="aps-info">
+                        <span class="aps-tag" style="color: #6a8cff; border-color: rgba(106,140,255,0.3);">Logo Reveal</span>
+                        <h3 class="aps-card-title">3D Logo Animation</h3>
+                    </div>
+                </article>
+
+                <!-- CARD 5 -->
+                <article class="aps-card aps-reveal"
+                    data-vid="CissPP5iHko"
+                    data-title="Teja Sweets 3D Logo"
+                    data-tag="Brand Identity">
+                    <img class="aps-thumb" loading="lazy" decoding="async"
+                        src="https://img.youtube.com/vi/CissPP5iHko/maxresdefault.jpg"
+                        alt="Teja Sweets 3D Logo">
+                    <div class="aps-overlay" style="background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);"></div>
+                    <div class="aps-play" aria-hidden="true">
+                        <div class="aps-play-outer"></div><div class="aps-play-ring"></div><div class="aps-play-bg"></div>
+                        <div class="aps-play-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+                    </div>
+                    <div class="aps-info">
+                        <span class="aps-tag" style="color: #6a8cff; border-color: rgba(106,140,255,0.3);">Brand Identity</span>
+                        <h3 class="aps-card-title">Teja Sweets 3D Logo</h3>
+                    </div>
+                </article>
+
+                <!-- CARD 6 -->
+                <article class="aps-card aps-reveal"
+                    data-vid="r8z_67UzffM"
+                    data-title="Jaihanumanth Film Logo"
+                    data-tag="Cinematic Logo">
+                    <img class="aps-thumb" loading="lazy" decoding="async"
+                        src="https://img.youtube.com/vi/r8z_67UzffM/maxresdefault.jpg"
+                        alt="Jaihanumanth Film Logo">
+                    <div class="aps-overlay" style="background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);"></div>
+                    <div class="aps-play" aria-hidden="true">
+                        <div class="aps-play-outer"></div><div class="aps-play-ring"></div><div class="aps-play-bg"></div>
+                        <div class="aps-play-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+                    </div>
+                    <div class="aps-info">
+                        <span class="aps-tag" style="color: #6a8cff; border-color: rgba(106,140,255,0.3);">Cinematic Logo</span>
+                        <h3 class="aps-card-title">Jaihanumanth Film Logo</h3>
+                    </div>
+                </article>
+
+            </div><!-- /.aps-grid -->
+
+
+
+        </div><!-- /.aps-container -->
+    </section>
+
+    <!-- Cinematic Modal -->
+    <div class="aps-modal-backdrop" id="aps-modal" role="dialog" aria-modal="true" aria-label="Video player">
+        <div class="aps-modal" id="aps-modal-box">
+            <div class="aps-modal-frame-wrap">
+                <iframe id="aps-iframe" src="" allow="autoplay; encrypted-media; fullscreen"
+                        allowfullscreen title="Video player"></iframe>
+            </div>
+            <div class="aps-modal-bar">
+                <span class="aps-modal-title" id="aps-modal-title"></span>
+                <button class="aps-modal-close" id="aps-modal-close" aria-label="Close video">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- Capabilities -->
     <section class="mg-capabilities">

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="css/mobile-nav.css">
     <link rel="stylesheet" href="css/ad-agency.css">
+    <link rel="stylesheet" href="css/ads-promos.css">
 </head>
 <body class="ad-page">
 
@@ -102,44 +103,224 @@
         </div>
     </section>
 
-    <!-- Featured Campaigns -->
-    <section class="ad-campaigns" id="campaigns">
-        <div class="ad-container">
-            <div class="ad-section-header">
-                <h2>Featured Work</h2>
-                <div class="ad-line"></div>
-            </div>
-            
-            <div class="ad-campaign-list">
-                <div class="ad-campaign-item">
-                    <div class="ad-campaign-img" style="background-image: url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?q=80&w=1200&auto=format&fit=crop');"></div>
-                    <div class="ad-campaign-info">
-                        <span>Automotive</span>
-                        <h3>The Luxury Pursuit</h3>
-                        <p>A high-contrast cinematic TVC capturing the essence of modern luxury driving.</p>
-                    </div>
-                </div>
+    <!-- ══ CINEMATIC ADS & PROMOS VIDEO SHOWCASE ══════════════════════════ -->
+    <section class="aps-section" id="campaigns">
 
-                <div class="ad-campaign-item reverse">
-                    <div class="ad-campaign-img" style="background-image: url('https://images.unsplash.com/photo-1542744094-3a31f272c490?q=80&w=1200&auto=format&fit=crop');"></div>
-                    <div class="ad-campaign-info">
-                        <span>Fashion</span>
-                        <h3>Midnight Elegance</h3>
-                        <p>Global digital campaign blending high fashion with surreal visual effects.</p>
-                    </div>
+        <!-- Ambient glows -->
+        <div class="aps-bg-glow" aria-hidden="true"></div>
+        <div class="aps-divider top"  aria-hidden="true"></div>
+        <div class="aps-divider bottom" aria-hidden="true"></div>
+        <div class="aps-filmstrip"        aria-hidden="true"></div>
+        <div class="aps-filmstrip bottom" aria-hidden="true"></div>
+
+        <!-- Floating gold particles (JS-generated) -->
+        <div class="aps-particles" id="aps-particles" aria-hidden="true"></div>
+
+        <!-- Ambient corner GIF-style canvases (CSS-driven, no external files) -->
+        <div class="aps-ambience aps-ambience-tl" aria-hidden="true">
+            <canvas id="aps-cnv-tl" width="220" height="140"></canvas>
+        </div>
+        <div class="aps-ambience aps-ambience-tr" aria-hidden="true">
+            <canvas id="aps-cnv-tr" width="200" height="130"></canvas>
+        </div>
+        <div class="aps-ambience aps-ambience-bl" aria-hidden="true">
+            <canvas id="aps-cnv-bl" width="180" height="120"></canvas>
+        </div>
+
+        <div class="aps-container">
+
+            <!-- Header -->
+            <div class="aps-header aps-reveal">
+                <div class="aps-lens-accent">
+                    <div class="aps-lens-ring"></div>
                 </div>
-                
-                <div class="ad-campaign-item">
-                    <div class="ad-campaign-img" style="background-image: url('https://images.unsplash.com/photo-1493612276216-ee3925520721?q=80&w=1200&auto=format&fit=crop');"></div>
-                    <div class="ad-campaign-info">
-                        <span>Tech & Lifestyle</span>
-                        <h3>Beyond Reality</h3>
-                        <p>Brand film positioning consumer tech as an extension of the human experience.</p>
+                <div class="aps-eyebrow">Ads &amp; Promos</div>
+                <h2 class="aps-title">
+                    Campaigns That <span class="aps-gold">Command Attention</span>
+                </h2>
+                <p class="aps-desc">Cinematic brand films &amp; high-impact ad productions crafted to dominate every screen.</p>
+            </div>
+
+            <!-- Video grid -->
+            <div class="aps-grid" id="aps-grid">
+
+                <!-- CARD 1 — Hero (2-col) | Replace data-vid with real VS video ID -->
+                <article class="aps-card aps-reveal"
+                    data-vid="f_bxbdFwYUQ"
+                    data-title="Siddhartha Fine Jewellers | Glimpse"
+                    data-tag="Jewellery Commercial"
+                    data-dur="">
+                    <img class="aps-thumb" loading="lazy" decoding="async"
+                        src="https://img.youtube.com/vi/f_bxbdFwYUQ/maxresdefault.jpg"
+                        alt="Siddhartha Fine Jewellers | Glimpse">
+                    <div class="aps-overlay"></div>
+                    <div class="aps-glow-sweep"></div>
+                    <div class="aps-grain"></div>
+                    <div class="aps-sheen"></div>
+                    <!-- Custom play -->
+                    <div class="aps-play" aria-hidden="true">
+                        <div class="aps-play-outer"></div>
+                        <div class="aps-play-ring"></div>
+                        <div class="aps-play-bg"></div>
+                        <div class="aps-play-icon">
+                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                        </div>
                     </div>
-                </div>
+                    <div class="aps-info">
+                        <span class="aps-tag">Jewellery Commercial</span>
+                        <h3 class="aps-card-title">Siddhartha Fine Jewellers | Glimpse</h3>
+                    </div>
+                    <span class="aps-duration"></span>
+                </article>
+
+                <!-- CARD 2 | Replace data-vid with real VS video ID -->
+                <article class="aps-card aps-reveal"
+                    data-vid="GkqCVE8n790"
+                    data-title="Dr Pinnamaneni College Reunion"
+                    data-tag="Event Promo"
+                    data-dur="">
+                    <img class="aps-thumb" loading="lazy" decoding="async"
+                        src="https://img.youtube.com/vi/GkqCVE8n790/sddefault.jpg"
+                        alt="Dr Pinnamaneni College Reunion">
+                    <div class="aps-overlay"></div>
+                    <div class="aps-glow-sweep"></div>
+                    <div class="aps-grain"></div>
+                    <div class="aps-sheen"></div>
+                    <div class="aps-play" aria-hidden="true">
+                        <div class="aps-play-outer"></div>
+                        <div class="aps-play-ring"></div>
+                        <div class="aps-play-bg"></div>
+                        <div class="aps-play-icon">
+                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                        </div>
+                    </div>
+                    <div class="aps-info">
+                        <span class="aps-tag">Event Promo</span>
+                        <h3 class="aps-card-title">Dr Pinnamaneni College Reunion</h3>
+                    </div>
+                    <span class="aps-duration"></span>
+                </article>
+
+                <!-- CARD 3 | Replace data-vid with real VS video ID -->
+                <article class="aps-card aps-reveal"
+                    data-vid="-T4GWHfw0Pc"
+                    data-title="Lights. Camera. Creativity. | VS Ads &amp; Promos"
+                    data-tag="Studio Reel"
+                    data-dur="">
+                    <img class="aps-thumb" loading="lazy" decoding="async"
+                        src="https://img.youtube.com/vi/-T4GWHfw0Pc/maxresdefault.jpg"
+                        alt="Lights. Camera. Creativity. | VS Ads &amp; Promos">
+                    <div class="aps-overlay"></div>
+                    <div class="aps-glow-sweep"></div>
+                    <div class="aps-grain"></div>
+                    <div class="aps-sheen"></div>
+                    <div class="aps-play" aria-hidden="true">
+                        <div class="aps-play-outer"></div>
+                        <div class="aps-play-ring"></div>
+                        <div class="aps-play-bg"></div>
+                        <div class="aps-play-icon">
+                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                        </div>
+                    </div>
+                    <div class="aps-info">
+                        <span class="aps-tag">Studio Reel</span>
+                        <h3 class="aps-card-title">Lights. Camera. Creativity. | VS Ads &amp; Promos</h3>
+                    </div>
+                    <span class="aps-duration"></span>
+                </article>
+
+                <!-- CARD 4 | Replace data-vid with real VS video ID -->
+                <article class="aps-card aps-reveal"
+                    data-vid="IfPKr15d1qU"
+                    data-title="Siddhartha Fine Jewellers"
+                    data-tag="Jewellery Commercial"
+                    data-dur="">
+                    <img class="aps-thumb" loading="lazy" decoding="async"
+                        src="https://img.youtube.com/vi/IfPKr15d1qU/maxresdefault.jpg"
+                        alt="Siddhartha Fine Jewellers">
+                    <div class="aps-overlay"></div>
+                    <div class="aps-glow-sweep"></div>
+                    <div class="aps-grain"></div>
+                    <div class="aps-sheen"></div>
+                    <div class="aps-play" aria-hidden="true">
+                        <div class="aps-play-outer"></div>
+                        <div class="aps-play-ring"></div>
+                        <div class="aps-play-bg"></div>
+                        <div class="aps-play-icon">
+                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                        </div>
+                    </div>
+                    <div class="aps-info">
+                        <span class="aps-tag">Jewellery Commercial</span>
+                        <h3 class="aps-card-title">Siddhartha Fine Jewellers</h3>
+                    </div>
+                    <span class="aps-duration"></span>
+                </article>
+
+                <!-- CARD 5 | Replace data-vid with real VS video ID -->
+                <article class="aps-card aps-reveal"
+                    data-vid="rm3V0LrVtiE"
+                    data-title="Run For Cancer | Vijayawada"
+                    data-tag="Event Promo"
+                    data-dur="">
+                    <img class="aps-thumb" loading="lazy" decoding="async"
+                        src="https://img.youtube.com/vi/rm3V0LrVtiE/maxresdefault.jpg"
+                        alt="Run For Cancer | Vijayawada">
+                    <div class="aps-overlay"></div>
+                    <div class="aps-glow-sweep"></div>
+                    <div class="aps-grain"></div>
+                    <div class="aps-sheen"></div>
+                    <div class="aps-play" aria-hidden="true">
+                        <div class="aps-play-outer"></div>
+                        <div class="aps-play-ring"></div>
+                        <div class="aps-play-bg"></div>
+                        <div class="aps-play-icon">
+                            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                        </div>
+                    </div>
+                    <div class="aps-info">
+                        <span class="aps-tag">Event Promo</span>
+                        <h3 class="aps-card-title">Run For Cancer | Vijayawada</h3>
+                    </div>
+                    <span class="aps-duration"></span>
+                </article>
+
+            </div><!-- /.aps-grid -->
+
+            <!-- View All CTA -->
+            <div class="aps-cta-wrap aps-reveal">
+                <a href="https://www.youtube.com/@visualsaintadsandpromos/videos"
+                   target="_blank" rel="noopener" class="aps-cta-btn" id="aps-view-all">
+                    View Full Channel
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </a>
+            </div>
+
+        </div><!-- /.aps-container -->
+    </section>
+    <!-- ══ END ADS & PROMOS SHOWCASE ═══════════════════════════════════════ -->
+
+    <!-- Cinematic Modal -->
+    <div class="aps-modal-backdrop" id="aps-modal" role="dialog" aria-modal="true" aria-label="Video player">
+        <div class="aps-modal" id="aps-modal-box">
+            <div class="aps-modal-frame-wrap">
+                <iframe id="aps-iframe" src="" allow="autoplay; encrypted-media; fullscreen"
+                        allowfullscreen title="Video player"></iframe>
+            </div>
+            <div class="aps-modal-bar">
+                <span class="aps-modal-title" id="aps-modal-title"></span>
+                <button class="aps-modal-close" id="aps-modal-close" aria-label="Close video">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                        <path d="M18 6L6 18M6 6l12 12"/>
+                    </svg>
+                </button>
             </div>
         </div>
-    </section>
+    </div>
 
     <!-- Strategy -->
     <section class="ad-strategy">

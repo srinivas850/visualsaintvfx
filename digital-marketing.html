@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#060913">
-    <title>Digital Marketing | VISUAL SAINT VFX</title>
-    <meta name="description" content="Data-driven digital marketing and growth strategies by Visual Saint VFX.">
+    <meta name="theme-color" content="#04060a">
+    <title>Digital Marketing Agency | VISUAL SAINT VFX</title>
+    <meta name="description" content="A premium digital marketing agency crafting performance-driven strategies, branding, and cinematic campaigns.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -66,135 +66,261 @@
         </ul>
     </div>
 
-    <!-- Hero -->
+    <!-- Cinematic Hero -->
     <section class="dm-hero">
-        <div class="dm-hero-grid"></div>
+        <div class="dm-hero-bg"></div>
+        <div class="dm-particles" id="dm-particles"></div>
         <div class="dm-hero-glow"></div>
         
         <div class="dm-container dm-hero-content">
-            <div class="dm-badge">Performance & Growth</div>
-            <h1 class="dm-title">Data-Driven.<br><span class="dm-teal-text">Result-Obsessed.</span></h1>
-            <p class="dm-subtitle">We turn algorithms into audiences and clicks into conversions. Premium performance marketing designed for exponential growth.</p>
+            <div class="dm-badge">Premium Digital Agency</div>
+            <h1 class="dm-title">Turning Brands Into<br><span class="dm-chrome">Digital Experiences</span></h1>
+            <p class="dm-subtitle">We craft performance-driven digital marketing strategies that combine creativity, storytelling, branding, and technology to scale businesses globally.</p>
             <div class="dm-cta-group">
-                <a href="#services" class="dm-btn">Our Capabilities</a>
+                <a href="#services" class="dm-btn dm-btn-glow">Explore Services</a>
+                <a href="contact.html" class="dm-btn dm-btn-outline">Start Your Brand Journey</a>
             </div>
             
-            <!-- Dashboard UI Graphic -->
-            <div class="dm-dash-ui">
-                <div class="dm-dash-header">
-                    <div class="dm-dash-dots"><span></span><span></span><span></span></div>
-                    <div class="dm-dash-title">Growth Matrix</div>
+            <div class="dm-hero-visuals">
+                <div class="dm-float-card card-1">
+                    <div class="dm-chart-mini">
+                        <svg viewBox="0 0 100 50"><path d="M0 40 Q 25 10, 50 30 T 100 5" fill="none" stroke="#00f2fe" stroke-width="3"/><path d="M0 40 Q 25 10, 50 30 T 100 5 L 100 50 L 0 50 Z" fill="rgba(0,242,254,0.1)"/></svg>
+                    </div>
+                    <span>Performance Matrix</span>
                 </div>
-                <div class="dm-dash-body">
-                    <div class="dm-chart-area">
-                        <svg viewBox="0 0 400 100" class="dm-chart-svg">
-                            <path class="dm-chart-line" d="M0 80 Q 50 20, 100 50 T 200 40 T 300 10 T 400 30" fill="none" stroke="#00f2fe" stroke-width="3"/>
-                            <path class="dm-chart-fill" d="M0 80 Q 50 20, 100 50 T 200 40 T 300 10 T 400 30 L 400 100 L 0 100 Z" fill="url(#chart-grad)"/>
-                            <defs>
-                                <linearGradient id="chart-grad" x1="0" y1="0" x2="0" y2="1">
-                                    <stop offset="0%" stop-color="rgba(0, 242, 254, 0.3)" />
-                                    <stop offset="100%" stop-color="rgba(0, 242, 254, 0)" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
+                <div class="dm-float-card card-2">
+                    <div class="dm-ring"></div>
+                    <span>Global Reach</span>
+                </div>
+                <div class="dm-float-card card-3">
+                    <div class="dm-bar-chart">
+                        <div></div><div></div><div></div><div></div>
                     </div>
-                    <div class="dm-dash-stats">
-                        <div class="dm-stat-box">
-                            <span>ROI</span>
-                            <h4>+428%</h4>
-                        </div>
-                        <div class="dm-stat-box">
-                            <span>Conversion</span>
-                            <h4>8.4%</h4>
-                        </div>
-                        <div class="dm-stat-box">
-                            <span>Reach</span>
-                            <h4>12.5M</h4>
-                        </div>
-                    </div>
+                    <span>Conversion Rate</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
+    <!-- Stats Section -->
+    <section class="dm-stats">
+        <div class="dm-container dm-stats-grid">
+            <div class="dm-stat-item">
+                <h3 class="dm-counter" data-target="120">0</h3><span class="dm-stat-suffix">+</span>
+                <p>Brands Scaled</p>
+            </div>
+            <div class="dm-stat-item">
+                <h3 class="dm-counter" data-target="50">0</h3><span class="dm-stat-suffix">M+</span>
+                <p>Campaign Reach</p>
+            </div>
+            <div class="dm-stat-item">
+                <h3 class="dm-counter" data-target="300">0</h3><span class="dm-stat-suffix">%</span>
+                <p>Engagement Growth</p>
+            </div>
+            <div class="dm-stat-item">
+                <h3 class="dm-counter" data-target="500">0</h3><span class="dm-stat-suffix">+</span>
+                <p>Campaigns Delivered</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Showcase -->
     <section class="dm-services" id="services">
         <div class="dm-container">
             <div class="dm-section-header">
-                <h2>The Growth Engine</h2>
-                <p>Comprehensive digital strategies tailored to your market.</p>
+                <h2>Digital <span class="dm-chrome">Marketing Services</span></h2>
+                <p>A full-spectrum approach to brand growth and market dominance.</p>
             </div>
-            
-            <div class="dm-cards-grid">
-                <!-- Service 1 -->
-                <div class="dm-service-card">
-                    <div class="dm-icon-wrap">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-                    </div>
-                    <h3>Social Media Dominance</h3>
-                    <p>Organic and paid social campaigns that build cult-like communities and drive brand loyalty across all major platforms.</p>
-                </div>
+            <div class="dm-services-grid">
+
+                <div class="dm-service-card"><div class="dm-card-glow"></div><div class="dm-card-content"><div class="dm-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>Social Media Marketing</h3><div class="dm-card-line"></div></div></div>
+                <div class="dm-service-card"><div class="dm-card-glow"></div><div class="dm-card-content"><div class="dm-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>Instagram Branding</h3><div class="dm-card-line"></div></div></div>
+                <div class="dm-service-card"><div class="dm-card-glow"></div><div class="dm-card-content"><div class="dm-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>Facebook Ads</h3><div class="dm-card-line"></div></div></div>
+                <div class="dm-service-card"><div class="dm-card-glow"></div><div class="dm-card-content"><div class="dm-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>Google Ads</h3><div class="dm-card-line"></div></div></div>
+                <div class="dm-service-card"><div class="dm-card-glow"></div><div class="dm-card-content"><div class="dm-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>YouTube Promotions</h3><div class="dm-card-line"></div></div></div>
+                <div class="dm-service-card"><div class="dm-card-glow"></div><div class="dm-card-content"><div class="dm-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>Content Creation</h3><div class="dm-card-line"></div></div></div>
+                <div class="dm-service-card"><div class="dm-card-glow"></div><div class="dm-card-content"><div class="dm-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>Video Advertising</h3><div class="dm-card-line"></div></div></div>
+                <div class="dm-service-card"><div class="dm-card-glow"></div><div class="dm-card-content"><div class="dm-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>Performance Marketing</h3><div class="dm-card-line"></div></div></div>
+                <div class="dm-service-card"><div class="dm-card-glow"></div><div class="dm-card-content"><div class="dm-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>SEO Optimization</h3><div class="dm-card-line"></div></div></div>
+                <div class="dm-service-card"><div class="dm-card-glow"></div><div class="dm-card-content"><div class="dm-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>Brand Identity Design</h3><div class="dm-card-line"></div></div></div>
+                <div class="dm-service-card"><div class="dm-card-glow"></div><div class="dm-card-content"><div class="dm-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>Influencer Marketing</h3><div class="dm-card-line"></div></div></div>
+                <div class="dm-service-card"><div class="dm-card-glow"></div><div class="dm-card-content"><div class="dm-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>Website Marketing</h3><div class="dm-card-line"></div></div></div>
+                <div class="dm-service-card"><div class="dm-card-glow"></div><div class="dm-card-content"><div class="dm-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>Lead Generation</h3><div class="dm-card-line"></div></div></div>
+                <div class="dm-service-card"><div class="dm-card-glow"></div><div class="dm-card-content"><div class="dm-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>E-Commerce Marketing</h3><div class="dm-card-line"></div></div></div>
+                <div class="dm-service-card"><div class="dm-card-glow"></div><div class="dm-card-content"><div class="dm-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>Product Commercials</h3><div class="dm-card-line"></div></div></div>
+                <div class="dm-service-card"><div class="dm-card-glow"></div><div class="dm-card-content"><div class="dm-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>Reels & Short-form Content</h3><div class="dm-card-line"></div></div></div>
+                <div class="dm-service-card"><div class="dm-card-glow"></div><div class="dm-card-content"><div class="dm-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>Cinematic Brand Shoots</h3><div class="dm-card-line"></div></div></div>
+                <div class="dm-service-card"><div class="dm-card-glow"></div><div class="dm-card-content"><div class="dm-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>AI-Powered Marketing Strategies</h3><div class="dm-card-line"></div></div></div>
+                <div class="dm-service-card"><div class="dm-card-glow"></div><div class="dm-card-content"><div class="dm-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>Marketing Analytics</h3><div class="dm-card-line"></div></div></div>
+                <div class="dm-service-card"><div class="dm-card-glow"></div><div class="dm-card-content"><div class="dm-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h3>Email Campaigns</h3><div class="dm-card-line"></div></div></div>
                 
-                <!-- Service 2 -->
-                <div class="dm-service-card">
-                    <div class="dm-icon-wrap">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Process -->
+    <section class="dm-process">
+        <div class="dm-container">
+            <div class="dm-section-header">
+                <h2>Our <span class="dm-chrome">Process</span></h2>
+                <p>How we engineer market-leading campaigns.</p>
+            </div>
+            <div class="dm-timeline">
+                <div class="dm-step">
+                    <div class="dm-step-dot"></div>
+                    <div class="dm-step-content">
+                        <div class="dm-step-num">01</div>
+                        <h4>Brand Discovery</h4>
+                        <p>Deep-dive analysis into your brand DNA, market positioning, and target audience.</p>
                     </div>
-                    <h3>Performance SEO</h3>
-                    <p>Technical and content-driven search engine optimization to capture high-intent traffic and secure page-one rankings.</p>
                 </div>
-                
-                <!-- Service 3 -->
-                <div class="dm-service-card">
-                    <div class="dm-icon-wrap">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                <div class="dm-step">
+                    <div class="dm-step-dot"></div>
+                    <div class="dm-step-content">
+                        <div class="dm-step-num">02</div>
+                        <h4>Strategy Planning</h4>
+                        <p>Architecting multi-channel marketing blueprints engineered for maximum ROI.</p>
                     </div>
-                    <h3>Conversion Optimization</h3>
-                    <p>Data-backed A/B testing and UX refinement to maximize the percentage of visitors who take meaningful action.</p>
+                </div>
+                <div class="dm-step">
+                    <div class="dm-step-dot"></div>
+                    <div class="dm-step-content">
+                        <div class="dm-step-num">03</div>
+                        <h4>Creative Production</h4>
+                        <p>Cinematic content creation, copywriting, and visual design that demands attention.</p>
+                    </div>
+                </div>
+                <div class="dm-step">
+                    <div class="dm-step-dot"></div>
+                    <div class="dm-step-content">
+                        <div class="dm-step-num">04</div>
+                        <h4>Campaign Launch</h4>
+                        <p>Strategic deployment across digital ecosystems using precision targeting.</p>
+                    </div>
+                </div>
+                <div class="dm-step">
+                    <div class="dm-step-dot"></div>
+                    <div class="dm-step-content">
+                        <div class="dm-step-num">05</div>
+                        <h4>Analytics & Scaling</h4>
+                        <p>Data-driven optimization to exponentially scale winning ad campaigns.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Strategy Pipeline -->
-    <section class="dm-pipeline">
+    <!-- Cinematic Content Showcase -->
+    <section class="dm-content-showcase">
         <div class="dm-container">
-            <h2 class="dm-pipeline-title">How We Scale Brands</h2>
-            <div class="dm-steps">
-                <div class="dm-step">
-                    <div class="dm-step-num">01</div>
-                    <h4>Data Audit</h4>
-                    <p>Analyzing market gaps and historical data.</p>
+            <div class="dm-section-header">
+                <h2>Campaign <span class="dm-chrome">Visuals</span></h2>
+                <p>Cinematic production quality meets digital performance.</p>
+            </div>
+            <div class="dm-showcase-grid">
+                <div class="dm-showcase-item large">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop" alt="Dashboard" loading="lazy">
+                    <div class="dm-showcase-overlay">
+                        <h4>Data Analytics</h4>
+                        <p>Real-time campaign monitoring</p>
+                    </div>
                 </div>
-                <div class="dm-step">
-                    <div class="dm-step-num">02</div>
-                    <h4>Strategy Map</h4>
-                    <p>Building the multi-channel funnel architecture.</p>
+                <div class="dm-showcase-item">
+                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800&auto=format&fit=crop" alt="Social Media" loading="lazy">
+                    <div class="dm-showcase-overlay">
+                        <h4>Social Media</h4>
+                        <p>Viral content distribution</p>
+                    </div>
                 </div>
-                <div class="dm-step">
-                    <div class="dm-step-num">03</div>
-                    <h4>Execution</h4>
-                    <p>Deploying creative assets and targeting parameters.</p>
-                </div>
-                <div class="dm-step">
-                    <div class="dm-step-num">04</div>
-                    <h4>Optimization</h4>
-                    <p>Continuous scaling based on real-time ROI.</p>
+                <div class="dm-showcase-item">
+                    <img src="https://images.unsplash.com/photo-1600508774634-4e11d34730e2?q=80&w=800&auto=format&fit=crop" alt="Creative Editing" loading="lazy">
+                    <div class="dm-showcase-overlay">
+                        <h4>Video Ads</h4>
+                        <p>High-conversion creatives</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer CTA -->
-    <section class="dm-cta">
+    <!-- Client Experience Section -->
+    <section class="dm-testimonials">
         <div class="dm-container">
-            <h2>Ready to Scale?</h2>
-            <p>Get a custom growth strategy for your brand.</p>
-            <a href="contact.html" class="dm-btn dm-btn-outline">Schedule Audit</a>
+            <div class="dm-section-header">
+                <h2>Client <span class="dm-chrome">Experience</span></h2>
+            </div>
+            <div class="dm-test-grid">
+                <div class="dm-test-card">
+                    <p class="dm-test-quote">"VisualSaint transformed our entire digital presence. Their cinematic approach to ads tripled our engagement within a month. Highly premium experience."</p>
+                    <div class="dm-test-author">
+                        <div class="dm-author-info">
+                            <h4>Global Tech Brand</h4>
+                            <span>CMO</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="dm-test-card">
+                    <p class="dm-test-quote">"The quality of their content creation and the precision of their ad targeting is unmatched. A true world-class agency that delivers results."</p>
+                    <div class="dm-test-author">
+                        <div class="dm-author-info">
+                            <h4>Luxury Fashion Label</h4>
+                            <span>Marketing Director</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <footer style="padding: 40px; text-align: center; color: rgba(255,255,255,0.4); font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.05); background: #060913;">
+    <!-- Why Choose Us -->
+    <section class="dm-why-us">
+        <div class="dm-container">
+            <div class="dm-section-header">
+                <h2>Why <span class="dm-chrome">Choose Us</span></h2>
+            </div>
+            <div class="dm-why-grid">
+                <div class="dm-why-item">
+                    <div class="dm-why-icon">✨</div>
+                    <h4>Creative Storytelling</h4>
+                </div>
+                <div class="dm-why-item">
+                    <div class="dm-why-icon">📈</div>
+                    <h4>Performance Focused</h4>
+                </div>
+                <div class="dm-why-item">
+                    <div class="dm-why-icon">🎥</div>
+                    <h4>Cinematic Quality</h4>
+                </div>
+                <div class="dm-why-item">
+                    <div class="dm-why-icon">🧠</div>
+                    <h4>Advanced Strategies</h4>
+                </div>
+                <div class="dm-why-item">
+                    <div class="dm-why-icon">💎</div>
+                    <h4>Modern Branding</h4>
+                </div>
+                <div class="dm-why-item">
+                    <div class="dm-why-icon">📊</div>
+                    <h4>Data-Driven</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grand CTA -->
+    <section class="dm-grand-cta">
+        <div class="dm-cta-bg"></div>
+        <div class="dm-container">
+            <div class="dm-cta-box">
+                <div class="dm-cta-glow"></div>
+                <h2>Your Brand Deserves More Than Ordinary Marketing.</h2>
+                <p>We create digital campaigns that people remember.</p>
+                <a href="contact.html" class="dm-btn dm-btn-glow-large">Let's Build Your Brand</a>
+            </div>
+        </div>
+    </section>
+
+    <footer style="padding: 40px; text-align: center; color: rgba(255,255,255,0.4); font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.05); background: #04060a; position: relative; z-index: 10;">
         © 2026 Visual Saint VFX Productions.
     </footer>
 

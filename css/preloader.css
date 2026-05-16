@@ -182,7 +182,7 @@ body.vs-loading {
 /* Glassmorphism frame circle */
 .vs-pl-founder-glass {
     position: relative;
-    width: 240px;
+    width: auto;
     height: 240px;
     border-radius: 28px;
     background: rgba(10,10,12,0.6);
@@ -197,7 +197,7 @@ body.vs-loading {
 }
 
 .vs-pl-founder-img {
-    width: 100%;
+    width: auto;
     height: 100%;
     object-fit: contain;
     object-position: center;
@@ -365,7 +365,7 @@ body.vs-loading {
 
 /* ── Responsive tweaks ───────────────────────────────────────── */
 @media (max-width: 480px) {
-    .vs-pl-founder-glass { width: 170px; height: 170px; border-radius: 20px; }
+    .vs-pl-founder-glass { width: auto; height: 170px; border-radius: 20px; }
     .vs-pl-founder-ring  { border-radius: 24px; }
     .vs-pl-orb-1 { width: 300px; height: 300px; filter: blur(60px); }
     .vs-pl-orb-2 { width: 260px; height: 260px; filter: blur(60px); }

@@ -29,14 +29,19 @@
             left: 50%;
             transform: translateX(-50%);
             width: 90%;
-            max-width: 1200px;
-            background: rgba(3, 3, 3, 0.5);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            max-width: 1400px;
+            background: rgba(20, 20, 25, 0.4);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 100px;
+            padding: 15px 40px;
             z-index: 1000;
-            padding: 15px 30px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glass-navbar:hover {
+            background: rgba(30, 30, 38, 0.5);
+            border-color: rgba(255, 255, 255, 0.15);
         }
         .nav-container {
             display: flex;
@@ -46,45 +51,67 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             text-decoration: none;
-            color: #F8F5F2;
+            color: #ffffff;
         }
         .logo-icon {
             font-family: 'Outfit', sans-serif;
-            font-weight: 600;
-            font-size: 1.5rem;
-            letter-spacing: 2px;
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #a0a0ab);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
         }
-        .logo-text h1 { margin: 0; font-size: 1rem; font-weight: 600; letter-spacing: 3px; font-family: 'Outfit';}
-        .logo-text p { margin: 0; font-size: 0.6rem; letter-spacing: 4px; opacity: 0.6; text-transform: uppercase;}
+        .logo-text h1 { margin: 0; font-size: 14px; font-weight: 700; letter-spacing: 2px; margin-bottom: 2px; font-family: 'Outfit';}
+        .logo-text p { margin: 0; font-size: 9px; letter-spacing: 3px; color: #a0a0ab; text-transform: uppercase;}
+        
         .nav-links {
             list-style: none;
             display: flex;
-            gap: 30px;
+            gap: 40px;
             margin: 0;
             padding: 0;
         }
-        .nav-links a {
-            color: rgba(255, 255, 255, 0.6);
+        .nav-links > li > a {
+            color: #a0a0ab;
             text-decoration: none;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: color 0.3s;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            padding: 5px 0;
         }
-        .nav-links a:hover, .nav-links a.active {
-            color: #D4AF37; /* Gold accent for wedding page */
+        .nav-links > li > a:hover, .nav-links > li > a.active {
+            color: #ffffff;
+        }
+        .nav-links > li > a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+        .nav-links > li > a:hover::after, .nav-links > li > a.active::after {
+            width: 100%;
         }
         
         @media (max-width: 900px) {
-            .nav-links { display: none; }
+            .nav-links { display: none !important; }
             .glass-navbar {
                 width: 100%;
                 top: 0;
                 border-radius: 0;
                 border: none;
                 border-bottom: 1px solid rgba(255,255,255,0.05);
+                padding: 15px 20px;
             }
         }
         
@@ -108,13 +135,14 @@
             display: block; padding: 10px 24px; color: rgba(255,255,255,0.6);
             font-size: 0.9rem; text-align: left; white-space: nowrap;
             transition: all 0.3s; font-weight: 400; letter-spacing: 0.5px;
-            text-transform: none; /* override uppercase */
+            text-transform: none; text-decoration: none;
         }
         .dropdown-menu li a:hover {
             color: #D4AF37; background: rgba(255,255,255,0.03); padding-left: 28px;
         }
-
-
+        .dropdown-menu li a::after {
+            display: none;
+        }
     </style>
 </head>
 

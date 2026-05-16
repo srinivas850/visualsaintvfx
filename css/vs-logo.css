@@ -7,6 +7,203 @@
  */
 
 /* ═══════════════════════════════════════════════════════════════════════
+   0. VS LOGO IMAGE — animated glow, pulse rings
+   ═══════════════════════════════════════════════════════════════════════ */
+.vs-logo-container {
+    position: absolute !important;
+    transform-style: preserve-3d !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    animation: none !important;
+    gap: 0;
+}
+
+.vs-img-logo-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 260px;
+    height: 260px;
+}
+
+.vs-logo-img-animated {
+    position: relative;
+    z-index: 5;
+    width: 200px;
+    height: auto;
+    object-fit: contain;
+    filter:
+        drop-shadow(0 0 18px rgba(130, 80, 255, 0.55))
+        drop-shadow(0 0 42px rgba(80, 150, 255, 0.35))
+        drop-shadow(0 0 80px rgba(140, 90, 255, 0.20))
+        brightness(1.05);
+    animation: vs-img-float 7s ease-in-out infinite, vs-img-glow-pulse 4s ease-in-out infinite;
+}
+
+@keyframes vs-img-float {
+    0%, 100% { transform: translateY(0px) scale(1);     }
+    33%       { transform: translateY(-8px) scale(1.01); }
+    66%       { transform: translateY(-4px) scale(1.005); }
+}
+
+@keyframes vs-img-glow-pulse {
+    0%, 100% {
+        filter:
+            drop-shadow(0 0 18px rgba(130, 80, 255, 0.55))
+            drop-shadow(0 0 42px rgba(80, 150, 255, 0.35))
+            drop-shadow(0 0 80px rgba(140, 90, 255, 0.20))
+            brightness(1.05);
+    }
+    50% {
+        filter:
+            drop-shadow(0 0 28px rgba(160, 100, 255, 0.80))
+            drop-shadow(0 0 60px rgba(100, 180, 255, 0.55))
+            drop-shadow(0 0 110px rgba(160, 100, 255, 0.35))
+            brightness(1.12);
+    }
+}
+
+/* Glow rings around logo */
+.vs-img-glow-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(130, 100, 255, 0.25);
+    animation: vs-ring-expand 3.5s ease-out infinite;
+    pointer-events: none;
+    z-index: 2;
+}
+.vs-img-glow-ring-2 {
+    animation-delay: 1.75s;
+    border-color: rgba(80, 160, 255, 0.20);
+}
+@keyframes vs-ring-expand {
+    0%   { transform: scale(0.7);  opacity: 0.7; }
+    70%  { transform: scale(1.35); opacity: 0.2; }
+    100% { transform: scale(1.5);  opacity: 0; }
+}
+
+/* Central pulse orb behind logo */
+.vs-img-pulse-orb {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+        rgba(120, 80, 255, 0.22) 0%,
+        rgba(80, 140, 255, 0.12) 40%,
+        transparent 70%);
+    filter: blur(18px);
+    animation: vs-orb-breathe 5s ease-in-out infinite;
+    z-index: 1;
+    pointer-events: none;
+}
+@keyframes vs-orb-breathe {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50%       { opacity: 1.0; transform: scale(1.2); }
+}
+
+/* ── lights-on intensifies the logo glow ── */
+.lights-on .vs-logo-img-animated {
+    animation: vs-img-float 7s ease-in-out infinite, vs-img-glow-lit 4s ease-in-out infinite;
+}
+@keyframes vs-img-glow-lit {
+    0%, 100% {
+        filter:
+            drop-shadow(0 0 24px rgba(255, 220, 100, 0.60))
+            drop-shadow(0 0 55px rgba(255, 180, 60, 0.40))
+            drop-shadow(0 0 100px rgba(255, 200, 80, 0.25))
+            brightness(1.10);
+    }
+    50% {
+        filter:
+            drop-shadow(0 0 36px rgba(255, 230, 120, 0.85))
+            drop-shadow(0 0 80px rgba(255, 200, 80, 0.60))
+            drop-shadow(0 0 140px rgba(255, 220, 100, 0.40))
+            brightness(1.18);
+    }
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .vs-img-logo-wrap { width: 190px; height: 190px; }
+    .vs-logo-img-animated { width: 150px; }
+    .vs-img-pulse-orb { width: 100px; height: 100px; }
+}
+@media (max-width: 600px) {
+    .vs-img-logo-wrap { width: 150px; height: 150px; }
+    .vs-logo-img-animated { width: 120px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   HERO TINY NAV IMAGES — 4 small glowing images below the logo
+   ═══════════════════════════════════════════════════════════════════════ */
+.hero-tiny-nav-images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding: 10px 24px 0;
+    margin-top: 30px;
+    width: 100%;
+    max-width: 600px;
+}
+
+.tiny-nav-img-link {
+    position: relative;
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.35s cubic-bezier(.25,.46,.45,.94), box-shadow 0.35s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.40);
+    width: 70px;
+    height: 70px;
+}
+
+.tiny-nav-img-link::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+    pointer-events: none;
+}
+
+.tiny-nav-img-link:hover {
+    transform: translateY(-5px) scale(1.15);
+    box-shadow: 0 10px 25px rgba(130, 100, 255, 0.50), 0 4px 15px rgba(0, 0, 0, 0.50);
+}
+
+.tiny-nav-img-link img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.tiny-nav-img-link:hover img {
+    transform: scale(1.15);
+}
+
+/* Responsive panels */
+@media (max-width: 680px) {
+    .hero-tiny-nav-images { gap: 16px; padding-top: 5px; }
+    .tiny-nav-img-link { width: 55px; height: 55px; border-radius: 8px; }
+    .tiny-nav-img-link::after { border-radius: 8px; }
+}
+@media (max-width: 420px) {
+    .hero-tiny-nav-images { gap: 12px; }
+    .tiny-nav-img-link { width: 45px; height: 45px; border-radius: 6px; }
+    .tiny-nav-img-link::after { border-radius: 6px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
    1. HIDE orbit rings
    ═══════════════════════════════════════════════════════════════════════ */
 .orbit-wrapper {

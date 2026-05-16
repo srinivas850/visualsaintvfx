@@ -1,5 +1,6 @@
-const API_URL = 'https://visualsaintvfx.onrender.com/api';
-const BASE_URL = 'https://visualsaintvfx.onrender.com';
+const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+const API_URL = isLocal ? 'http://localhost:5000/api' : 'https://visualsaintvfx.onrender.com/api';
+const BASE_URL = isLocal ? 'http://localhost:5000' : 'https://visualsaintvfx.onrender.com';
 
 // State
 let token = localStorage.getItem('adminToken');
@@ -14,14 +15,26 @@ const logoutBtn = document.getElementById('logout-btn');
 
 // ── Keep-Alive Ping ───────────────────────────────────────────────────────────
 // Wakes up the Render free-tier backend when the admin panel is opened.
-// This prevents the "backend not working" error on mobile due to cold starts.
+// Render cold starts can take 50+ seconds.
 async function wakeUpServer() {
-    try {
-        await fetch(`${BASE_URL}/health`, { method: 'GET' });
-        console.log('[Server] Backend is awake.');
-    } catch (e) {
-        console.warn('[Server] Could not reach backend yet, will retry...', e);
+    let retries = 12; // 12 * 5s = 60s
+    while (retries > 0) {
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 8000); 
+            const res = await fetch(`${BASE_URL}/health`, { method: 'GET', signal: controller.signal });
+            clearTimeout(timeoutId);
+            if (res.ok) {
+                console.log('[Server] Backend is awake.');
+                return true;
+            }
+        } catch (e) {
+            console.warn(`[Server] Waking up backend... (${retries} retries left)`);
+        }
+        retries--;
+        if (retries > 0) await new Promise(resolve => setTimeout(resolve, 5000));
     }
+    return false;
 }
 
 // Initialization
@@ -267,8 +280,12 @@ folderInput.addEventListener('change', () => {
 });
 
 function handleFiles(files) {
-    const newFiles = Array.from(files);
-    filesToUpload = [...filesToUpload, ...newFiles];
+    // Filter out hidden system files that might cause backend errors
+    const validFiles = Array.from(files).filter(f => !f.name.startsWith('.DS_Store') && f.name !== 'Thumbs.db');
+    
+    if (validFiles.length === 0) return;
+    
+    filesToUpload = [...filesToUpload, ...validFiles];
     filePreview.innerHTML = '';
     
     filesToUpload.forEach(file => {
@@ -300,49 +317,75 @@ document.getElementById('upload-form').addEventListener('submit', async (e) => {
         return;
     }
 
-    const formData = new FormData();
-    formData.append('client_id', clientId);
-    filesToUpload.forEach(file => {
-        formData.append('files', file);
-    });
-
     const progressContainer = document.getElementById('upload-progress-container');
     const progressBar = document.getElementById('upload-progress-bar');
     progressContainer.classList.remove('hidden');
     uploadBtn.disabled = true;
-    progressBar.style.width = '30%'; // Fake initial progress since fetch doesn't support upload progress out of box easily
+    progressBar.style.width = '5%'; 
 
     try {
-        const res = await fetch(`${API_URL}/admin/upload`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`
-            },
-            body: formData
-        });
-        
-        progressBar.style.width = '90%';
-        const data = await res.json();
+        showToast('Connecting to server (may take 50s if asleep)...', 'success');
+        const isAwake = await wakeUpServer(); 
+        if (!isAwake) {
+            throw new Error('Server took too long to wake up. Please try again.');
+        }
+        progressBar.style.width = '10%';
+
+        // CHUNK UPLOADS to prevent backend timeout! (Render timeout is 30-60s)
+        const CHUNK_SIZE = 2; // Upload 2 files at a time
+        const totalChunks = Math.ceil(filesToUpload.length / CHUNK_SIZE);
+        let uploadedCount = 0;
+
+        for (let i = 0; i < totalChunks; i++) {
+            const chunkFiles = filesToUpload.slice(i * CHUNK_SIZE, (i + 1) * CHUNK_SIZE);
+            const formData = new FormData();
+            formData.append('client_id', clientId);
+            
+            chunkFiles.forEach(file => {
+                formData.append('files', file);
+            });
+
+            const res = await fetch(`${API_URL}/admin/upload`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                body: formData
+            });
+
+            if (!res.ok) {
+                const errData = await res.json().catch(() => ({}));
+                throw new Error(errData.message || 'Chunk upload failed');
+            }
+
+            const data = await res.json();
+            if (!data.success) {
+                throw new Error(data.message || 'Chunk upload failed');
+            }
+            
+            uploadedCount += data.files ? data.files.length : chunkFiles.length;
+            const progress = 10 + ((i + 1) / totalChunks) * 85;
+            progressBar.style.width = `${progress}%`;
+        }
+
         progressBar.style.width = '100%';
         
-        if (data.success) {
-            showToast(`Successfully uploaded ${data.files.length} files`);
-            filesToUpload = [];
-            filePreview.innerHTML = '';
-            fileInput.value = '';
-            uploadBtn.disabled = true;
-            document.getElementById('select-client').value = '';
-        } else {
-            showToast(data.message || 'Upload failed', 'error');
-        }
+        showToast(`Successfully uploaded ${uploadedCount} files!`, 'success');
+        filesToUpload = [];
+        filePreview.innerHTML = '';
+        fileInput.value = '';
+        folderInput.value = ''; // clear folder input too
+        document.getElementById('select-client').value = '';
+        
     } catch (err) {
         console.error('Upload error:', err);
-        showToast('Upload failed. Check your connection and try again.', 'error');
+        const errMsg = err.message || 'Upload failed. Check your connection or file limits.';
+        showToast(errMsg, 'error');
     } finally {
         setTimeout(() => {
             progressContainer.classList.add('hidden');
             progressBar.style.width = '0%';
             uploadBtn.disabled = filesToUpload.length === 0;
-        }, 1500);
+        }, 2000);
     }
 });

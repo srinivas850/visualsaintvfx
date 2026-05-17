@@ -25,21 +25,22 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 260px;
-    height: 260px;
+    width: 350px;
+    height: 350px;
 }
 
 .vs-logo-img-animated {
     position: relative;
     z-index: 5;
-    width: 200px;
+    width: 300px;
     height: auto;
     object-fit: contain;
+    /* No tight 0-blur shadow — only spread-out diffuse glows so no white patch appears */
     filter:
-        drop-shadow(0 0 18px rgba(130, 80, 255, 0.55))
-        drop-shadow(0 0 42px rgba(80, 150, 255, 0.35))
-        drop-shadow(0 0 80px rgba(140, 90, 255, 0.20))
-        brightness(1.05);
+        drop-shadow(0 0 40px rgba(180, 210, 255, 0.55))
+        drop-shadow(0 0 80px rgba(140, 180, 255, 0.30))
+        drop-shadow(0 0 120px rgba(120, 160, 255, 0.18))
+        brightness(1.06);
     animation: vs-img-float 7s ease-in-out infinite, vs-img-glow-pulse 4s ease-in-out infinite;
 }
 
@@ -52,17 +53,17 @@
 @keyframes vs-img-glow-pulse {
     0%, 100% {
         filter:
-            drop-shadow(0 0 18px rgba(130, 80, 255, 0.55))
-            drop-shadow(0 0 42px rgba(80, 150, 255, 0.35))
-            drop-shadow(0 0 80px rgba(140, 90, 255, 0.20))
-            brightness(1.05);
+            drop-shadow(0 0 40px rgba(180, 210, 255, 0.55))
+            drop-shadow(0 0 80px rgba(140, 180, 255, 0.30))
+            drop-shadow(0 0 120px rgba(120, 160, 255, 0.18))
+            brightness(1.06);
     }
     50% {
         filter:
-            drop-shadow(0 0 28px rgba(160, 100, 255, 0.80))
-            drop-shadow(0 0 60px rgba(100, 180, 255, 0.55))
-            drop-shadow(0 0 110px rgba(160, 100, 255, 0.35))
-            brightness(1.12);
+            drop-shadow(0 0 55px rgba(200, 225, 255, 0.75))
+            drop-shadow(0 0 110px rgba(160, 200, 255, 0.50))
+            drop-shadow(0 0 160px rgba(140, 180, 255, 0.30))
+            brightness(1.14);
     }
 }
 
@@ -113,29 +114,44 @@
 @keyframes vs-img-glow-lit {
     0%, 100% {
         filter:
-            drop-shadow(0 0 24px rgba(255, 220, 100, 0.60))
-            drop-shadow(0 0 55px rgba(255, 180, 60, 0.40))
-            drop-shadow(0 0 100px rgba(255, 200, 80, 0.25))
-            brightness(1.10);
+            drop-shadow(0 0 28px rgba(255, 255, 255, 0.90))
+            drop-shadow(0 0 60px rgba(255, 235, 150, 0.55))
+            drop-shadow(0 0 110px rgba(255, 220, 100, 0.35))
+            brightness(1.15);
     }
     50% {
         filter:
-            drop-shadow(0 0 36px rgba(255, 230, 120, 0.85))
-            drop-shadow(0 0 80px rgba(255, 200, 80, 0.60))
-            drop-shadow(0 0 140px rgba(255, 220, 100, 0.40))
-            brightness(1.18);
+            drop-shadow(0 0 44px rgba(255, 255, 255, 1.0))
+            drop-shadow(0 0 90px rgba(255, 240, 160, 0.75))
+            drop-shadow(0 0 160px rgba(255, 230, 120, 0.50))
+            brightness(1.22);
     }
 }
 
 /* ── Responsive ── */
-@media (max-width: 768px) {
-    .vs-img-logo-wrap { width: 190px; height: 190px; }
-    .vs-logo-img-animated { width: 150px; }
-    .vs-img-pulse-orb { width: 100px; height: 100px; }
+/* Tablet: fits in 380px centerpiece without crowding thumbnails */
+@media (max-width: 900px) {
+    .vs-img-logo-wrap { width: 260px; height: 260px; }
+    .vs-logo-img-animated { width: 220px; }
+    .vs-img-pulse-orb { width: 130px; height: 130px; }
 }
+/* Small tablet / large phone */
+@media (max-width: 768px) {
+    .vs-img-logo-wrap { width: 230px; height: 230px; }
+    .vs-logo-img-animated { width: 192px; }
+    .vs-img-pulse-orb { width: 110px; height: 110px; }
+}
+/* Phone: fits in 300px centerpiece */
 @media (max-width: 600px) {
-    .vs-img-logo-wrap { width: 150px; height: 150px; }
-    .vs-logo-img-animated { width: 120px; }
+    .vs-img-logo-wrap { width: 180px; height: 180px; }
+    .vs-logo-img-animated { width: 152px; }
+    .vs-img-pulse-orb { width: 90px; height: 90px; }
+}
+/* Small phone */
+@media (max-width: 420px) {
+    .vs-img-logo-wrap { width: 155px; height: 155px; }
+    .vs-logo-img-animated { width: 130px; }
+    .vs-img-pulse-orb { width: 75px; height: 75px; }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
@@ -155,14 +171,15 @@
 .tiny-nav-img-link {
     position: relative;
     display: flex;
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
     text-decoration: none;
     cursor: pointer;
     transition: transform 0.35s cubic-bezier(.25,.46,.45,.94), box-shadow 0.35s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.40);
-    width: 70px;
-    height: 70px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55);
+    width: 78px;
+    height: 78px;
+    border: 1px solid rgba(255, 255, 255, 0.10);
 }
 
 .tiny-nav-img-link::after {
@@ -192,14 +209,26 @@
 }
 
 /* Responsive panels */
+/* ≤900px — tablet: same 78px thumbnails, just less margin-top */
+@media (max-width: 900px) {
+    .hero-tiny-nav-images { gap: 18px; margin-top: 22px; }
+}
+/* ≤680px — large phone: smaller thumbnails */
 @media (max-width: 680px) {
-    .hero-tiny-nav-images { gap: 16px; padding-top: 5px; }
-    .tiny-nav-img-link { width: 55px; height: 55px; border-radius: 8px; }
+    .hero-tiny-nav-images { gap: 14px; padding-top: 4px; margin-top: 18px; }
+    .tiny-nav-img-link { width: 58px; height: 58px; border-radius: 9px; }
+    .tiny-nav-img-link::after { border-radius: 9px; }
+}
+/* ≤480px — phone: tighter */
+@media (max-width: 480px) {
+    .hero-tiny-nav-images { gap: 10px; margin-top: 14px; padding: 0 8px; }
+    .tiny-nav-img-link { width: 52px; height: 52px; border-radius: 8px; }
     .tiny-nav-img-link::after { border-radius: 8px; }
 }
-@media (max-width: 420px) {
-    .hero-tiny-nav-images { gap: 12px; }
-    .tiny-nav-img-link { width: 45px; height: 45px; border-radius: 6px; }
+/* ≤380px — very small phone */
+@media (max-width: 380px) {
+    .hero-tiny-nav-images { gap: 8px; }
+    .tiny-nav-img-link { width: 44px; height: 44px; border-radius: 6px; }
     .tiny-nav-img-link::after { border-radius: 6px; }
 }
 

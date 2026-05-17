@@ -407,10 +407,11 @@ a {
 
 .centerpiece-container {
     width: 100%;
-    max-width: 600px;
+    max-width: 680px;
     aspect-ratio: 1/1;
     position: relative;
     perspective: 1000px;
+    overflow: visible;
 }
 
 /* 3D Scene Container */
@@ -852,7 +853,7 @@ a {
         display: flex;
         justify-content: center;
         align-items: center;
-        overflow: hidden;
+        overflow: visible;
     }
 
     .stats-container {
@@ -860,7 +861,8 @@ a {
     }
 
     .centerpiece-container {
-        max-width: 320px;
+        max-width: 380px;
+        overflow: visible;
     }
 
     .nav-links {
@@ -937,7 +939,7 @@ a {
     .hero-visual {
         padding: 10px 0;
         width: 100%;
-        overflow: hidden;
+        overflow: visible;
         display: flex;
         justify-content: center;
     }
@@ -963,8 +965,9 @@ a {
     }
 
     .centerpiece-container {
-        max-width: 260px;
+        max-width: 300px;
         margin: 0 auto;
+        overflow: visible;
     }
 
     /* Scale 3D Scene for Mobile — smaller to prevent overflow */

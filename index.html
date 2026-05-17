@@ -295,7 +295,7 @@
                                 <div class="vs-img-glow-ring"></div>
                                 <div class="vs-img-glow-ring vs-img-glow-ring-2"></div>
                                 <img
-                                    src="https://res.cloudinary.com/djda3lldb/image/upload/v1778917238/VS_logo_klj0d4.png"
+                                    src="https://res.cloudinary.com/djda3lldb/image/upload/v1778986303/vs_logo_white-Photoroom_mlqxyx.png"
                                     alt="Visual Saint VFX Logo"
                                     class="vs-logo-img-animated"
                                     loading="eager"
@@ -305,17 +305,17 @@
                             </div>
 
                             <div class="hero-tiny-nav-images">
-                                <a href="ad-agency.html" class="tiny-nav-img-link" title="Ads & Promos" aria-label="Visual Saint VFX Advertising and Promotions Services">
-                                    <img src="https://res.cloudinary.com/djda3lldb/image/upload/w_200,f_auto,q_auto/v1778315223/VSAds_Promos_low.jpg_zudxyc.jpg" alt="Visual Saint VFX Advertising and Promos India" loading="lazy" decoding="async">
-                                </a>
-                                <a href="wedding.html" class="tiny-nav-img-link" title="Photography" aria-label="Cinematic Wedding Photography and Films">
-                                    <img src="https://res.cloudinary.com/djda3lldb/image/upload/w_200,f_auto,q_auto/v1778665496/visualsaint/2/1778665493167-VS%20Wedding.jpg" alt="Premium Wedding Photography Services" loading="lazy" decoding="async">
-                                </a>
                                 <a href="digital-marketing.html" class="tiny-nav-img-link" title="Digital Marketing" aria-label="Digital Marketing and Social Media Strategy">
-                                    <img src="https://res.cloudinary.com/djda3lldb/image/upload/w_200,f_auto,q_auto/v1778315235/VS_Digital_Marketing.jpg_uouxhk.jpg" alt="Digital Marketing Agency Services" loading="lazy" decoding="async">
+                                    <img src="https://res.cloudinary.com/djda3lldb/image/upload/v1778987253/VS_Digital_Marketing.jpg_nkak6s.jpg" alt="Digital Marketing Agency Services" loading="lazy" decoding="async">
+                                </a>
+                                <a href="wedding.html" class="tiny-nav-img-link" title="Wedding Films" aria-label="Cinematic Wedding Photography and Films">
+                                    <img src="https://res.cloudinary.com/djda3lldb/image/upload/v1778987232/VS_Wedding.jpg_kqhmsb.jpg" alt="Premium Wedding Photography Services" loading="lazy" decoding="async">
                                 </a>
                                 <a href="motion-graphics.html" class="tiny-nav-img-link" title="Motion Graphics" aria-label="Motion Graphics, CGI and Video Editing Services">
-                                    <img src="https://res.cloudinary.com/djda3lldb/image/upload/w_200,f_auto,q_auto/v1778622093/visualsaint/1/1778622087880-VS%20Motion%20Graphics.jpg" alt="Motion Graphics and VFX Studio Services" loading="lazy" decoding="async">
+                                    <img src="https://res.cloudinary.com/djda3lldb/image/upload/v1778987208/VS_Motion_Graphics.jpg_k3as7x.jpg" alt="Motion Graphics and VFX Studio Services" loading="lazy" decoding="async">
+                                </a>
+                                <a href="ad-agency.html" class="tiny-nav-img-link" title="Ads &amp; Promos" aria-label="Visual Saint VFX Advertising and Promotions Services">
+                                    <img src="https://res.cloudinary.com/djda3lldb/image/upload/v1778987207/VSAds_Promos_low.jpg_eqerem.jpg" alt="Visual Saint VFX Advertising and Promos India" loading="lazy" decoding="async">
                                 </a>
                             </div>
 
@@ -458,8 +458,8 @@
         'use strict';
 
         /* ── Config ────────────────────────────────────────────────────── */
-        var MIN_DURATION   = 2800;   // ms — minimum screen time even on fast loads
-        var SPEED_VARIANCE = 600;    // ms — jitter for natural feel
+        var MIN_DURATION   = 500;    // ms — half-second total
+        var SPEED_VARIANCE = 40;     // ms — tiny jitter for natural feel
 
         /* ── Elements ──────────────────────────────────────────────────── */
         var overlay  = document.getElementById('vs-preloader');
@@ -555,8 +555,8 @@
             var goal = Math.min(target, naturalCap);
             if (pageReady) goal = 100;
 
-            /* Ease: move 8 % of the gap each frame — feels organic */
-            current += (goal - current) * 0.055;
+            /* Ease: move 18% of the gap each frame — fast but smooth */
+            current += (goal - current) * 0.18;
             if (current > 99.5 && !pageReady) current = 99;
 
             var display = Math.round(current);
@@ -566,8 +566,8 @@
             if (display < 100) {
                 requestAnimationFrame(tick);
             } else {
-                /* Reached 100 — begin dismiss after a beat */
-                setTimeout(dismiss, 280);
+                /* Reached 100 — dismiss immediately */
+                setTimeout(dismiss, 80);
             }
         }
         requestAnimationFrame(tick);
@@ -575,10 +575,10 @@
         /* Simulate steady progress milestones for trust feel */
         function scheduleProgress() {
             var milestones = [
-                { pct: 30, delay: 300  + Math.random() * SPEED_VARIANCE },
-                { pct: 55, delay: 700  + Math.random() * SPEED_VARIANCE },
-                { pct: 72, delay: 1100 + Math.random() * SPEED_VARIANCE },
-                { pct: 88, delay: 1700 + Math.random() * SPEED_VARIANCE },
+                { pct: 40,  delay:  80 + Math.random() * SPEED_VARIANCE },
+                { pct: 65,  delay: 150 + Math.random() * SPEED_VARIANCE },
+                { pct: 82,  delay: 250 + Math.random() * SPEED_VARIANCE },
+                { pct: 95,  delay: 370 + Math.random() * SPEED_VARIANCE },
             ];
             milestones.forEach(function (m) {
                 setTimeout(function () {
@@ -617,10 +617,10 @@
             }, { once: true });
         }
 
-        /* ── Safety fallback — never hang > 6 s ─────────────────────────── */
+        /* ── Safety fallback — never hang > 800ms ───────────────────────── */
         setTimeout(function () {
             pageReady = true;
-        }, 6000);
+        }, 800);
 
     }());
     </script>

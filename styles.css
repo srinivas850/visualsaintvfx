@@ -862,6 +862,8 @@ a {
 
     .centerpiece-container {
         max-width: 380px;
+        height: 485px;
+        aspect-ratio: auto;
         overflow: visible;
     }
 
@@ -966,8 +968,16 @@ a {
 
     .centerpiece-container {
         max-width: 300px;
+        height: 435px;
+        aspect-ratio: auto;
         margin: 0 auto;
         overflow: visible;
+    }
+    
+    @media (max-width: 420px) {
+        .centerpiece-container {
+            height: 385px;
+        }
     }
 
     /* Scale 3D Scene for Mobile — smaller to prevent overflow */

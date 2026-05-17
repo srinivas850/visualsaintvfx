@@ -492,10 +492,46 @@
    14. RESPONSIVE — match existing breakpoints exactly
    ═══════════════════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
-    .vs-img-logo-wrap { width: 280px; height: 280px; }
-    .cin-icon-group { width: 120px; height: 110px; margin-bottom: 8px; }
-    .cin-v-shape { width: 60px; height: 52px; }
+    .vs-img-logo-wrap { width: 330px; height: 330px; }
+    .cin-icon-group { width: 140px; height: 125px; margin-bottom: 10px; }
+    .cin-v-shape { width: 70px; height: 60px; }
+    .cin-center-eye { width: 24px; height: 24px; }
+    .cin-shard { width: 14px; height: 20px; }
+    .cin-shard-1 { --final-x: -42px; --final-y: -44px; }
+    .cin-shard-2 { --final-x: -26px; --final-y: -60px; }
+    .cin-shard-3 { --final-x: -5px;  --final-y: -68px; }
+    .cin-shard-4 { --final-x: 12px;  --final-y: -64px; }
+    .cin-shard-5 { --final-x: 30px;  --final-y: -52px; }
+    .cin-shard-6 { --final-x: 44px;  --final-y: -38px; }
+    .cin-title { font-size: 24px; letter-spacing: 7px; }
+    .cin-productions { font-size: 10.5px; letter-spacing: 11px; }
+    .cin-tagline { font-size: 8.5px; letter-spacing: 4px; }
+    .cin-ambient-glow { width: 220px; height: 220px; }
+    .cin-dot { width: 6px; height: 6px; }
+}
+
+@media (max-width: 768px) {
+    .vs-img-logo-wrap { width: 310px; height: 310px; }
+    .cin-icon-group { width: 130px; height: 116px; }
+    .cin-v-shape { width: 66px; height: 56px; }
     .cin-center-eye { width: 22px; height: 22px; }
+    .cin-shard { width: 13px; height: 18px; }
+    .cin-shard-1 { --final-x: -39px; --final-y: -41px; }
+    .cin-shard-2 { --final-x: -24px; --final-y: -56px; }
+    .cin-shard-3 { --final-x: -4px;  --final-y: -63px; }
+    .cin-shard-4 { --final-x: 11px;  --final-y: -59px; }
+    .cin-shard-5 { --final-x: 28px;  --final-y: -48px; }
+    .cin-shard-6 { --final-x: 41px;  --final-y: -35px; }
+    .cin-title { font-size: 22px; letter-spacing: 6px; }
+    .cin-productions { font-size: 9.5px; letter-spacing: 9px; }
+    .cin-tagline { font-size: 8px; letter-spacing: 3px; }
+}
+
+@media (max-width: 600px) {
+    .vs-img-logo-wrap { width: 280px; height: 280px; }
+    .cin-icon-group { width: 125px; height: 110px; margin-bottom: 8px; }
+    .cin-v-shape { width: 60px; height: 52px; }
+    .cin-center-eye { width: 21px; height: 21px; }
     .cin-shard { width: 12px; height: 17px; }
     .cin-shard-1 { --final-x: -36px; --final-y: -38px; }
     .cin-shard-2 { --final-x: -22px; --final-y: -52px; }
@@ -503,48 +539,27 @@
     .cin-shard-4 { --final-x: 10px;  --final-y: -54px; }
     .cin-shard-5 { --final-x: 26px;  --final-y: -44px; }
     .cin-shard-6 { --final-x: 38px;  --final-y: -32px; }
-    .cin-title { font-size: 22px; letter-spacing: 7px; }
-    .cin-productions { font-size: 10px; letter-spacing: 10px; }
-    .cin-tagline { font-size: 8px; letter-spacing: 4px; }
-    .cin-ambient-glow { width: 200px; height: 200px; }
-    .cin-dot { width: 5px; height: 5px; }
-}
-
-@media (max-width: 768px) {
-    .vs-img-logo-wrap { width: 250px; height: 250px; }
-    .cin-icon-group { width: 110px; height: 100px; }
-    .cin-v-shape { width: 55px; height: 48px; }
-    .cin-title { font-size: 20px; letter-spacing: 6px; }
-    .cin-productions { font-size: 9px; letter-spacing: 9px; }
-    .cin-tagline { font-size: 7.5px; letter-spacing: 3px; }
-}
-
-@media (max-width: 600px) {
-    .vs-img-logo-wrap { width: 200px; height: 200px; }
-    .cin-icon-group { width: 90px; height: 80px; margin-bottom: 6px; }
-    .cin-v-shape { width: 44px; height: 38px; }
-    .cin-center-eye { width: 18px; height: 18px; }
-    .cin-shard { width: 10px; height: 14px; }
-    .cin-shard-1 { --final-x: -28px; --final-y: -30px; }
-    .cin-shard-2 { --final-x: -17px; --final-y: -40px; }
-    .cin-shard-3 { --final-x: -3px;  --final-y: -46px; }
-    .cin-shard-4 { --final-x: 8px;   --final-y: -42px; }
-    .cin-shard-5 { --final-x: 20px;  --final-y: -34px; }
-    .cin-shard-6 { --final-x: 30px;  --final-y: -25px; }
-    .cin-title { font-size: 16px; letter-spacing: 5px; }
-    .cin-productions { font-size: 7.5px; letter-spacing: 7px; }
+    .cin-title { font-size: 18px; letter-spacing: 5px; }
+    .cin-productions { font-size: 8px; letter-spacing: 7px; }
     .cin-productions::before,
     .cin-productions::after { width: 16px; }
-    .cin-tagline { font-size: 6.5px; letter-spacing: 2.5px; }
-    .cin-ambient-glow { width: 140px; height: 140px; }
+    .cin-tagline { font-size: 7px; letter-spacing: 2.5px; }
+    .cin-ambient-glow { width: 160px; height: 160px; }
 }
 
 @media (max-width: 420px) {
-    .vs-img-logo-wrap { width: 170px; height: 170px; }
-    .cin-icon-group { width: 76px; height: 68px; margin-bottom: 4px; }
-    .cin-v-shape { width: 38px; height: 32px; }
-    .cin-center-eye { width: 15px; height: 15px; }
-    .cin-title { font-size: 13px; letter-spacing: 4px; }
-    .cin-productions { font-size: 6.5px; letter-spacing: 5px; }
-    .cin-tagline { font-size: 5.5px; letter-spacing: 2px; }
+    .vs-img-logo-wrap { width: 240px; height: 240px; }
+    .cin-icon-group { width: 110px; height: 96px; margin-bottom: 6px; }
+    .cin-v-shape { width: 52px; height: 45px; }
+    .cin-center-eye { width: 19px; height: 19px; }
+    .cin-shard { width: 10.5px; height: 15px; }
+    .cin-shard-1 { --final-x: -30px; --final-y: -32px; }
+    .cin-shard-2 { --final-x: -18px; --final-y: -44px; }
+    .cin-shard-3 { --final-x: -3px;  --final-y: -49px; }
+    .cin-shard-4 { --final-x: 8px;   --final-y: -46px; }
+    .cin-shard-5 { --final-x: 22px;  --final-y: -38px; }
+    .cin-shard-6 { --final-x: 32px;  --final-y: -27px; }
+    .cin-title { font-size: 15px; letter-spacing: 4px; }
+    .cin-productions { font-size: 7px; letter-spacing: 5px; }
+    .cin-tagline { font-size: 6px; letter-spacing: 2px; }
 }

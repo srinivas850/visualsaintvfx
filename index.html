@@ -49,12 +49,6 @@
     <!-- Preload LCP Image -->
     <link rel="preload" href="https://res.cloudinary.com/djda3lldb/image/upload/f_auto,q_auto,w_600/v1778921148/Gemini_Generated_Image_huq5m6huq5m6huq5_mwkk0r.png" as="image">
 
-    <!-- Preload Hero Tiny Nav Images -->
-    <link rel="preload" href="https://res.cloudinary.com/djda3lldb/image/upload/f_auto,q_auto,w_160,h_160,c_fill/v1778987253/VS_Digital_Marketing.jpg_nkak6s.jpg" as="image">
-    <link rel="preload" href="https://res.cloudinary.com/djda3lldb/image/upload/f_auto,q_auto,w_160,h_160,c_fill/v1778987232/VS_Wedding.jpg_kqhmsb.jpg" as="image">
-    <link rel="preload" href="https://res.cloudinary.com/djda3lldb/image/upload/f_auto,q_auto,w_160,h_160,c_fill/v1778987208/VS_Motion_Graphics.jpg_k3as7x.jpg" as="image">
-    <link rel="preload" href="https://res.cloudinary.com/djda3lldb/image/upload/f_auto,q_auto,w_160,h_160,c_fill/v1778987207/VSAds_Promos_low.jpg_eqerem.jpg" as="image">
-
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -66,7 +60,6 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="css/preloader.css">
     <link rel="stylesheet" href="css/vs-logo.css">
-    <link rel="stylesheet" href="css/cinematic-logo.css">
     <link rel="stylesheet" href="virtual-card/card.css">
     <link rel="stylesheet" href="css/mobile-nav.css">
     <link rel="stylesheet" href="css/about.css">
@@ -296,126 +289,18 @@
                             </div>
                         </div>
 
-                        <!-- VS Logo Image with Glow Animation -->
+                        <!-- VS Logo Image -->
                         <div class="vs-logo-container">
                             <div class="vs-img-logo-wrap">
-                                <div class="cin-logo-stage">
-                                    <!-- Glow Rings -->
-                                    <div class="cin-glow-ring"></div>
-                                    <div class="cin-glow-ring cin-glow-ring-2"></div>
-
-                                    <!-- Light Sweep Bar -->
-                                    <div class="cin-light-sweep"></div>
-
-                                    <!-- Particle Canvas -->
-                                    <canvas class="cin-particle-canvas" id="cin-canvas"></canvas>
-
-                                    <!-- Ambient Glow -->
-                                    <div class="cin-ambient-glow"></div>
-
-                                    <!-- The 3D Icon Group (V-shape + Center Eye + Shards) -->
-                                    <div class="cin-icon-group">
-                                        <!-- Ambient V shape gradient definitions -->
-                                        <svg style="width:0; height:0; position:absolute;">
-                                            <defs>
-                                                <linearGradient id="vGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                                    <stop offset="0%" stop-color="#111115" />
-                                                    <stop offset="50%" stop-color="#3c3c45" />
-                                                    <stop offset="100%" stop-color="#0b0b0d" />
-                                                </linearGradient>
-                                            </defs>
-                                        </svg>
-
-                                        <!-- V-shape -->
-                                        <div class="cin-v-shape">
-                                            <svg viewBox="0 0 100 85" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <!-- Outer swoop -->
-                                                <path d="M5 25C15 45 35 75 50 80C65 75 85 45 95 25C80 38 65 42 50 42C35 42 20 38 5 25Z" fill="url(#vGrad)" stroke="#555560" stroke-width="1.5"/>
-                                                <!-- Inner wing shadow -->
-                                                <path d="M12 29C22 46 38 68 50 72C62 68 78 46 88 29C75 39 63 41 50 41C37 41 25 39 12 29Z" fill="#08080a" opacity="0.85"/>
-                                            </svg>
-                                        </div>
-
-                                        <!-- Center Concentric Eye -->
-                                        <div class="cin-center-eye">
-                                            <div class="cin-eye-ring cin-eye-ring-1"></div>
-                                            <div class="cin-eye-ring cin-eye-ring-2"></div>
-                                            <div class="cin-eye-ring cin-eye-ring-3"></div>
-                                            <div class="cin-eye-core"></div>
-                                        </div>
-
-                                        <!-- Shards (Floating anti-gravity assembly pieces) -->
-                                        <!-- Shard 1: Purple -->
-                                        <div class="cin-shard cin-shard-1" style="--final-x: -48px; --final-y: -50px; --final-rot: -35deg; --shard-color: #7b2dff;">
-                                            <svg viewBox="0 0 20 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10 2L18 10L10 26L2 10L10 2Z" fill="#7b2dff" stroke="rgba(255,255,255,0.4)" stroke-width="0.7"/>
-                                                <path d="M10 4L16 10L10 22L4 10L10 4Z" fill="rgba(255,255,255,0.15)"/>
-                                            </svg>
-                                        </div>
-                                        <!-- Shard 2: Blue -->
-                                        <div class="cin-shard cin-shard-2" style="--final-x: -30px; --final-y: -68px; --final-rot: -20deg; --shard-color: #2d7bff;">
-                                            <svg viewBox="0 0 20 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10 2L18 10L10 26L2 10L10 2Z" fill="#2d7bff" stroke="rgba(255,255,255,0.4)" stroke-width="0.7"/>
-                                                <path d="M10 4L16 10L10 22L4 10L10 4Z" fill="rgba(255,255,255,0.15)"/>
-                                            </svg>
-                                        </div>
-                                        <!-- Shard 3: Green -->
-                                        <div class="cin-shard cin-shard-3" style="--final-x: -6px; --final-y: -78px; --final-rot: -5deg; --shard-color: #00cc66;">
-                                            <svg viewBox="0 0 20 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10 2L18 10L10 26L2 10L10 2Z" fill="#00cc66" stroke="rgba(255,255,255,0.4)" stroke-width="0.7"/>
-                                                <path d="M10 4L16 10L10 22L4 10L10 4Z" fill="rgba(255,255,255,0.15)"/>
-                                            </svg>
-                                        </div>
-                                        <!-- Shard 4: Yellow -->
-                                        <div class="cin-shard cin-shard-4" style="--final-x: 14px; --final-y: -72px; --final-rot: 8deg; --shard-color: #cccc00;">
-                                            <svg viewBox="0 0 20 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10 2L18 10L10 26L2 10L10 2Z" fill="#cccc00" stroke="rgba(255,255,255,0.4)" stroke-width="0.7"/>
-                                                <path d="M10 4L16 10L10 22L4 10L10 4Z" fill="rgba(255,255,255,0.15)"/>
-                                            </svg>
-                                        </div>
-                                        <!-- Shard 5: Orange -->
-                                        <div class="cin-shard cin-shard-5" style="--final-x: 34px; --final-y: -58px; --final-rot: 22deg; --shard-color: #ff8800;">
-                                            <svg viewBox="0 0 20 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10 2L18 10L10 26L2 10L10 2Z" fill="#ff8800" stroke="rgba(255,255,255,0.4)" stroke-width="0.7"/>
-                                                <path d="M10 4L16 10L10 22L4 10L10 4Z" fill="rgba(255,255,255,0.15)"/>
-                                            </svg>
-                                        </div>
-                                        <!-- Shard 6: Red -->
-                                        <div class="cin-shard cin-shard-6" style="--final-x: 50px; --final-y: -42px; --final-rot: 35deg; --shard-color: #ff2222;">
-                                            <svg viewBox="0 0 20 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10 2L18 10L10 26L2 10L10 2Z" fill="#ff2222" stroke="rgba(255,255,255,0.4)" stroke-width="0.7"/>
-                                                <path d="M10 4L16 10L10 22L4 10L10 4Z" fill="rgba(255,255,255,0.15)"/>
-                                            </svg>
-                                        </div>
-                                    </div>
-
-                                    <!-- Elegant metallic premium text branding -->
-                                    <div class="cin-title" data-text="VISUAL SAINT VFX">VISUAL SAINT VFX</div>
-                                    <div class="cin-productions">PRODUCTIONS</div>
-                                    <div class="cin-tagline"></div>
-
-                                    <!-- RGB glow accent dots at bottom right of the tagline -->
-                                    <div class="cin-dot cin-dot-1"></div>
-                                    <div class="cin-dot cin-dot-2"></div>
-                                    <div class="cin-dot cin-dot-3"></div>
-                                </div>
+                                <!-- The Cloudinary logo image -->
+                                <img
+                                    src="https://res.cloudinary.com/djda3lldb/image/upload/v1779081869/only_logo_white_vsvfx_wf2fcg.png"
+                                    alt="Visual Saint VFX Logo"
+                                    class="vs-logo-img-animated"
+                                    loading="eager"
+                                    decoding="async"
+                                >
                             </div>
-
-                            <div class="hero-tiny-nav-images">
-                                <a href="digital-marketing.html" class="tiny-nav-img-link" title="Digital Marketing" aria-label="Digital Marketing and Social Media Strategy">
-                                    <img src="https://res.cloudinary.com/djda3lldb/image/upload/f_auto,q_auto,w_160,h_160,c_fill/v1778987253/VS_Digital_Marketing.jpg_nkak6s.jpg" alt="Digital Marketing Agency Services" loading="eager" fetchpriority="high" decoding="async">
-                                </a>
-                                <a href="wedding.html" class="tiny-nav-img-link" title="Wedding Films" aria-label="Cinematic Wedding Photography and Films">
-                                    <img src="https://res.cloudinary.com/djda3lldb/image/upload/f_auto,q_auto,w_160,h_160,c_fill/v1778987232/VS_Wedding.jpg_kqhmsb.jpg" alt="Premium Wedding Photography Services" loading="eager" fetchpriority="high" decoding="async">
-                                </a>
-                                <a href="motion-graphics.html" class="tiny-nav-img-link" title="Motion Graphics" aria-label="Motion Graphics, CGI and Video Editing Services">
-                                    <img src="https://res.cloudinary.com/djda3lldb/image/upload/f_auto,q_auto,w_160,h_160,c_fill/v1778987208/VS_Motion_Graphics.jpg_k3as7x.jpg" alt="Motion Graphics and VFX Studio Services" loading="eager" fetchpriority="high" decoding="async">
-                                </a>
-                                <a href="ad-agency.html" class="tiny-nav-img-link" title="Ads &amp; Promos" aria-label="Visual Saint VFX Advertising and Promotions Services">
-                                    <img src="https://res.cloudinary.com/djda3lldb/image/upload/f_auto,q_auto,w_160,h_160,c_fill/v1778987207/VSAds_Promos_low.jpg_eqerem.jpg" alt="Visual Saint VFX Advertising and Promos India" loading="eager" fetchpriority="high" decoding="async">
-                                </a>
-                            </div>
-
                         </div>
 
                     </div>
@@ -548,7 +433,6 @@
     <script src="script.js"></script>
     <script src="virtual-card/card.js"></script>
     <script src="js/mobile-nav.js"></script>
-    <script src="js/cinematic-logo.js"></script>
 
     <!-- ══ PRELOADER CONTROLLER ════════════════════════════════════════════ -->
     <script>

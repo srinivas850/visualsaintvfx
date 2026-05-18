@@ -218,11 +218,15 @@
 
     <script src="script.js"></script>
     <script>
+        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
+        const BASE_URL = isLocal ? 'http://localhost:5000' : 'https://visualsaintvfx.onrender.com';
+        const API_URL = isLocal ? 'http://localhost:5000/api' : 'https://visualsaintvfx.onrender.com/api';
+
         // ── Wake up Render backend on page load ───────────────────────────────
         // Fires a cheap health-check so the server is warm when the user hits Login
         (async function wakeUpServer() {
             try {
-                await fetch('https://visualsaintvfx.onrender.com/health', { method: 'GET' });
+                await fetch(`${BASE_URL}/health`, { method: 'GET' });
                 console.log('[Server] Backend is awake.');
             } catch (e) {
                 console.warn('[Server] Could not ping backend on load.', e);
@@ -256,13 +260,12 @@
             btn.textContent = 'Authenticating...';
             btn.disabled = true;
 
-            const API_URL = 'https://visualsaintvfx.onrender.com/api';
             let payload = {};
             let endpoint = '';
             
             // Render cold start message
             let loadingTimeout = setTimeout(() => {
-                btn.textContent = 'Waking up server (takes ~30s)...';
+                btn.textContent = isLocal ? 'Connecting to local server...' : 'Waking up server (takes ~30s)...';
             }, 3000);
 
             if (type === 'client') {

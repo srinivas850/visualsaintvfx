@@ -34,6 +34,9 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(morgan('dev')); // Logging
 
+// Serve static frontend files from parent directory
+app.use(express.static(path.join(__dirname, '..')));
+
 // ── Health / Keep-Alive endpoint ─────────────────────────────────────────────
 // Pinging this prevents Render free tier from sleeping
 app.get('/health', (req, res) => {

@@ -25,46 +25,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 350px;
-    height: 350px;
+    width: 620px;
+    height: 620px;
 }
 
 .vs-logo-img-animated {
     position: relative;
     z-index: 5;
-    width: 300px;
+    width: 580px;
     height: auto;
     object-fit: contain;
-    /* No tight 0-blur shadow — only spread-out diffuse glows so no white patch appears */
-    filter:
-        drop-shadow(0 0 40px rgba(180, 210, 255, 0.55))
-        drop-shadow(0 0 80px rgba(140, 180, 255, 0.30))
-        drop-shadow(0 0 120px rgba(120, 160, 255, 0.18))
-        brightness(1.06);
-    animation: vs-img-float 7s ease-in-out infinite, vs-img-glow-pulse 4s ease-in-out infinite;
+    animation: vs-img-float 7s ease-in-out infinite;
 }
 
 @keyframes vs-img-float {
     0%, 100% { transform: translateY(0px) scale(1);     }
     33%       { transform: translateY(-8px) scale(1.01); }
     66%       { transform: translateY(-4px) scale(1.005); }
-}
-
-@keyframes vs-img-glow-pulse {
-    0%, 100% {
-        filter:
-            drop-shadow(0 0 40px rgba(180, 210, 255, 0.55))
-            drop-shadow(0 0 80px rgba(140, 180, 255, 0.30))
-            drop-shadow(0 0 120px rgba(120, 160, 255, 0.18))
-            brightness(1.06);
-    }
-    50% {
-        filter:
-            drop-shadow(0 0 55px rgba(200, 225, 255, 0.75))
-            drop-shadow(0 0 110px rgba(160, 200, 255, 0.50))
-            drop-shadow(0 0 160px rgba(140, 180, 255, 0.30))
-            brightness(1.14);
-    }
 }
 
 /* Glow rings around logo */
@@ -109,49 +86,29 @@
 
 /* ── lights-on intensifies the logo glow ── */
 .lights-on .vs-logo-img-animated {
-    animation: vs-img-float 7s ease-in-out infinite, vs-img-glow-lit 4s ease-in-out infinite;
-}
-@keyframes vs-img-glow-lit {
-    0%, 100% {
-        filter:
-            drop-shadow(0 0 28px rgba(255, 255, 255, 0.90))
-            drop-shadow(0 0 60px rgba(255, 235, 150, 0.55))
-            drop-shadow(0 0 110px rgba(255, 220, 100, 0.35))
-            brightness(1.15);
-    }
-    50% {
-        filter:
-            drop-shadow(0 0 44px rgba(255, 255, 255, 1.0))
-            drop-shadow(0 0 90px rgba(255, 240, 160, 0.75))
-            drop-shadow(0 0 160px rgba(255, 230, 120, 0.50))
-            brightness(1.22);
-    }
+    animation: vs-img-float 7s ease-in-out infinite;
 }
 
 /* ── Responsive ── */
-/* Tablet: fits in 380px centerpiece without crowding thumbnails */
+/* Tablet: fits in centerpiece */
 @media (max-width: 900px) {
-    .vs-img-logo-wrap { width: 260px; height: 260px; }
-    .vs-logo-img-animated { width: 220px; }
-    .vs-img-pulse-orb { width: 130px; height: 130px; }
+    .vs-img-logo-wrap { width: 440px; height: 440px; }
+    .vs-logo-img-animated { width: 400px; }
 }
 /* Small tablet / large phone */
 @media (max-width: 768px) {
-    .vs-img-logo-wrap { width: 230px; height: 230px; }
-    .vs-logo-img-animated { width: 192px; }
-    .vs-img-pulse-orb { width: 110px; height: 110px; }
+    .vs-img-logo-wrap { width: 380px; height: 380px; }
+    .vs-logo-img-animated { width: 340px; }
 }
-/* Phone: fits in 300px centerpiece */
+/* Phone: fits in centerpiece */
 @media (max-width: 600px) {
-    .vs-img-logo-wrap { width: 180px; height: 180px; }
-    .vs-logo-img-animated { width: 152px; }
-    .vs-img-pulse-orb { width: 90px; height: 90px; }
+    .vs-img-logo-wrap { width: 320px; height: 320px; }
+    .vs-logo-img-animated { width: 280px; }
 }
 /* Small phone */
 @media (max-width: 420px) {
-    .vs-img-logo-wrap { width: 155px; height: 155px; }
-    .vs-logo-img-animated { width: 130px; }
-    .vs-img-pulse-orb { width: 75px; height: 75px; }
+    .vs-img-logo-wrap { width: 260px; height: 260px; }
+    .vs-logo-img-animated { width: 220px; }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════
@@ -411,22 +368,15 @@
     align-items: center !important;
     animation: none !important;
     gap: 0;
+    transform: translateY(-80px) !important; /* Position logo somewhat top */
 }
 
-/* Top cinematic frame line */
+/* Top cinematic frame line disabled */
 .vs-logo-container::before {
-    content: ''; display: block;
-    width: 260px; height: 1px; margin-bottom: 20px; flex-shrink: 0;
-    background: linear-gradient(90deg, transparent, rgba(205,200,190,.45) 50%, transparent);
-    animation: vs-line-breathe 7s ease-in-out infinite;
+    content: none !important;
 }
-/* Removed bottom ::after line — platform replaces it */
+/* Removed bottom ::after line */
 .vs-logo-container::after { content: none; }
-
-@keyframes vs-line-breathe {
-    0%,100% { opacity: .5; transform: scaleX(.88); }
-    50%      { opacity: 1;  transform: scaleX(1);   }
-}
 
 /* ═══════════════════════════════════════════════════════════════════════
    6. VS TEXT: larger, warmer gunmetal — no blue tones

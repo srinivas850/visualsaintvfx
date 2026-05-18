@@ -369,7 +369,7 @@
     align-items: center !important;
     animation: none !important;
     gap: 0;
-    transform: translateY(-80px) !important; /* Position logo somewhat top */
+    transform: translateY(0px) !important; /* Perfect vertical center */
 }
 
 /* Top cinematic frame line disabled */

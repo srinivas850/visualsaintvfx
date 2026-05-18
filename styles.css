@@ -227,7 +227,7 @@ a {
 .hero-container {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     gap: 60px;
     padding-top: 60px;
     /* exact 60px gap below navbar */
@@ -851,6 +851,11 @@ a {
         padding-top: 40px;
     }
 
+    .hero-section {
+        min-height: auto;
+        padding-bottom: 0px;
+    }
+
     .hero-content {
         max-width: 100%;
         display: flex;
@@ -877,11 +882,11 @@ a {
     }
 
     .centerpiece-container {
-        max-width: 340px;
+        max-width: 100%;
         width: 100%;
-        height: 60px; /* Drastically shrink height to leave only a small gap around the logo */
+        height: 400px; /* Exact match to logo image height at 900px */
         overflow: visible;
-        margin: 0 auto !important;
+        margin: 15px auto !important; /* Balanced gap */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -956,10 +961,13 @@ a {
 @media (max-width: 600px) {
     .hero-section {
         padding-top: 90px;
+        padding-bottom: 0px;
+        min-height: auto;
     }
 
     .hero-visual {
-        padding: 10px 0;
+        padding: 0 !important;
+        margin: 0 !important;
         width: 100%;
         overflow: visible;
         display: flex;
@@ -987,16 +995,16 @@ a {
     }
 
     .centerpiece-container {
-        max-width: 300px;
-        height: 435px;
+        max-width: 100%;
+        height: 280px; /* Exact match to logo image height at 600px */
         aspect-ratio: auto;
-        margin: 0 auto;
+        margin: 15px auto; /* Balanced gap */
         overflow: visible;
     }
     
     @media (max-width: 420px) {
         .centerpiece-container {
-            height: 385px;
+            height: 220px; /* Exact match to logo image height at 420px */
         }
     }
 

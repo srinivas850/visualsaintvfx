@@ -193,10 +193,10 @@ if (nav) {
 const typeWriterElement = document.getElementById('typewriter-text');
 if (typeWriterElement) {
     const words = [
-        "MOTION GRAPHICS.",
-        "DIGITAL MARKETING.",
-        "WEDDING PHOTOGRAPHY.",
-        "ADS & PROMOTIONS."
+        { text: "MOTION GRAPHICS.", color: "#a855f7" },
+        { text: "DIGITAL MARKETING.", color: "#3b82f6" },
+        { text: "WEDDING PHOTOGRAPHY.", color: "#eab308" },
+        { text: "ADS & PROMOTIONS.", color: "#ef4444" }
     ];
     let wordIndex = 0;
     let charIndex = 0;
@@ -208,7 +208,10 @@ if (typeWriterElement) {
     const newWordDelay = 2000;
 
     function type() {
-        const currentWord = words[wordIndex];
+        const currentWordObj = words[wordIndex];
+        const currentWord = currentWordObj.text;
+        
+        typeWriterElement.style.color = currentWordObj.color;
         
         if (isDeleting) {
             typeWriterElement.textContent = currentWord.substring(0, charIndex - 1);

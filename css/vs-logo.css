@@ -94,6 +94,7 @@
 @media (max-width: 900px) {
     .vs-img-logo-wrap { width: 440px; height: 440px; }
     .vs-logo-img-animated { width: 400px; }
+    .vs-logo-container { transform: translateY(0px) !important; }
 }
 /* Small tablet / large phone */
 @media (max-width: 768px) {

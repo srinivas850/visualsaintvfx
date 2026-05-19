@@ -23,7 +23,7 @@ const corsOptions = {
   credentials: false   // must be false when origin is '*'
 };
 app.use(cors(corsOptions));
-app.options('/*path', cors(corsOptions)); // handle all pre-flight OPTIONS requests
+// app.options('*', cors(corsOptions)); // handled by app.use(cors)
 
 // ── Helmet (security headers) ────────────────────────────────────────────────
 // Disable contentSecurityPolicy so external Cloudinary/CDN assets are not blocked

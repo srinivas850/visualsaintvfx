@@ -92,7 +92,11 @@ const deleteClient = async (req, res) => {
     const mediaRes = await db.query('SELECT cloudinary_public_id FROM media WHERE client_id = $1', [id]);
     
     for (const file of mediaRes.rows) {
-      await cloudinary.uploader.destroy(file.cloudinary_public_id);
+      try {
+        await cloudinary.uploader.destroy(file.cloudinary_public_id);
+      } catch (cloudinaryErr) {
+        console.error('Failed to delete file from Cloudinary:', cloudinaryErr);
+      }
     }
 
     await db.query('DELETE FROM clients WHERE id = $1', [id]);
@@ -141,7 +145,11 @@ const deleteMedia = async (req, res) => {
     }
 
     const publicId = mediaRes.rows[0].cloudinary_public_id;
-    await cloudinary.uploader.destroy(publicId);
+    try {
+      await cloudinary.uploader.destroy(publicId);
+    } catch(err) {
+      console.error('Cloudinary delete error:', err);
+    }
     
     await db.query('DELETE FROM media WHERE id = $1', [id]);
     res.json({ success: true, message: 'File deleted successfully' });

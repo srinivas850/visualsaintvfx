@@ -52,10 +52,13 @@ app.use('/api/client', clientRoutes);
 
 // ── Global Error Handling ─────────────────────────────────────────────────────
 app.use((err, req, res, next) => {
-  console.error('[Error]', err.stack);
-  res.status(500).json({ success: false, message: 'Internal Server Error' });
+  console.error('[Error]', err);
+  const status = err.statusCode || 500;
+  if (err.name === 'MulterError' || (err.message && err.message.includes('Cloudinary'))) {
+    return res.status(400).json({ success: false, message: `Upload Error: ${err.message}` });
+  }
+  res.status(status).json({ success: false, message: err.message || 'Internal Server Error' });
 });
-
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

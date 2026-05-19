@@ -354,8 +354,14 @@ document.getElementById('upload-form').addEventListener('submit', async (e) => {
             });
 
             if (!res.ok) {
-                const errData = await res.json().catch(() => ({}));
-                throw new Error(errData.message || 'Chunk upload failed');
+                let errMsg = 'Chunk upload failed';
+                try {
+                    const errData = await res.json();
+                    errMsg = errData.message || errMsg;
+                } catch (parseErr) {
+                    errMsg = `Server error ${res.status}`;
+                }
+                throw new Error(errMsg);
             }
 
             const data = await res.json();

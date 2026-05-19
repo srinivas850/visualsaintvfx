@@ -15,8 +15,7 @@ const storage = new CloudinaryStorage({
 
     return {
       folder: `visualsaint/${clientId}`,
-      resource_type: resource_type,
-      public_id: `${Date.now()}-${file.originalname.replace(/\.[^/.]+$/, '')}`,
+      resource_type: resource_type
     };
   },
 });

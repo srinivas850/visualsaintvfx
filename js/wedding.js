@@ -88,9 +88,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if(document.querySelector('.w-hero-img')) document.querySelector('.w-hero-img').src = optimizeUrl(cloudinaryImages[0]);
     
     // Event Cards (Take 5)
+    // Only dynamically assign Cloudinary images to the first 5 cards (Haldi, Mehendi, Wedding, Reception, Pre-Wedding)
+    // The other 3 cards (Maternity, Baby Shoots, Corporate) use their dedicated Unsplash source URLs.
     const eventCards = document.querySelectorAll('.w-event-img');
     eventCards.forEach((img, i) => {
-        if (cloudinaryImages[i+6]) img.src = optimizeUrl(cloudinaryImages[i+6]);
+        if (i < 5) {
+            if (cloudinaryImages[i+6]) img.src = optimizeUrl(cloudinaryImages[i+6]);
+        }
     });
     
     // CTA BG

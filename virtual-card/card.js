@@ -71,7 +71,7 @@
                                 <img src="https://res.cloudinary.com/djda3lldb/image/upload/v1778315189/vs_owner_beuywr.webp" alt="Owner" style="width: 160px; height: 180px; border-radius: 20px; border: 2px solid rgba(255,255,255,0.15); object-fit: cover; margin-bottom: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.7);">
                                 
                                 <h2 class="vc-name" style="font-size: 26px; letter-spacing: 1px; line-height: 1.1; margin-bottom: 8px;">JALADI VIJAYENDRA <br> KUMAR</h2>
-                                <p class="vc-role" style="color: #ff9933; font-weight: 500; letter-spacing: 4px; font-size: 12px; margin: 0;">FOUNDER & PARTNER</p>
+                                <p class="vc-role" style="color: #ff9933; font-weight: 500; letter-spacing: 4px; font-size: 12px; margin: 0;">FOUNDER</p>
                             </div>
                             
                             <!-- Interesting details bottom -->
@@ -260,7 +260,7 @@
 VERSION:3.0
 FN:JALADI VIJAYENDRA KUMAR
 ORG:Visual Saint VFX Productions
-TITLE:Founder & Partner
+TITLE:Founder
 TEL;TYPE=WORK,VOICE:+919849599981
 EMAIL;TYPE=PREF,INTERNET:hello@visualsaintvfx.com
 URL:https://www.visualsaintvfx.com

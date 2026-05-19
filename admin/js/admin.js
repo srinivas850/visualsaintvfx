@@ -1,43 +1,49 @@
-const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
-const API_URL = isLocal ? 'http://localhost:5000/api' : 'https://visualsaintvfx.onrender.com/api';
-const BASE_URL = isLocal ? 'http://localhost:5000' : 'https://visualsaintvfx.onrender.com';
+// ── API URL Resolution ────────────────────────────────────────────────────────
+// Backend is always on Render. Frontend may be on Vercel (visualsaintvfx.com),
+// Render static (visualsaintvfx.onrender.com), or localhost during dev.
+const isLocal = (
+  window.location.hostname === 'localhost' ||
+  window.location.hostname === '127.0.0.1' ||
+  window.location.protocol === 'file:'
+);
+const BACKEND_URL = isLocal
+  ? 'http://localhost:5000'
+  : 'https://visualsaintvfx.onrender.com';
+const API_URL = `${BACKEND_URL}/api`;
 
-// State
+// ── State ─────────────────────────────────────────────────────────────────────
 let token = localStorage.getItem('adminToken');
 let filesToUpload = [];
 
-// DOM Elements
-const loginSection = document.getElementById('login-section');
-const dashboardSection = document.getElementById('dashboard-section');
-const navLinks = document.querySelectorAll('.nav-links li');
+// ── DOM Elements ──────────────────────────────────────────────────────────────
+const navLinks    = document.querySelectorAll('.nav-links li');
 const viewSections = document.querySelectorAll('.view-section');
-const logoutBtn = document.getElementById('logout-btn');
+const logoutBtn   = document.getElementById('logout-btn');
 
-// ── Keep-Alive Ping ───────────────────────────────────────────────────────────
-// Wakes up the Render free-tier backend when the admin panel is opened.
-// Render cold starts can take 50+ seconds.
+// ── Server Wake-Up (Render free-tier cold start) ──────────────────────────────
 async function wakeUpServer() {
-    let retries = 12; // 12 * 5s = 60s
+    const MAX_RETRIES = 12;
+    let retries = MAX_RETRIES;
     while (retries > 0) {
         try {
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 8000); 
-            const res = await fetch(`${BASE_URL}/health`, { method: 'GET', signal: controller.signal });
-            clearTimeout(timeoutId);
+            const tid = setTimeout(() => controller.abort(), 8000);
+            const res = await fetch(`${BACKEND_URL}/health`, { signal: controller.signal });
+            clearTimeout(tid);
             if (res.ok) {
                 console.log('[Server] Backend is awake.');
                 return true;
             }
         } catch (e) {
-            console.warn(`[Server] Waking up backend... (${retries} retries left)`);
+            console.warn(`[Server] Waking up... (${retries} retries left)`);
         }
         retries--;
-        if (retries > 0) await new Promise(resolve => setTimeout(resolve, 5000));
+        if (retries > 0) await new Promise(r => setTimeout(r, 5000));
     }
     return false;
 }
 
-// Initialization
+// ── Init ──────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
     if (!token) {
         window.location.href = '../login.html';
@@ -47,34 +53,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadDashboardData();
 });
 
-
-// Toast Notifications
+// ── Toast Notifications ───────────────────────────────────────────────────────
 function showToast(message, type = 'success') {
     const container = document.getElementById('toast-container');
+    if (!container) return;
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
     toast.textContent = message;
     container.appendChild(toast);
-    
     setTimeout(() => {
         toast.style.opacity = '0';
         toast.style.transform = 'translateX(120%)';
         toast.style.transition = 'all 0.3s ease';
         setTimeout(() => toast.remove(), 300);
-    }, 3000);
+    }, 3500);
 }
 
-// UI Navigation
+// ── Navigation ────────────────────────────────────────────────────────────────
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
-        // Update active nav
         navLinks.forEach(l => l.classList.remove('active'));
         link.classList.add('active');
-        
-        // Update active view
+
         const target = link.getAttribute('data-target');
         viewSections.forEach(v => {
-            if(v.id === `view-${target}`) {
+            if (v.id === `view-${target}`) {
                 v.classList.remove('hidden');
                 v.classList.add('active');
             } else {
@@ -83,10 +86,9 @@ navLinks.forEach(link => {
             }
         });
 
-        // Load specific data based on view
-        if(target === 'overview') loadDashboardData();
-        if(target === 'clients') loadClientsData();
-        if(target === 'upload') loadClientsForUpload();
+        if (target === 'overview') loadDashboardData();
+        if (target === 'clients')  loadClientsData();
+        if (target === 'upload')   loadClientsForUpload();
     });
 });
 
@@ -96,224 +98,247 @@ logoutBtn.addEventListener('click', () => {
     window.location.href = '../login.html';
 });
 
-// Fetch Data Helper
+// ── Authenticated Fetch Helper ────────────────────────────────────────────────
 async function authFetch(endpoint, options = {}) {
     const headers = {
         'Authorization': `Bearer ${token}`,
-        ...options.headers
+        ...options.headers,
     };
-    
+
     try {
         const res = await fetch(`${API_URL}${endpoint}`, { ...options, headers });
-        
+
         if (res.status === 401 || res.status === 403) {
+            console.warn('[Auth] Token rejected — redirecting to login');
             localStorage.removeItem('adminToken');
             token = null;
             window.location.href = '../login.html';
             throw new Error('Unauthorized');
         }
-        
-        return await res.json();
+
+        const data = await res.json();
+        if (!res.ok && !data.success) {
+            // Surface the server's own error message in the toast
+            throw new Error(data.message || `HTTP ${res.status}`);
+        }
+        return data;
     } catch (error) {
-        console.error('Fetch error:', error);
         if (error.message === 'Unauthorized') throw error;
-        showToast('Network error. Reconnecting to server...', 'error');
-        return { success: false, message: 'Network error or backend sleeping' };
+        console.error('[Fetch] Error:', error.message);
+        showToast(error.message || 'Network error. Is the server awake?', 'error');
+        return { success: false, message: error.message };
     }
 }
 
-// Dashboard Overview
+// ── Dashboard Overview ────────────────────────────────────────────────────────
 async function loadDashboardData() {
     try {
         const data = await authFetch('/admin/stats');
-        if (data.success) {
-            document.getElementById('stat-total-clients').textContent = data.stats.totalClients;
-            document.getElementById('stat-total-uploads').textContent = data.stats.totalUploads;
-            
-            const recentList = document.getElementById('recent-activity-list');
-            recentList.innerHTML = '';
-            
-            data.stats.recentUploads.forEach(item => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${item.client_name}</td>
-                    <td>${item.original_filename}</td>
-                    <td>${item.file_type.split('/')[0]}</td>
-                    <td>${new Date(item.upload_date).toLocaleDateString()}</td>
-                `;
-                recentList.appendChild(tr);
-            });
+        if (!data.success) return;
+
+        document.getElementById('stat-total-clients').textContent = data.stats.totalClients;
+        document.getElementById('stat-total-uploads').textContent = data.stats.totalUploads;
+
+        const recentList = document.getElementById('recent-activity-list');
+        recentList.innerHTML = '';
+        if (data.stats.recentUploads.length === 0) {
+            recentList.innerHTML = '<tr><td colspan="4" style="text-align:center;color:rgba(255,255,255,0.4)">No uploads yet</td></tr>';
+            return;
         }
+        data.stats.recentUploads.forEach(item => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${item.client_name || '—'}</td>
+                <td>${item.original_filename || '—'}</td>
+                <td>${(item.file_type || '').split('/')[0] || '—'}</td>
+                <td>${new Date(item.upload_date).toLocaleDateString()}</td>
+            `;
+            recentList.appendChild(tr);
+        });
     } catch (err) {
-        console.error('Failed to load stats', err);
+        console.error('[Dashboard] Failed to load stats:', err);
     }
 }
 
-// Client Management
+// ── Client Management ─────────────────────────────────────────────────────────
 async function loadClientsData() {
     try {
         const data = await authFetch('/admin/clients');
-        if (data.success) {
-            const tbody = document.getElementById('clients-list');
-            tbody.innerHTML = '';
-            
-            data.clients.forEach(client => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${client.client_id}</td>
-                    <td>${client.name}</td>
-                    <td>${new Date(client.created_at).toLocaleDateString()}</td>
-                    <td>
-                        <button class="btn btn-danger btn-sm" onclick="deleteClient(${client.id})">Delete</button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
+        if (!data.success) return;
+
+        const tbody = document.getElementById('clients-list');
+        tbody.innerHTML = '';
+
+        if (data.clients.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;color:rgba(255,255,255,0.4)">No clients yet</td></tr>';
+            return;
         }
+        data.clients.forEach(client => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${client.client_id}</td>
+                <td>${client.name}</td>
+                <td>${new Date(client.created_at).toLocaleDateString()}</td>
+                <td>
+                    <button class="btn btn-danger btn-sm" onclick="deleteClient(${client.id}, this)">Delete</button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
     } catch (err) {
-        console.error('Failed to load clients', err);
+        console.error('[Clients] Failed to load:', err);
     }
 }
 
-// Add Client Modal Logic
+// Add Client Modal
 const modal = document.getElementById('add-client-modal');
-document.getElementById('open-add-client-modal').onclick = () => {
-    modal.classList.remove('hidden');
-}
-document.querySelector('.close-modal').onclick = () => {
-    modal.classList.add('hidden');
-}
-window.onclick = (e) => {
-    if (e.target === modal) modal.classList.add('hidden');
-}
+document.getElementById('open-add-client-modal').onclick = () => modal.classList.remove('hidden');
+document.querySelector('.close-modal').onclick = () => modal.classList.add('hidden');
+window.onclick = (e) => { if (e.target === modal) modal.classList.add('hidden'); };
 
 document.getElementById('add-client-form').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const name = document.getElementById('new-client-name').value;
-    const client_id = document.getElementById('new-client-id').value;
-    const password = document.getElementById('new-client-password').value;
+    const btn = e.target.querySelector('button[type="submit"]');
+    const name      = document.getElementById('new-client-name').value.trim();
+    const client_id = document.getElementById('new-client-id').value.trim();
+    const password  = document.getElementById('new-client-password').value;
 
+    if (!name || !client_id || !password) {
+        showToast('All fields are required', 'error');
+        return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Creating...';
     try {
         const data = await authFetch('/admin/clients', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, client_id, password })
+            body: JSON.stringify({ name, client_id, password }),
         });
-        
         if (data.success) {
             showToast('Client created successfully');
             modal.classList.add('hidden');
-            document.getElementById('add-client-form').reset();
+            e.target.reset();
             loadClientsData();
         } else {
             showToast(data.message || 'Failed to create client', 'error');
         }
     } catch (err) {
         showToast('Error creating client', 'error');
+    } finally {
+        btn.disabled = false;
+        btn.textContent = 'Create Client Account';
     }
 });
 
-window.deleteClient = async (id) => {
-    if(confirm('Are you sure? This will delete the client and ALL their uploaded files permanently.')) {
-        try {
-            const data = await authFetch(`/admin/clients/${id}`, { method: 'DELETE' });
-            if(data.success) {
-                showToast('Client deleted');
-                loadClientsData();
-            } else {
-                showToast(data.message, 'error');
-            }
-        } catch(err) {
-            showToast('Error deleting client', 'error');
-        }
-    }
-}
+window.deleteClient = async (id, btnEl) => {
+    if (!confirm('Are you sure? This will delete the client AND all their uploaded files permanently.')) return;
 
-// Upload Media logic
+    if (btnEl) { btnEl.disabled = true; btnEl.textContent = 'Deleting...'; }
+    try {
+        const data = await authFetch(`/admin/clients/${id}`, { method: 'DELETE' });
+        if (data.success) {
+            showToast(data.message || 'Client deleted');
+            loadClientsData();
+        } else {
+            showToast(data.message || 'Failed to delete client', 'error');
+            if (btnEl) { btnEl.disabled = false; btnEl.textContent = 'Delete'; }
+        }
+    } catch (err) {
+        showToast('Error deleting client', 'error');
+        if (btnEl) { btnEl.disabled = false; btnEl.textContent = 'Delete'; }
+    }
+};
+
+// ── Upload View ───────────────────────────────────────────────────────────────
 async function loadClientsForUpload() {
     try {
         const data = await authFetch('/admin/clients');
-        if (data.success) {
-            const select = document.getElementById('select-client');
-            select.innerHTML = '<option value="">-- Choose a Client --</option>';
-            data.clients.forEach(client => {
-                const opt = document.createElement('option');
-                opt.value = client.id;
-                opt.textContent = `${client.name} (${client.client_id})`;
-                select.appendChild(opt);
-            });
-        }
+        if (!data.success) return;
+        const select = document.getElementById('select-client');
+        select.innerHTML = '<option value="">-- Choose a Client --</option>';
+        data.clients.forEach(client => {
+            const opt = document.createElement('option');
+            opt.value = client.id;
+            opt.textContent = `${client.name} (${client.client_id})`;
+            select.appendChild(opt);
+        });
     } catch (err) {
-        console.error('Failed to load clients for upload', err);
+        console.error('[Upload] Failed to load clients:', err);
     }
 }
 
-const dropZone = document.getElementById('drop-zone');
-const fileInput = document.getElementById('file-input');
+const dropZone   = document.getElementById('drop-zone');
+const fileInput  = document.getElementById('file-input');
 const folderInput = document.getElementById('folder-input');
 const filePreview = document.getElementById('file-list-preview');
-const uploadBtn = document.getElementById('btn-upload');
+const uploadBtn  = document.getElementById('btn-upload');
 
-dropZone.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    dropZone.classList.add('dragover');
-});
-dropZone.addEventListener('dragleave', () => {
-    dropZone.classList.remove('dragover');
-});
+dropZone.addEventListener('dragover',  (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', ()  => dropZone.classList.remove('dragover'));
 dropZone.addEventListener('drop', (e) => {
     e.preventDefault();
     dropZone.classList.remove('dragover');
-    if (e.dataTransfer.files.length) {
-        handleFiles(e.dataTransfer.files);
-    }
+    if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
 });
-fileInput.addEventListener('change', () => {
-    if (fileInput.files.length) {
-        handleFiles(fileInput.files);
-    }
-});
-folderInput.addEventListener('change', () => {
-    if (folderInput.files.length) {
-        handleFiles(folderInput.files);
-    }
-});
+fileInput.addEventListener('change',   () => { if (fileInput.files.length)   handleFiles(fileInput.files); });
+folderInput.addEventListener('change', () => { if (folderInput.files.length) handleFiles(folderInput.files); });
 
 function handleFiles(files) {
-    // Filter out hidden system files that might cause backend errors
-    const validFiles = Array.from(files).filter(f => !f.name.startsWith('.DS_Store') && f.name !== 'Thumbs.db');
-    
+    const validFiles = Array.from(files).filter(f =>
+        !f.name.startsWith('.') && f.name !== 'Thumbs.db' && f.size > 0
+    );
     if (validFiles.length === 0) return;
-    
+
     filesToUpload = [...filesToUpload, ...validFiles];
+    renderFilePreview();
+}
+
+function renderFilePreview() {
     filePreview.innerHTML = '';
-    
-    filesToUpload.forEach(file => {
+    filesToUpload.forEach((file, idx) => {
         const div = document.createElement('div');
         div.className = 'file-item';
-        
+
         if (file.type.startsWith('image/')) {
             const img = document.createElement('img');
             img.src = URL.createObjectURL(file);
             div.appendChild(img);
         }
-        
         const span = document.createElement('span');
         span.textContent = file.name;
         div.appendChild(span);
-        
+
+        // Remove button
+        const removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.textContent = '✕';
+        removeBtn.title = 'Remove file';
+        removeBtn.style.cssText = 'position:absolute;top:4px;right:4px;background:rgba(255,50,50,0.8);border:none;color:#fff;border-radius:50%;width:20px;height:20px;cursor:pointer;font-size:10px;';
+        removeBtn.onclick = () => {
+            filesToUpload.splice(idx, 1);
+            renderFilePreview();
+            uploadBtn.disabled = filesToUpload.length === 0;
+        };
+        div.style.position = 'relative';
+        div.appendChild(removeBtn);
+
         filePreview.appendChild(div);
     });
-    
     uploadBtn.disabled = filesToUpload.length === 0;
 }
 
 document.getElementById('upload-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const clientId = document.getElementById('select-client').value;
-    
-    if(!clientId || filesToUpload.length === 0) {
-        showToast('Please select client and files', 'error');
+
+    if (!clientId) {
+        showToast('Please select a client', 'error');
+        return;
+    }
+    if (filesToUpload.length === 0) {
+        showToast('Please select at least one file', 'error');
         return;
     }
 
@@ -321,66 +346,56 @@ document.getElementById('upload-form').addEventListener('submit', async (e) => {
     const progressBar = document.getElementById('upload-progress-bar');
     progressContainer.classList.remove('hidden');
     uploadBtn.disabled = true;
-    progressBar.style.width = '5%'; 
+    progressBar.style.width = '5%';
 
     try {
-        showToast('Connecting to server (may take 50s if asleep)...', 'success');
-        const isAwake = await wakeUpServer(); 
-        if (!isAwake) {
-            throw new Error('Server took too long to wake up. Please try again.');
-        }
+        showToast('Connecting to server...', 'success');
+        const isAwake = await wakeUpServer();
+        if (!isAwake) throw new Error('Server is not responding. Please try again in a minute.');
         progressBar.style.width = '10%';
 
-        // CHUNK UPLOADS to prevent backend timeout! (Render timeout is 30-60s)
-        const CHUNK_SIZE = 2; // Upload 2 files at a time
+        // Upload in chunks of 2 files to avoid timeouts on Render's free tier
+        const CHUNK_SIZE = 2;
         const totalChunks = Math.ceil(filesToUpload.length / CHUNK_SIZE);
         let uploadedCount = 0;
 
         for (let i = 0; i < totalChunks; i++) {
-            const chunkFiles = filesToUpload.slice(i * CHUNK_SIZE, (i + 1) * CHUNK_SIZE);
+            const chunk = filesToUpload.slice(i * CHUNK_SIZE, (i + 1) * CHUNK_SIZE);
             const formData = new FormData();
             formData.append('client_id', clientId);
-            
-            chunkFiles.forEach(file => {
-                formData.append('files', file);
-            });
+            chunk.forEach(file => formData.append('files', file));
 
             const res = await fetch(`${API_URL}/admin/upload`, {
                 method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                },
-                body: formData
+                headers: { 'Authorization': `Bearer ${token}` },
+                // Do NOT set Content-Type — let the browser set multipart boundary
+                body: formData,
             });
 
-            if (!res.ok) {
-                const errData = await res.json().catch(() => ({}));
-                throw new Error(errData.message || 'Chunk upload failed');
+            let data;
+            try { data = await res.json(); } catch { data = {}; }
+
+            if (!res.ok || !data.success) {
+                throw new Error(data.message || `Upload chunk ${i + 1} failed (HTTP ${res.status})`);
             }
 
-            const data = await res.json();
-            if (!data.success) {
-                throw new Error(data.message || 'Chunk upload failed');
-            }
-            
-            uploadedCount += data.files ? data.files.length : chunkFiles.length;
-            const progress = 10 + ((i + 1) / totalChunks) * 85;
-            progressBar.style.width = `${progress}%`;
+            uploadedCount += (data.files || chunk).length;
+            progressBar.style.width = `${10 + ((i + 1) / totalChunks) * 85}%`;
         }
 
         progressBar.style.width = '100%';
-        
-        showToast(`Successfully uploaded ${uploadedCount} files!`, 'success');
+        showToast(`✅ Successfully uploaded ${uploadedCount} file(s)!`, 'success');
+
+        // Reset state
         filesToUpload = [];
         filePreview.innerHTML = '';
         fileInput.value = '';
-        folderInput.value = ''; // clear folder input too
+        folderInput.value = '';
         document.getElementById('select-client').value = '';
-        
+
     } catch (err) {
-        console.error('Upload error:', err);
-        const errMsg = err.message || 'Upload failed. Check your connection or file limits.';
-        showToast(errMsg, 'error');
+        console.error('[Upload] Error:', err);
+        showToast(err.message || 'Upload failed. Check your connection.', 'error');
     } finally {
         setTimeout(() => {
             progressContainer.classList.add('hidden');

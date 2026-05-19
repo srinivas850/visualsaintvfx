@@ -4,19 +4,17 @@ const cloudinary = require('../config/cloudinary');
 
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
-  params: async (req, file) => {
-    const clientId = req.body.client_id || 'unassigned';
-
-    // Determine Cloudinary resource_type from the file's mimetype
-    let resource_type = 'auto';
-    if (file.originalname.match(/\.(zip|rar|7z|tar|gz)$/i)) {
-      resource_type = 'raw';
+  params: {
+    folder: async (req, file) => {
+      const clientId = req.body.client_id || 'unassigned';
+      return `visualsaint/${clientId}`;
+    },
+    resource_type: async (req, file) => {
+      if (file.originalname.match(/\.(zip|rar|7z|tar|gz)$/i)) {
+        return 'raw';
+      }
+      return 'auto';
     }
-
-    return {
-      folder: `visualsaint/${clientId}`,
-      resource_type: resource_type
-    };
   },
 });
 

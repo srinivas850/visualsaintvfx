@@ -132,7 +132,7 @@ async function loadDashboardData() {
         if (data.success) {
             document.getElementById('stat-total-clients').textContent = data.stats.totalClients;
             document.getElementById('stat-total-uploads').textContent = data.stats.totalUploads;
-            // You can add stat-total-bookings if the HTML has it, otherwise omit it.
+            document.getElementById('stat-total-bookings').textContent = data.stats.totalBookings || 0;
             
             const recentList = document.getElementById('recent-activity-list');
             recentList.innerHTML = '';
@@ -584,6 +584,16 @@ async function loadBookingsData() {
             tbody.innerHTML = '';
             
             data.bookings.forEach(booking => {
+                let servicesArr = [];
+                try {
+                    servicesArr = typeof booking.services === 'string' ? JSON.parse(booking.services) : booking.services;
+                } catch(e) {
+                    servicesArr = [];
+                }
+                if (!Array.isArray(servicesArr)) servicesArr = [];
+
+                const serviceDetailsList = servicesArr.map(s => `- ${s.name}: Rs. ${parseFloat(s.price).toFixed(2)}`).join('\\n');
+
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td>${booking.invoice_number}</td>
@@ -592,7 +602,7 @@ async function loadBookingsData() {
                     <td>${new Date(booking.created_at).toLocaleDateString()}</td>
                     <td>₹${parseFloat(booking.final_amount).toFixed(2)}</td>
                     <td>
-                        <button class="btn btn-secondary btn-sm" onclick="alert('Services: ' + escapeHtml(JSON.stringify(${booking.services.replace(/"/g, '&quot;')})))">Details</button>
+                        <button class="btn btn-secondary btn-sm" onclick="alert('Booked Services:\\n${serviceDetailsList.replace(/'/g, "\\'")}')">Details</button>
                         <button class="btn btn-danger btn-sm" onclick="deleteBooking(${booking.id})">Delete</button>
                     </td>
                 `;

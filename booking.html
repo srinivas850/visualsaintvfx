@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Visual Saint VFX | Book Service & Generate Invoice</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/mobile-nav.css">
+    <link rel="stylesheet" href="css/booking.css">
+</head>
+<body class="bg-dark">
+    <!-- Background Atmosphere -->
+    <div class="bg-atmosphere">
+        <div class="glow-orb purple-orb"></div>
+        <div class="glow-orb blue-orb"></div>
+    </div>
+
+    <!-- Premium Navbar -->
+    <nav class="glass-navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html" style="text-decoration:none; color:inherit;">
+                    <div class="logo-text">
+                        <span class="logo-title" style="display:block; font-size: 14px; font-weight: 700; letter-spacing: 2px; margin-bottom: 2px;">VISUAL SAINT VFX</span>
+                        <p>PRODUCTIONS</p>
+                    </div>
+                </a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="booking.html" class="active" style="color: var(--accent);">Book Service</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="login.html" class="nav-login-btn" style="padding: 6px 14px; border: 1px solid rgba(255,255,255,0.3); border-radius: 20px; margin-left: 10px; transition: all 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.1)'" onmouseout="this.style.background='transparent'">Client Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="booking-container">
+        <div class="booking-header text-center">
+            <h1 class="cinematic-heading">Book Our <span class="gradient-text">Services</span></h1>
+            <p>Select your required services, apply any promos, and instantly generate your invoice.</p>
+        </div>
+
+        <div class="booking-grid">
+            <!-- Left Column: Form & Services -->
+            <div class="booking-left">
+                <!-- Step 1: Customer Info -->
+                <div class="glass-card mb-4 p-4">
+                    <h3 class="step-title">Step 1: Customer Information</h3>
+                    <form id="customer-form">
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label>Full Name *</label>
+                                <input type="text" id="cust-name" required placeholder="John Doe">
+                            </div>
+                            <div class="input-group">
+                                <label>Phone Number *</label>
+                                <input type="tel" id="cust-phone" required placeholder="+91 9876543210">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label>Email Address *</label>
+                                <input type="email" id="cust-email" required placeholder="john@example.com">
+                            </div>
+                            <div class="input-group">
+                                <label>Company Name (Optional)</label>
+                                <input type="text" id="cust-company" placeholder="VisualSaint VFX">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Step 2: Service Selection -->
+                <div class="glass-card mb-4 p-4">
+                    <h3 class="step-title">Step 2: Service Selection</h3>
+                    <div id="services-loading" style="color:#aaa;">Loading available services...</div>
+                    <div class="services-list" id="services-container">
+                        <!-- Populated dynamically via JS -->
+                    </div>
+                </div>
+
+                <!-- Step 4: Promo Code -->
+                <div class="glass-card p-4">
+                    <h3 class="step-title">Apply Promo Code</h3>
+                    <div class="promo-box">
+                        <input type="text" id="promo-input" placeholder="Enter code here" style="text-transform: uppercase;">
+                        <button id="apply-promo-btn" class="btn btn-secondary">Apply</button>
+                    </div>
+                    <div id="promo-message" class="promo-message"></div>
+                </div>
+            </div>
+
+            <!-- Right Column: Live Invoice & Actions -->
+            <div class="booking-right">
+                <div class="glass-card p-4 sticky-top">
+                    <h3 class="step-title">Invoice Summary</h3>
+                    
+                    <div class="invoice-summary">
+                        <div class="summary-line">
+                            <span>Selected Services:</span>
+                        </div>
+                        <div id="summary-services-list" class="summary-services-list">
+                            <!-- Items appear here -->
+                            <div style="color: #666; font-size: 0.9em;">No services selected yet.</div>
+                        </div>
+                        <hr>
+                        <div class="summary-line">
+                            <span>Subtotal</span>
+                            <span id="summary-subtotal">₹0.00</span>
+                        </div>
+                        <div class="summary-line discount-line hidden" id="summary-discount-row">
+                            <span>Discount (<span id="summary-discount-pct">0</span>%)</span>
+                            <span id="summary-discount-amount">-₹0.00</span>
+                        </div>
+                        <div class="summary-line hidden" id="summary-gst-row">
+                            <span>GST (18%)</span>
+                            <span id="summary-gst">₹0.00</span>
+                        </div>
+                        <hr>
+                        <div class="summary-line total-line">
+                            <span>Grand Total</span>
+                            <span id="summary-total" class="gradient-text">₹0.00</span>
+                        </div>
+                    </div>
+
+                    <div class="booking-actions mt-4">
+                        <button id="btn-generate-pdf" class="btn btn-secondary btn-full mb-2" disabled>Download Invoice (PDF)</button>
+                        <button id="btn-submit-booking" class="btn btn-primary btn-full magnetic-btn" disabled>Submit Booking</button>
+                    </div>
+                    
+                    <div id="booking-status" class="mt-2 text-center" style="font-size: 0.9em;"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Hidden Printable Invoice Template -->
+    <div style="width: 0; height: 0; overflow: hidden; position: absolute;">
+        <div id="invoice-pdf-template">
+            <div class="invoice-box">
+            <div class="invoice-header">
+                <div>
+                    <h2>VISUAL SAINT VFX</h2>
+                    <p>Andhra Pradesh, India</p>
+                    <p>hello@visualsaintvfx.com</p>
+                </div>
+                <div style="text-align: right;">
+                    <h1 style="color: #fff; margin:0;">INVOICE</h1>
+                    <p id="pdf-invoice-number">VS-INV-XXXX</p>
+                    <p id="pdf-invoice-date">Date: </p>
+                </div>
+            </div>
+            
+            <div class="invoice-details">
+                <div class="bill-to">
+                    <h3>BILL TO</h3>
+                    <p id="pdf-cust-name"></p>
+                    <p id="pdf-cust-company"></p>
+                    <p id="pdf-cust-email"></p>
+                    <p id="pdf-cust-phone"></p>
+                </div>
+            </div>
+
+            <table class="invoice-table">
+                <thead>
+                    <tr>
+                        <th style="text-align: left;">Description</th>
+                        <th style="text-align: right;">Amount (₹)</th>
+                    </tr>
+                </thead>
+                <tbody id="pdf-services-tbody">
+                </tbody>
+            </table>
+
+            <div class="invoice-totals">
+                <div class="total-row">
+                    <span>Subtotal:</span>
+                    <span id="pdf-subtotal">₹0.00</span>
+                </div>
+                <div class="total-row" id="pdf-discount-row" style="display:none; color: #ff4757;">
+                    <span>Discount:</span>
+                    <span id="pdf-discount-amount">-₹0.00</span>
+                </div>
+                <div class="total-row" id="pdf-gst-row" style="display:none;">
+                    <span>GST (18%):</span>
+                    <span id="pdf-gst-amount">₹0.00</span>
+                </div>
+                <div class="total-row grand-total">
+                    <span>Total Amount:</span>
+                    <span id="pdf-total">₹0.00</span>
+                </div>
+            </div>
+            <div class="invoice-footer">
+                <p>Thank you for choosing VisualSaint VFX.</p>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="js/booking.js"></script>
+</body>
+</html>

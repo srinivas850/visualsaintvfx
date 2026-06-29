@@ -29,6 +29,9 @@
                 <li class="active" data-target="overview"><i class="icon-grid"></i> Overview</li>
                 <li data-target="clients"><i class="icon-users"></i> Clients</li>
                 <li data-target="upload"><i class="icon-upload"></i> Upload Media</li>
+                <li data-target="services"><i class="icon-layers"></i> Services</li>
+                <li data-target="promo-codes"><i class="icon-tag"></i> Promo Codes</li>
+                <li data-target="bookings"><i class="icon-calendar"></i> Bookings</li>
             </ul>
             <div class="sidebar-footer">
                 <button id="logout-btn" class="btn btn-danger btn-full">Logout</button>
@@ -138,6 +141,88 @@
                     </form>
                 </div>
             </div>
+
+            <!-- Services View -->
+            <div id="view-services" class="view-section hidden">
+                <header class="flex-between">
+                    <div>
+                        <h1>Services Management</h1>
+                        <p>Manage dynamic pricing for services</p>
+                    </div>
+                    <button class="btn btn-primary" id="open-add-service-modal">+ New Service</button>
+                </header>
+
+                <div class="glass-card table-container mt-4">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Service Name</th>
+                                <th>Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="services-list">
+                            <!-- populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Promo Codes View -->
+            <div id="view-promo-codes" class="view-section hidden">
+                <header class="flex-between">
+                    <div>
+                        <h1>Promo Code Manager</h1>
+                        <p>Manage discounts (Max 10 active at a time)</p>
+                    </div>
+                    <button class="btn btn-primary" id="open-add-promo-modal">+ New Promo Code</button>
+                </header>
+
+                <div class="glass-card table-container mt-4">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Discount</th>
+                                <th>Expiry Date</th>
+                                <th>Usage</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="promo-codes-list">
+                            <!-- populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Bookings View -->
+            <div id="view-bookings" class="view-section hidden">
+                <header>
+                    <h1>Customer Bookings</h1>
+                    <p>Manage service bookings and invoices</p>
+                </header>
+
+                <div class="glass-card table-container mt-4">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Invoice #</th>
+                                <th>Customer Name</th>
+                                <th>Phone</th>
+                                <th>Date</th>
+                                <th>Total</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="bookings-list">
+                            <!-- populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </main>
     </section>
 
@@ -162,6 +247,67 @@
                     <input type="text" id="new-client-password" required placeholder="Create a strong password">
                 </div>
                 <button type="submit" class="btn btn-primary btn-full mt-4">Create Client Account</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Service Modal -->
+    <div id="add-service-modal" class="modal hidden">
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <h2>New Service</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <form id="add-service-form">
+                <div class="input-group">
+                    <label for="new-service-name">Service Name</label>
+                    <input type="text" id="new-service-name" required>
+                </div>
+                <div class="input-group">
+                    <label for="new-service-price">Price (₹)</label>
+                    <input type="number" step="0.01" id="new-service-price" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-full mt-4">Save Service</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Promo Code Modal -->
+    <div id="add-promo-modal" class="modal hidden">
+        <div class="modal-content glass-card">
+            <div class="modal-header">
+                <h2>New Promo Code</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <form id="add-promo-form">
+                <div class="input-group">
+                    <label for="new-promo-code">Promo Code</label>
+                    <input type="text" id="new-promo-code" required placeholder="e.g. SUMMER20">
+                </div>
+                <div class="input-group">
+                    <label for="new-promo-discount">Discount %</label>
+                    <select id="new-promo-discount" required>
+                        <option value="10">10%</option>
+                        <option value="20">20%</option>
+                        <option value="30">30%</option>
+                        <option value="40">40%</option>
+                        <option value="50">50%</option>
+                        <option value="60">60%</option>
+                        <option value="70">70%</option>
+                        <option value="80">80%</option>
+                        <option value="90">90%</option>
+                        <option value="100">100%</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="new-promo-expiry">Expiry Date (Optional)</label>
+                    <input type="datetime-local" id="new-promo-expiry">
+                </div>
+                <div class="input-group">
+                    <label for="new-promo-limit">Usage Limit (Optional)</label>
+                    <input type="number" id="new-promo-limit" min="1">
+                </div>
+                <button type="submit" class="btn btn-primary btn-full mt-4">Save Promo Code</button>
             </form>
         </div>
     </div>

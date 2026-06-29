@@ -1,5 +1,5 @@
 const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
-const BASE_URL = (isLocal && window.location.port !== '5000') ? 'http://localhost:5000' : 'https://visualsaintvfx.onrender.com';
+const BASE_URL = isLocal ? 'http://localhost:5000' : 'https://visualsaintvfx.onrender.com';
 const API_URL = `${BASE_URL}/api`;
 
 // State
@@ -87,6 +87,9 @@ navLinks.forEach(link => {
         if(target === 'overview') loadDashboardData();
         if(target === 'clients') loadClientsData();
         if(target === 'upload') loadClientsForUpload();
+        if(target === 'services') loadServicesData();
+        if(target === 'promo-codes') loadPromoCodesData();
+        if(target === 'bookings') loadBookingsData();
     });
 });
 
@@ -129,6 +132,7 @@ async function loadDashboardData() {
         if (data.success) {
             document.getElementById('stat-total-clients').textContent = data.stats.totalClients;
             document.getElementById('stat-total-uploads').textContent = data.stats.totalUploads;
+            // You can add stat-total-bookings if the HTML has it, otherwise omit it.
             
             const recentList = document.getElementById('recent-activity-list');
             recentList.innerHTML = '';
@@ -395,3 +399,232 @@ document.getElementById('upload-form').addEventListener('submit', async (e) => {
         }, 2000);
     }
 });
+
+// ── SERVICES MANAGEMENT ──────────────────────────────────────────────
+async function loadServicesData() {
+    try {
+        const data = await authFetch('/admin/services');
+        if (data.success) {
+            const tbody = document.getElementById('services-list');
+            tbody.innerHTML = '';
+            
+            data.services.forEach(service => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${service.id}</td>
+                    <td>${service.name}</td>
+                    <td>₹${parseFloat(service.price).toFixed(2)}</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" onclick="deleteService(${service.id})">Delete</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+    } catch (err) {
+        console.error('Failed to load services', err);
+    }
+}
+
+const serviceModal = document.getElementById('add-service-modal');
+document.getElementById('open-add-service-modal').onclick = () => serviceModal.classList.remove('hidden');
+serviceModal.querySelector('.close-modal').onclick = () => serviceModal.classList.add('hidden');
+window.addEventListener('click', (e) => { if (e.target === serviceModal) serviceModal.classList.add('hidden'); });
+
+document.getElementById('add-service-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('new-service-name').value;
+    const price = document.getElementById('new-service-price').value;
+
+    try {
+        const data = await authFetch('/admin/services', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, price })
+        });
+        
+        if (data.success) {
+            showToast('Service added successfully');
+            serviceModal.classList.add('hidden');
+            document.getElementById('add-service-form').reset();
+            loadServicesData();
+        } else {
+            showToast(data.message || 'Failed to add service', 'error');
+        }
+    } catch (err) {
+        showToast('Error adding service', 'error');
+    }
+});
+
+window.deleteService = async (id) => {
+    if(confirm('Are you sure you want to delete this service?')) {
+        try {
+            const data = await authFetch(`/admin/services/${id}`, { method: 'DELETE' });
+            if(data.success) {
+                showToast('Service deleted');
+                loadServicesData();
+            } else {
+                showToast(data.message, 'error');
+            }
+        } catch(err) {
+            showToast('Error deleting service', 'error');
+        }
+    }
+};
+
+// ── PROMO CODES MANAGEMENT ───────────────────────────────────────────
+async function loadPromoCodesData() {
+    try {
+        const data = await authFetch('/admin/promo-codes');
+        if (data.success) {
+            const tbody = document.getElementById('promo-codes-list');
+            tbody.innerHTML = '';
+            
+            data.promo_codes.forEach(promo => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><strong>${promo.code}</strong></td>
+                    <td>${promo.discount_percentage}%</td>
+                    <td>${promo.expiry_date ? new Date(promo.expiry_date).toLocaleDateString() : 'Never'}</td>
+                    <td>${promo.used_count} / ${promo.usage_limit || '∞'}</td>
+                    <td>
+                        <span style="color: ${promo.is_active ? 'green' : 'red'}">${promo.is_active ? 'Active' : 'Inactive'}</span>
+                    </td>
+                    <td>
+                        <button class="btn btn-secondary btn-sm" onclick="togglePromo(${promo.id}, ${!promo.is_active})">${promo.is_active ? 'Disable' : 'Enable'}</button>
+                        <button class="btn btn-danger btn-sm" onclick="deletePromo(${promo.id})">Delete</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+    } catch (err) {
+        console.error('Failed to load promo codes', err);
+    }
+}
+
+const promoModal = document.getElementById('add-promo-modal');
+document.getElementById('open-add-promo-modal').onclick = () => promoModal.classList.remove('hidden');
+promoModal.querySelector('.close-modal').onclick = () => promoModal.classList.add('hidden');
+window.addEventListener('click', (e) => { if (e.target === promoModal) promoModal.classList.add('hidden'); });
+
+document.getElementById('add-promo-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const code = document.getElementById('new-promo-code').value;
+    const discount_percentage = document.getElementById('new-promo-discount').value;
+    const expiry_date = document.getElementById('new-promo-expiry').value;
+    const usage_limit = document.getElementById('new-promo-limit').value;
+
+    try {
+        const data = await authFetch('/admin/promo-codes', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                code, 
+                discount_percentage, 
+                expiry_date: expiry_date || null, 
+                usage_limit: usage_limit || null,
+                is_active: true
+            })
+        });
+        
+        if (data.success) {
+            showToast('Promo code added successfully');
+            promoModal.classList.add('hidden');
+            document.getElementById('add-promo-form').reset();
+            loadPromoCodesData();
+        } else {
+            showToast(data.message || 'Failed to add promo code', 'error');
+        }
+    } catch (err) {
+        showToast('Error adding promo code', 'error');
+    }
+});
+
+window.togglePromo = async (id, is_active) => {
+    try {
+        const data = await authFetch(`/admin/promo-codes/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ is_active })
+        });
+        if(data.success) {
+            showToast(`Promo code ${is_active ? 'enabled' : 'disabled'}`);
+            loadPromoCodesData();
+        } else {
+            showToast(data.message, 'error');
+        }
+    } catch(err) {
+        showToast('Error updating promo code', 'error');
+    }
+};
+
+window.deletePromo = async (id) => {
+    if(confirm('Are you sure you want to delete this promo code?')) {
+        try {
+            const data = await authFetch(`/admin/promo-codes/${id}`, { method: 'DELETE' });
+            if(data.success) {
+                showToast('Promo code deleted');
+                loadPromoCodesData();
+            } else {
+                showToast(data.message, 'error');
+            }
+        } catch(err) {
+            showToast('Error deleting promo code', 'error');
+        }
+    }
+};
+
+// ── BOOKINGS MANAGEMENT ──────────────────────────────────────────────
+async function loadBookingsData() {
+    try {
+        const data = await authFetch('/admin/bookings');
+        if (data.success) {
+            const tbody = document.getElementById('bookings-list');
+            tbody.innerHTML = '';
+            
+            data.bookings.forEach(booking => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${booking.invoice_number}</td>
+                    <td>${booking.customer_name}</td>
+                    <td>${booking.phone}</td>
+                    <td>${new Date(booking.created_at).toLocaleDateString()}</td>
+                    <td>₹${parseFloat(booking.final_amount).toFixed(2)}</td>
+                    <td>
+                        <button class="btn btn-secondary btn-sm" onclick="alert('Services: ' + escapeHtml(JSON.stringify(${booking.services.replace(/"/g, '&quot;')})))">Details</button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteBooking(${booking.id})">Delete</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+    } catch (err) {
+        console.error('Failed to load bookings', err);
+    }
+}
+
+window.deleteBooking = async (id) => {
+    if(confirm('Are you sure you want to delete this booking?')) {
+        try {
+            const data = await authFetch(`/admin/bookings/${id}`, { method: 'DELETE' });
+            if(data.success) {
+                showToast('Booking deleted');
+                loadBookingsData();
+            } else {
+                showToast(data.message, 'error');
+            }
+        } catch(err) {
+            showToast('Error deleting booking', 'error');
+        }
+    }
+};
+
+function escapeHtml(unsafe) {
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+}

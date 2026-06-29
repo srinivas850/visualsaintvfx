@@ -10,6 +10,7 @@ const { initDB } = require('./config/db');
 // Import routes
 const adminRoutes = require('./routes/adminRoutes');
 const clientRoutes = require('./routes/clientRoutes');
+const bookingRoutes = require('./routes/bookingRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -49,6 +50,7 @@ initDB();
 // ── API Routes ────────────────────────────────────────────────────────────────
 app.use('/api/admin', adminRoutes);
 app.use('/api/client', clientRoutes);
+app.use('/api/booking', bookingRoutes);
 
 // ── Global Error Handling ─────────────────────────────────────────────────────
 app.use((err, req, res, next) => {

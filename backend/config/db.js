@@ -46,6 +46,51 @@ const initDB = async () => {
       )
     `);
 
+    // Create services table
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS services (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        price DECIMAL(10,2) NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    // Create promo_codes table
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS promo_codes (
+        id SERIAL PRIMARY KEY,
+        code VARCHAR(50) UNIQUE NOT NULL,
+        discount_percentage INTEGER NOT NULL CHECK (discount_percentage IN (10, 20, 30, 40, 50, 60, 70, 80, 90, 100)),
+        expiry_date TIMESTAMP,
+        usage_limit INTEGER,
+        used_count INTEGER DEFAULT 0,
+        is_active BOOLEAN DEFAULT TRUE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    // Create bookings table
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS bookings (
+        id SERIAL PRIMARY KEY,
+        invoice_number VARCHAR(100) UNIQUE NOT NULL,
+        customer_name VARCHAR(255) NOT NULL,
+        email VARCHAR(255) NOT NULL,
+        phone VARCHAR(50) NOT NULL,
+        company_name VARCHAR(255),
+        services JSONB NOT NULL,
+        promo_code_id INTEGER REFERENCES promo_codes(id) ON DELETE SET NULL,
+        discount_percentage INTEGER DEFAULT 0,
+        subtotal DECIMAL(10,2) NOT NULL,
+        discount_amount DECIMAL(10,2) NOT NULL,
+        gst_amount DECIMAL(10,2) DEFAULT 0,
+        final_amount DECIMAL(10,2) NOT NULL,
+        status VARCHAR(50) DEFAULT 'Pending',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
     console.log('Database tables initialized successfully');
     
     // Check if admin exists, if not, create one

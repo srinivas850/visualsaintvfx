@@ -38,6 +38,7 @@ const getStats = async (req, res) => {
   try {
     const clientsCount = await db.query('SELECT COUNT(*) FROM clients');
     const uploadsCount = await db.query('SELECT COUNT(*) FROM media');
+    const bookingsCount = await db.query('SELECT COUNT(*) FROM bookings');
     const recentUploads = await db.query(`
       SELECT m.*, c.name as client_name 
       FROM media m 
@@ -50,6 +51,7 @@ const getStats = async (req, res) => {
       stats: {
         totalClients: parseInt(clientsCount.rows[0].count),
         totalUploads: parseInt(uploadsCount.rows[0].count),
+        totalBookings: parseInt(bookingsCount.rows[0].count),
         recentUploads: recentUploads.rows
       }
     });
@@ -158,6 +160,141 @@ const deleteMedia = async (req, res) => {
   }
 };
 
+// Services Management
+const getServices = async (req, res) => {
+  try {
+    const result = await db.query('SELECT * FROM services ORDER BY created_at DESC');
+    res.json({ success: true, services: result.rows });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
+const createService = async (req, res) => {
+  const { name, price } = req.body;
+  try {
+    const result = await db.query(
+      'INSERT INTO services (name, price) VALUES ($1, $2) RETURNING *',
+      [name, price]
+    );
+    res.status(201).json({ success: true, service: result.rows[0] });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error', error: error.message });
+  }
+};
+
+const updateService = async (req, res) => {
+  const { id } = req.params;
+  const { name, price } = req.body;
+  try {
+    const result = await db.query(
+      'UPDATE services SET name = $1, price = $2 WHERE id = $3 RETURNING *',
+      [name, price, id]
+    );
+    res.json({ success: true, service: result.rows[0] });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error', error: error.message });
+  }
+};
+
+const deleteService = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await db.query('DELETE FROM services WHERE id = $1', [id]);
+    res.json({ success: true, message: 'Service deleted' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
+// Promo Codes Management
+const getPromoCodes = async (req, res) => {
+  try {
+    const result = await db.query('SELECT * FROM promo_codes ORDER BY created_at DESC');
+    res.json({ success: true, promo_codes: result.rows });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
+const createPromoCode = async (req, res) => {
+  const { code, discount_percentage, expiry_date, usage_limit, is_active } = req.body;
+  try {
+    const activeCountRes = await db.query('SELECT COUNT(*) FROM promo_codes WHERE is_active = true');
+    if (is_active && parseInt(activeCountRes.rows[0].count) >= 10) {
+      return res.status(400).json({ success: false, message: 'Maximum 10 active promo codes allowed.' });
+    }
+    
+    if (![10, 20, 30, 40, 50, 60, 70, 80, 90, 100].includes(parseInt(discount_percentage))) {
+      return res.status(400).json({ success: false, message: 'Invalid discount percentage.' });
+    }
+
+    const result = await db.query(
+      'INSERT INTO promo_codes (code, discount_percentage, expiry_date, usage_limit, is_active) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      [code, discount_percentage, expiry_date || null, usage_limit || null, is_active !== false]
+    );
+    res.status(201).json({ success: true, promo_code: result.rows[0] });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error', error: error.message });
+  }
+};
+
+const togglePromoCode = async (req, res) => {
+  const { id } = req.params;
+  const { is_active } = req.body;
+  try {
+    if (is_active) {
+      const activeCountRes = await db.query('SELECT COUNT(*) FROM promo_codes WHERE is_active = true AND id != $1', [id]);
+      if (parseInt(activeCountRes.rows[0].count) >= 10) {
+        return res.status(400).json({ success: false, message: 'Maximum 10 active promo codes allowed.' });
+      }
+    }
+    
+    const result = await db.query(
+      'UPDATE promo_codes SET is_active = $1 WHERE id = $2 RETURNING *',
+      [is_active, id]
+    );
+    res.json({ success: true, promo_code: result.rows[0] });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error', error: error.message });
+  }
+};
+
+const deletePromoCode = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await db.query('DELETE FROM promo_codes WHERE id = $1', [id]);
+    res.json({ success: true, message: 'Promo code deleted' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
+// Bookings Management
+const getBookings = async (req, res) => {
+  try {
+    const result = await db.query(`
+      SELECT b.*, p.code as promo_code_name 
+      FROM bookings b 
+      LEFT JOIN promo_codes p ON b.promo_code_id = p.id 
+      ORDER BY b.created_at DESC
+    `);
+    res.json({ success: true, bookings: result.rows });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
+const deleteBooking = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await db.query('DELETE FROM bookings WHERE id = $1', [id]);
+    res.json({ success: true, message: 'Booking deleted' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
 module.exports = {
   loginAdmin,
   getStats,
@@ -165,5 +302,15 @@ module.exports = {
   getClients,
   deleteClient,
   uploadMedia,
-  deleteMedia
+  deleteMedia,
+  getServices,
+  createService,
+  updateService,
+  deleteService,
+  getPromoCodes,
+  createPromoCode,
+  togglePromoCode,
+  deletePromoCode,
+  getBookings,
+  deleteBooking
 };
